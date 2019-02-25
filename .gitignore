@@ -1,3 +1,5 @@
+/app/Console/Commands/JjtcGenerador.php
+/resources/stubs
 /node_modules
 /public/hot
 /public/storage
