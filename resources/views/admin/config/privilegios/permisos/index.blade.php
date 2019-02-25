@@ -21,8 +21,7 @@
         	        <div class="row">
 	                    <div class="table-responsive"><br/>
 	                        <div class="container-fluid">
-	                            <table class="table responsive table_btn table-vcenter dataTable no-footer no-wrap"
-	                                   id="role_table" width="100%">
+                               	<table id="datatable_permisos" class="table table-striped  dt-responsive nowrap w-100">
 	                                <thead class="">
 	                                <tr>
 	                                    <tr>
@@ -33,7 +32,7 @@
 				                        </tr>
 	                                </tr>
 	                                </thead>
-	                                <tbody>
+	                                {{-- <tbody>
 	                                	@forelse($permisos as $permiso)
 	                                		<tr>
 	                                			<td>
@@ -65,7 +64,7 @@
 	                                			<td>No hay roles registrados</td>
 	                                		</tr>
 	                                	@endforelse
-	                                </tbody>
+	                                </tbody> --}}
 	                            </table>
 	                        </div>
 	                    </div>
@@ -78,3 +77,6 @@
         <!-- /.col-->
     </div>
 @endsection
+@push('js')
+	@include('admin.config.privilegios.permisos.js.table')
+@endpush

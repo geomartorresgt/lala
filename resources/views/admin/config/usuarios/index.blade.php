@@ -22,55 +22,18 @@
 	                    <br/><br/>
 	                    <div class="table-responsive">
 	                        <div class="container-fluid">
-	                            <table id="datatable_user"
+	                            <table id="datatable_users"
 	                                   class="table responsive table_btn table-vcenter dataTable no-footer no-wrap"
 	                                   role="grid" aria-describedby="example-datatable_info" width="100%">
 	                                <thead>
-	                                <tr>
-	                                    <th>Nombres</th>
-	                                    <th>Teléfono</th>
-	                                    <th>E-mail</th>
-	                                    <th>Rol</th>
-	                                    <th></th>
-	                                </tr>
+		                                <tr>
+		                                    <th>Nombres</th>
+		                                    <th>Teléfono</th>
+		                                    <th>E-mail</th>
+		                                    <th>Rol</th>
+		                                    <th></th>
+		                                </tr>
 	                                </thead>
-	                                <tbody>
-	                                	@forelse($usuarios as $usuario)
-	                                		<tr>
-	                                			<td>
-	                                				<img src="{{ $usuario->foto_perfil }}"  style="width:50px;border-radius:25px;" alt="">
-	                                				{{ $usuario->nombre_completo }}
-	                                			</td>
-	                                			<td>
-	                                				{{ $usuario->telefono }}
-	                                			</td>
-	                                			<td>
-	                                				{{ $usuario->email }}
-	                                			</td>
-	                                			<td>
-	                                				{{ $usuario->rol }}
-	                                			</td>
-	                                			<td class="text-center">
-	                                				<a href="{{ route('usuarios.edit', $usuario) }}" class="btn btn-sm btn-success edit_user" title="Editar" data-toggle="tooltip">
-	                                					<i class="far fa-edit"></i>
-	                                				</a>
-
-	                                				<form action="{{ route('usuarios.destroy', $usuario) }}" method="POST" class="p-0 m-0 d-inline "
-	                                				  >
-	                                				    @method('DELETE')
-	                                				    @csrf
-	                                				    <button class="btn btn-sm btn-danger" title="Eliminar" data-toggle="tooltip">
-	                                				    	<i class="far fa-trash-alt"></i>	
-	                                				    </button>
-	                                				</form>
-	                                			</td>
-	                                		</tr>
-	                                	@empty
-	                                		<tr>
-	                                			<td>No hay usuarios registrados</td>
-	                                		</tr>
-	                                	@endforelse
-	                                </tbody>
 	                            </table>
 	                        </div>
 	                    </div>
@@ -83,3 +46,7 @@
         <!-- /.col-->
     </div>
 @endsection
+
+@push('js')
+	@include('admin.config.usuarios.js.table')
+@endpush

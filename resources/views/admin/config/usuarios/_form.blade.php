@@ -10,7 +10,7 @@
     	        <div class="form-group">
     	            <label class="col-md-3 control-label" for="nombres">Nombres:</label>
     	            <div class="col-md-9">
-    	                <input id="nombres" name="nombres" class="form-control" type="text" value='{{old("nombres")}}'>
+    	                <input id="nombres" name="nombres" class="form-control" type="text" value='{{old("nombres", $usuario->nombres)}}'>
     	            </div>
     	        </div>
     	    </div>
@@ -18,7 +18,7 @@
     	        <div class="form-group">
     	            <label class="col-md-3 control-label" for="apellidos">Apellidos:</label>
     	            <div class="col-md-9">
-    	                <input id="apellidos" name="apellidos" class="form-control" type="text" value='{{old("apellidos")}}'>
+    	                <input id="apellidos" name="apellidos" class="form-control" type="text" value='{{old("apellidos", $usuario->apellidos)}}'>
     	            </div>
     	        </div>
     	    </div>
@@ -26,7 +26,7 @@
     	        <div class="form-group">
     	            <label class="col-md-3 control-label" for="email">E-mail:</label>
     	            <div class="col-md-9">
-    	                <input id="email" name="email" class="form-control" type="email" value='{{old("email")}}'>
+    	                <input id="email" name="email" class="form-control" type="email" value='{{old("email", $usuario->email)}}'>
     	            </div>
     	        </div>
     	    </div>
@@ -34,7 +34,7 @@
     	        <div class="form-group">
     	            <label class="col-md-3 control-label" for="telefono">Teléfono:</label>
     	            <div class="col-md-9">
-    	                <input id="telefono" name="telefono" class="form-control" type="text" value='{{old("telefono")}}'>
+    	                <input id="telefono" name="telefono" class="form-control" type="text" value='{{old("telefono", $usuario->telefono)}}'>
     	            </div>
     	        </div>
     	    </div>
@@ -45,7 +45,14 @@
     	                <select id="rol" name="rol" class="form-control">
     	                    <option>-Seleccione</option>
     	                    @foreach($roles as $rol)
-    	                    <option value="{{ $rol->id }}" @if($rol->id==old("rol")) selected @endif>{{$rol->display_name}}</option>
+    	                    	
+
+    	                    	@if ($usuario->exists)
+    	                    		<option value="{{ $rol->id }}" @if($rol->id==old("rol", $usuario->roles->first()->id) ) selected @endif>{{$rol->display_name}}</option>
+    	                    	@else
+    	                    		<option value="{{ $rol->id }}" @if($rol->id==old("rol") ) selected @endif>{{$rol->display_name}}</option>
+    	                    	
+    	                    	@endif
     	                    @endforeach
     	                </select>
     	            </div>

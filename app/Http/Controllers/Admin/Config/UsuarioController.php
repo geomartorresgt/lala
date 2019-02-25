@@ -98,15 +98,13 @@ class UsuarioController extends Controller
 
                 $mensaje = "Los datos fueron actualizado con éxito";
 
-                flash($mensaje)->success();
-
                 if ($request->ajax()) {
                 	return response()->json([
 	                    'success' => 'true',
 	                    'mensaje' => "Los datos fueron actualizado con éxito"
 	                ]);
                 }
-                
+                flash($mensaje)->success();                
                 return redirect()->route('root_path');
             } catch (\Exception $e) {
             	dd('error');
@@ -181,6 +179,7 @@ class UsuarioController extends Controller
             }
 
             flash($mensaje)->success();
+
         } catch (\Exception $e) {
             if ($request->ajax()) {
             	return response()->json([
@@ -189,6 +188,8 @@ class UsuarioController extends Controller
             }
             flash($e->getMessage())->error();
         }
+
+        return redirect()->route('root_path');
     }
 
     private function decode_imageCropit($imageCropit){
@@ -215,7 +216,7 @@ class UsuarioController extends Controller
      */
     public function edit($id)
     {
-        $roles = Role::all();
+        $roles = Rol::all();
         $usuario = User::findOrFail($id);
         return view('admin.config.usuarios.edit', compact('roles','usuario'));
     }
@@ -251,7 +252,10 @@ class UsuarioController extends Controller
             }
 
             if ($request->anterior_email != $request->email) {
-                $data['email'] = 'required|email|unique:users';
+            	
+            	// $data['email'] = 'sometimes|required|email|unique:users';
+            	// $data['email'] = 'required|email|max:255|unique:users,email,'. $usuario;
+                // $data['email'] = 'required|email|unique:users';
             }
 
             $this->validate($request, $data); 
@@ -283,19 +287,31 @@ class UsuarioController extends Controller
                     $usuario->roles()->sync([$request->rol]);
                 }
 
-                flash("Los datos fueron actualizado con éxito")->success();
-
-                return response()->json([
-                    'success' => 'true',
-                    'mensaje' => "Los datos fueron actualizado con éxito"
-                ]);
-
-
                 
+
+                $mensaje = "Los datos fueron actualizado con éxito";
+                if ($request->ajax()) {
+	                return response()->json([
+	                    'success' => 'true',
+	                    'mensaje' => $mensaje
+	                ]);
+                } 
+
+                flash($mensaje)->success();
+                return redirect()->route('usuarios.index');
             } catch (\Exception $e) {
                return response()->json([
                     'error' => $e->getMessage()
                 ]);
+
+               if ($request->ajax()) {
+	                return response()->json([
+	                	'error' => $e->getMessage()
+	                ]);
+                } 
+
+                flash($e->getMessage())->success();
+                return redirect()->route('usuarios.index');
             } 
         } 
     }

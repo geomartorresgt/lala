@@ -4,20 +4,21 @@
 			<div class="col-12">
 				<h2 class="text-dark">Perfil</h2>
 				<form action="{{url('/admin/config/usuariosSide')}}" method="post"
-				      class="form-control-borderless frm_perfil_user" autocomplete="off">
+				      class="form-control-borderless frm-perfil-user" autocomplete="off">
 				    {{ csrf_field() }}
 				    <input type="hidden" name="_method" value="PUT">
 				    <input type="hidden" name="_inicio" value="0">
 				    <input type="hidden" name="habilitar" value="0">
 
-				    {{--
+				    
 				    <div class="form-group">
-				        <div class="col-xs-12">
+				        <div class="col-xs-12 text-center">
 				            <img src="{{url(Auth::user()->foto_perfil)}}" id="img_perfil" alt="" class="img-thumbnail" data-toggle="modal" data-target="#cambiar_foto">
-				            <label class="label_img_perfil" data-toggle="modal" data-target="#cambiar_foto">Cambiar imagen</label>
+				            <label class="label_img_perfil" data-toggle="modal" data-target="#cambiar_foto" 
+				            >Cambiar imagen</label>
 				        </div>
 				    </div>
-				    --}}
+				    
 				    <div class="form-group">
 				        <label for="profile-nombre">Nombres:</label>
 				        <input type="text" id="profile-nombre" name="nombres" class="form-control"
