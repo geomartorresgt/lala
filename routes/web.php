@@ -21,6 +21,7 @@ Route::group(['middleware' => ['auth', "session_time"]], function (){
 		Route::name('root_path')->get('/', 'InicioController@index');
 
 	    Route::group(['prefix' => 'config', 'namespace' => 'Config'], function () {
+	    	Route::resource('/categorias-muebles', 'CategoriaMuebleController');
 
 		    Route::resource('/usuarios', 'UsuarioController');
             Route::put('/usuariosSide','UsuarioController@usuariosSide'); // cambiar datos del usuario logueado

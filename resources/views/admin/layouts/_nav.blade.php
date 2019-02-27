@@ -15,7 +15,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="widgets.html">
+            <a class="nav-link" href="{{ route('categorias-muebles.index') }}">
                 <i class="nav-icon icon-calculator"></i> Categorias
             </a>
         </li>
