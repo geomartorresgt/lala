@@ -76,7 +76,8 @@ class User extends Authenticatable
         if ($imagen==null) {
             return url("/img/user_default.jpg");
         }else{
-                       return url("").$imagen;
+        	return url("/storage/img/foto_perfil").'/'.$imagen;
+           return url("").$imagen;
  
         }
 

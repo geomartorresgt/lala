@@ -64,6 +64,13 @@ return [
             'url' => env('AWS_URL'),
         ],
 
+        'foto_perfil' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/img/foto_perfil'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+
     ],
 
 ];

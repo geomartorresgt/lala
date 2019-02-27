@@ -1,8 +1,8 @@
 @if ($usuario->exists)
-	<form id="form-usuario" class="form-horizontal form-label-left" action={{ route('usuarios.update',  $usuario->id) }} method="POST">
+	<form id="form-usuario" class="form-horizontal form-label-left" action={{ route('usuarios.update',  $usuario->id) }} method="POST" enctype="multipart/form-data">
     	{{ method_field('PUT') }}
 @else
-    <form id="form-usuario" class="form-horizontal form-label-left" action={{ route('usuarios.store') }} method="POST">
+    <form id="form-usuario" class="form-horizontal form-label-left" action={{ route('usuarios.store') }} method="POST" enctype="multipart/form-data">
 @endif
     {{ csrf_field() }}
     	<div class="row">
@@ -45,13 +45,10 @@
     	                <select id="rol" name="rol" class="form-control">
     	                    <option>-Seleccione</option>
     	                    @foreach($roles as $rol)
-    	                    	
-
     	                    	@if ($usuario->exists)
     	                    		<option value="{{ $rol->id }}" @if($rol->id==old("rol", $usuario->roles->first()->id) ) selected @endif>{{$rol->display_name}}</option>
     	                    	@else
     	                    		<option value="{{ $rol->id }}" @if($rol->id==old("rol") ) selected @endif>{{$rol->display_name}}</option>
-    	                    	
     	                    	@endif
     	                    @endforeach
     	                </select>
@@ -71,6 +68,13 @@
     	            <label class="col-md-9 control-label" for="repClave">Repetir Contraseña:</label>
     	            <div class="col-md-9">
     	                <input id="repClave" name="repClave" class="form-control" type="password">
+    	            </div>
+    	        </div>
+    	    </div>
+    	    <div class="col-md-12">
+    	        <div class="form-group">
+    	            <div class="col-md-9">
+    	                <input name="foto_perfil" class="form-control-file" type="file">
     	            </div>
     	        </div>
     	    </div>

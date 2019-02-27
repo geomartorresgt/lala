@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Admin\Config;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use App\Models\Rol;
+use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\View;
@@ -31,7 +32,6 @@ class UsuarioController extends Controller
     {
     	$usuarios = User::all();
         if ($request->ajax()) {
-            ;
             return response()->json($usuarios);
         }
         
@@ -148,17 +148,26 @@ class UsuarioController extends Controller
 
             if($request->foto_perfil){
 
-              $foto_perfil = $request->foto_perfil;
+              // $foto_perfil = $request->foto_perfil;
 
-              $ruta = "img/foto_perfil/".uniqid().'.png';
-              Storage::put('public/'.$ruta,  $this->decode_imageCropit($request->input('foto_perfil')));
-              $urlfinal = "/storage/$ruta";
+              // $ruta = "img/foto_perfil/".uniqid().'.png';
+              // Storage::put('public/'.$ruta,  $this->decode_imageCropit($request->input('foto_perfil')));
+              // $urlfinal = "/storage/$ruta";
+
+
+
+
+              	$cover = $request->file('foto_perfil');
+			    $extension = $cover->getClientOriginalExtension();
+			    $filename = uniqid();
+			    Storage::disk('foto_perfil')->put($filename.'.'.$extension,  File::get($cover));
+              	$urlfinal = $filename . '.' . $extension;
             }
 
             $user = new User();
 
             $user->fill($request->except('repClave', 'rol', 'foto_perfil'));
-            $user->foto_perfil=$urlfinal;
+            $user->foto_perfil = $urlfinal;
             $user->password = bcrypt($request->password);
 
             $user->save();
@@ -189,7 +198,7 @@ class UsuarioController extends Controller
             flash($e->getMessage())->error();
         }
 
-        return redirect()->route('root_path');
+        return redirect()->route('usuarios.index');
     }
 
     private function decode_imageCropit($imageCropit){
@@ -268,18 +277,25 @@ class UsuarioController extends Controller
                 $urlfinal="";
 
 
-                if($request->cambiar_imagen == 1 && $request->_inicio == 1){
-                    $this->borrarImagenUsuario($usuario);
+                // if($request->cambiar_imagen == 1 && $request->_inicio == 1){
+                // 	$this->borrarImagenUsuario($usuario);
 
-                    if($request->foto_perfil){
-                        $foto_perfil = $request->foto_perfil;
+                	if($request->foto_perfil){
+                		// $foto_perfil = $request->foto_perfil;
 
-                        $ruta = "img/foto_perfil/".uniqid().'.jpg';
-                        Storage::put('public/'.$ruta,  $this->decode_imageCropit($request->input('foto_perfil')));
-                        $urlfinal = "/storage/$ruta";
-                      }
-                  $usuario->foto_perfil = $urlfinal;
-                }
+                		// $ruta = "img/foto_perfil/".uniqid().'.jpg';
+                		// Storage::put('public/'.$ruta,  $this->decode_imageCropit($request->input('foto_perfil')));
+                		// $urlfinal = "/storage/$ruta";
+
+                		
+                		$cover = $request->file('foto_perfil');
+					    $extension = $cover->getClientOriginalExtension();
+					    $filename = uniqid();
+					    Storage::disk('foto_perfil')->put($filename.'.'.$extension,  File::get($cover));
+		              	$urlfinal = $filename . '.' . $extension;
+                	}
+                	$usuario->foto_perfil = $urlfinal;
+                // }
 
                 $usuario->save();
 
