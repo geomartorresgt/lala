@@ -1,3 +1,10 @@
+<style type="text/css">
+	.cropit-preview {
+	  /* You can specify preview size in CSS */
+	  width: 480px;
+	  height: 270px;
+	}
+</style>
 @if ($usuario->exists)
 	<form id="form-usuario" class="form-horizontal form-label-left" action={{ route('usuarios.update',  $usuario->id) }} method="POST" enctype="multipart/form-data">
     	{{ method_field('PUT') }}
@@ -71,6 +78,27 @@
     	            </div>
     	        </div>
     	    </div>
+    	    <div class="col-12 text-center" id="cargar-imagen">
+    	    	<p class="text-dark font-weight-bold">Cambiar Foto</p>
+    	    	<label class="switch switch-dark">
+					<input type="checkbox" class="switch-input" id="cambiar_foto" name="cambiar_imagen">
+					<span class="switch-slider"></span>
+	    	    </label>
+    	    	<center class="d-none">
+	    	    	<div id="image-cropper">
+	    	    		<!-- This is where the preview image is displayed -->
+	    	    		<div class="cropit-preview"></div>
+
+	    	    		<!-- This range input controls zoom -->
+	    	    		<!-- You can add additional elements here, e.g. the image icons -->
+	    	    		<input type="range" class="cropit-image-zoom-input" />
+
+	    	    		<!-- This is where user selects new image -->
+	    	    		<input type="file" class="cropit-image-input mt-4" name="foto_perfil"/>
+					</div>
+    	    	</center>
+			</div>
+			<!--
     	    <div class="col-md-12">
     	        <div class="form-group">
     	            <div class="col-md-9">
@@ -78,5 +106,6 @@
     	            </div>
     	        </div>
     	    </div>
+    		-->
     	</div>
     </form>

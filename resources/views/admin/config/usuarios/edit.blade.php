@@ -24,7 +24,6 @@
         </div>
     </div>
 @endsection
-
-
-
-
+@push('js')
+	@include('admin.config.usuarios.js.form')
+@endpush

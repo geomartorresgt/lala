@@ -277,8 +277,8 @@ class UsuarioController extends Controller
                 $urlfinal="";
 
 
-                // if($request->cambiar_imagen == 1 && $request->_inicio == 1){
-                // 	$this->borrarImagenUsuario($usuario);
+                if($request->cambiar_imagen){
+                 	$this->borrarImagenUsuario($usuario);
 
                 	if($request->foto_perfil){
                 		// $foto_perfil = $request->foto_perfil;
@@ -295,16 +295,14 @@ class UsuarioController extends Controller
 		              	$urlfinal = $filename . '.' . $extension;
                 	}
                 	$usuario->foto_perfil = $urlfinal;
-                // }
+                }
 
                 $usuario->save();
 
                 if ($request->_inicio == 1) {
                     $usuario->roles()->sync([$request->rol]);
                 }
-
                 
-
                 $mensaje = "Los datos fueron actualizado con éxito";
                 if ($request->ajax()) {
 	                return response()->json([
