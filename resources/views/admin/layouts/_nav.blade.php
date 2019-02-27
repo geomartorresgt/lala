@@ -14,6 +14,11 @@
                 <span class="badge badge-primary">NEW</span>
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="widgets.html">
+                <i class="nav-icon icon-calculator"></i> Categorias
+            </a>
+        </li>
         <li class="divider"></li>
 
         <li class="nav-item nav-dropdown">
