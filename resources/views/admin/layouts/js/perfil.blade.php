@@ -18,8 +18,6 @@
 
     		});
 
-    		$('#cambiar_foto').modal('show');
-
     		form_cambiar_foto.on('submit', function (e) {
     	        e.preventDefault();
     	            var form = $('#form_cambiar_foto')[0];
