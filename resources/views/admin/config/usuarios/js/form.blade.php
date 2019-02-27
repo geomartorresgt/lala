@@ -18,6 +18,7 @@
         };
 	};
 	$('#image-cropper').cropit(data);
+
 	$('.download-btn').click(function() {
 		var imageData = $('#image-cropper').cropit('export');
 		window.open(imageData);

@@ -38,36 +38,26 @@
 	                <div class="box-body">
 	                    <div class="row">
 	                        <div class="col-md-12">
-	                            <div class="row image-editor-perfil">
-	                                <div class="col-md-12">
-	                                    <center>
-	                                    <div class="cropit-preview" src="{{url(Auth::user()->foto_perfil)}}"></div><br><br>
-	                                    <div class="rotate">
-	                                        <span  class="fa fa-repeat rotate-cw icon-rotate-right"></span>
-	                                        <span class="fa fa-repeat rotate-ccw icon-rotate-left"></span>
-	                                    </div>
-	                                    <span class="fa fa-file-picture-o pic-small"></span>
-	                                    <input type="range" class="cropit-image-zoom-input">
-	                                    <span class="fa fa-file-picture-o pic-big"></span>
-	                                    <input type="hidden" name="foto_perfil" class="hidden-image-data"/><br><br>
-	                                    </center>
-	                                </div>
-                                	<div class="col-md-4 col-md-offset-5 col-xs-offset-4 text-center">
-                                	    <span class="btn btn-light btn-file" style="align-content: center;">
-                                	        Subir archivo 
-                                	        <input class="cropit-image-input" type="file">
-                                	    </span>
-                                	</div>
-	                            </div>
+	                        	<center>
+									<div id="image-cropper-perfil">
+										<div class="cropit-preview"></div>
+										<input type="range" class="cropit-image-zoom-input" />
+										<input type="file" class="cropit-image-input d-none" name="foto_perfil" />
+									</div>
+									<button type="button" class="btn btn-secondary mt-3" id="subir_foto_perfil">Subir Foto</button>
+	                        	</center>
 	                        </div>
 	                    </div>
 	                </div>
 	            </div>
 	            <div class="modal-footer">
 	            	<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-	            	<button type="button" class="btn btn-primary">Actualizar</button>
+	            	<button type="submit" class="btn btn-primary">Actualizar</button>
 	            </div>
 	        </form>
 		</div> <!-- modal-content -->
 	</div> <!-- modal-dialog -->
 </div> <!-- modal -->
+@push('js')
+	@include('admin.layouts.js.perfil')
+@endpush

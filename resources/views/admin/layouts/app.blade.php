@@ -37,7 +37,7 @@
         </main>
 
 		<!-- menu lateral derecho -->
-        @include('admin.layouts._menu_derecho');
+        @include('admin.layouts._menu_derecho')
         @include('admin.layouts._modal_cambiar_foto');
     </div>
     <footer class="app-footer">
@@ -59,7 +59,6 @@
     <script type="text/javascript" src="{{asset('js/responsive.bootstrap4.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/coreui.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/jquery.cropit.js')}}"></script>
-
     <script>
         window.dataLayer = window.dataLayer || [];
 
@@ -75,6 +74,7 @@
 		$('div.alert').not('.alert-important').delay(10000).fadeOut(950);
 
     </script>
+
     @stack('js')
 </body>
 

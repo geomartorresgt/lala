@@ -94,7 +94,7 @@ class UsuarioController extends Controller
                     }
                     $usuario->foto_perfil = $urlfinal;
 
-                    
+
                 }
 
                 $usuario->save();
@@ -342,18 +342,18 @@ class UsuarioController extends Controller
         }
     }
 
-    public function cambiarFoto($user_id, Request $request)
+    public function cambiarFoto(Request $request, $user_id)
     {
         $usuario = User::findOrFail($user_id);
         try {
-
             $urlfinal="";
             $this->borrarImagenUsuario($usuario);
-            if($request->input('foto_perfil')){
-              $foto_perfil = $request->file('foto_perfil');
-              $ruta = "img/foto_perfil/".uniqid().'.jpg';
-              Storage::put('public/'.$ruta,  $this->decode_imageCropit($request->input('foto_perfil')));
-              $urlfinal = "/storage/$ruta";
+        	if($request->foto_perfil){
+            	$cover = $request->file('foto_perfil');
+			    $extension = $cover->getClientOriginalExtension();
+			    $filename = uniqid();
+			    Storage::disk('foto_perfil')->put($filename.'.'.$extension,  File::get($cover));
+              	$urlfinal = $filename . '.' . $extension;
             }
             $usuario->foto_perfil = $urlfinal;
 
@@ -365,7 +365,7 @@ class UsuarioController extends Controller
                 'foto_url'=>url($usuario->foto_perfil)
             ]);
         } catch (\Exception $e) {
-           return response()->json([
+           	return response()->json([
                 'error' => $e->getMessage()
             ]);
         } 
