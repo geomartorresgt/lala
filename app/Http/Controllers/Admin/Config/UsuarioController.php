@@ -86,12 +86,15 @@ class UsuarioController extends Controller
                 if($request->cambiar_imagen == 1 && $request->_inicio == 1){
                     $this->borrarImagenUsuario($usuario);
                     if($request->input('foto_perfil')){
-                        $foto_perfil = $request->file('foto_perfil');
-                        $ruta = "img/foto_perfil/".uniqid().'.jpg';
-                        Storage::put('public/'.$ruta,  $this->decode_imageCropit($request->input('foto_perfil')));
-                        $urlfinal = "/storage/$ruta";
+                        $cover = $request->file('foto_perfil');
+					    $extension = $cover->getClientOriginalExtension();
+					    $filename = uniqid();
+					    Storage::disk('foto_perfil')->put($filename.'.'.$extension,  File::get($cover));
+		              	$urlfinal = $filename . '.' . $extension;
                     }
                     $usuario->foto_perfil = $urlfinal;
+
+                    
                 }
 
                 $usuario->save();
@@ -302,7 +305,7 @@ class UsuarioController extends Controller
                 if ($request->_inicio == 1) {
                     $usuario->roles()->sync([$request->rol]);
                 }
-                
+
                 $mensaje = "Los datos fueron actualizado con éxito";
                 if ($request->ajax()) {
 	                return response()->json([

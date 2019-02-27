@@ -7,18 +7,15 @@
 
 	// $formUsuario.on('submit', function(e){
 	// 	e.preventDefault();
-	// 	console.log('a ver');
 	// });
 
 	if (urlFotoPerfil) {
-		console.log('url', urlFotoPerfil);
 		// data.exportZoom = 1.25;
 		data.imageBackground = true;
 		data.imageBackgroundBorderWidth = 20;
 		data.imageState = {
             src: urlFotoPerfil,
         };
-        console.log('data: ', data);
 	};
 	$('#image-cropper').cropit(data);
 	$('.download-btn').click(function() {
@@ -33,6 +30,10 @@
 			$('center').addClass('d-none');
 		}
 	})
+
+	$('#subir_foto').click(function(e){
+		$('input[name="foto_perfil"]').trigger('click');
+	});
 
 
 </script>
