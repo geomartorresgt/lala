@@ -1,0 +1,4 @@
+/* ocultar el input original de busqueda del datatable*/
+input[type="search"]{
+	display: none !important;
+}

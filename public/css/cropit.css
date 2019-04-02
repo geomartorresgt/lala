@@ -1,0 +1,279 @@
+.cropit-preview {
+    background-color: #f8f8f8;
+    background-size: cover;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-top: 7px;
+    width: 250px;
+    height: 300px;
+}
+
+.cropit-preview-image-container {
+    cursor: move;
+}
+
+.image-size-label {
+    margin-top: 10px;
+}
+
+#result {
+    margin-top: 10px;
+    width: 900px;
+}
+
+#result-data {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+}
+
+/* Translucent background image */
+.cropit-preview-background {
+    opacity: .2;
+}
+
+/*
+ * If the slider or anything else is covered by the background image,
+ * use relative or absolute position on it
+ */
+input.cropit-image-zoom-input {
+    position: relative;
+}
+
+/* Limit the background image by adding overflow: hidden */
+/*#image-cropper {
+  overflow: hidden;
+}*/
+/* Upload Preview */
+
+.image-preview {
+    width: 100%;
+    height: 400px;
+    position: relative;
+    overflow: hidden;
+    background-color: #ffffff;
+    color: #ecf0f1;
+}
+
+.image-preview input {
+    line-height: 200px;
+    font-size: 200px;
+    position: absolute;
+    opacity: 0;
+    z-index: 10;
+}
+
+.image-preview label {
+    position: absolute;
+    z-index: 5;
+    opacity: 0.8;
+    cursor: pointer;
+    background-color: #bdc3c7;
+    width: 180px;
+    height: 40px;
+    font-size: 18px;
+    line-height: 42px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    text-align: center;
+}
+
+.table {
+    min-width: 100% !important;
+}
+
+.mt-5 {
+    margin-top: 5px !important;
+}
+
+.mb-5 {
+    margin-bottom: 5px !important;
+}
+
+.mtb-5 {
+    margin-top: 5px !important;
+    margin-bottom: 5px !important;
+}
+
+.rotate-ccw {
+    margin-top: 10px;
+    display: inline-block;
+}
+
+input[type='range'] {
+    display: inline-block;
+    width: 250px;
+}
+
+input[type='range']:focus {
+    outline: none;
+}
+
+input[type='range'],
+input[type='range']::-webkit-slider-runnable-track,
+input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    background-color: #717070;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #717070;
+    border-radius: 50%;
+    margin-top: -9px;
+}
+
+input[type=range]::-moz-range-thumb {
+    background-color: #717070;
+    width: 15px;
+    height: 15px;
+    border: 3px solid #717070;
+    border-radius: 50%;
+}
+
+input[type=range]::-ms-thumb {
+    background-color: #717070;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #717070;
+    border-radius: 50%;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+    background-color: #b7b4b4;
+    height: 4px;
+    border-radius: 5px;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+    outline: none;
+}
+
+input[type=range]::-moz-range-track {
+    background-color: #eee;
+    height: 3px;
+}
+
+input[type=range]::-ms-track {
+    background-color: #eee;
+    height: 3px;
+}
+
+input[type=range]::-ms-fill-lower {
+    background-color: HotPink
+}
+
+.file-input {
+    visibility: hidden;
+    width: 0;
+    position: relative;
+    margin-left: 350px;
+}
+
+.file-input::before {
+    content: 'Subir imagen';
+    display: inline-block;
+    background: #52a0c7;
+    color: #fff;
+    padding: 5px 8px;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 10pt;
+    visibility: visible;
+    position: absolute;
+    -webkit-box-shadow: 0 2px #3784aa;
+    box-shadow: 0 2px #3784aa;
+}
+
+.file-input:active::before {
+    box-shadow: none;
+    -moz-transform: translateY(2px);
+    -o-transform: translateY(2px);
+    -ms-transform: translateY(2px);
+    transform: translateY(2px);
+}
+
+.rotate {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.icon-rotate-left {
+    font-size: 18px;
+    -webkit-transition: color 0.25s;
+    -moz-transition: color 0.25s;
+    -o-transition: color 0.25s;
+    -ms-transition: color 0.25s;
+    transition: color 0.25s;
+    cursor: pointer;
+    transform: scaleX(-1);
+}
+
+.icon-rotate-right {
+    font-size: 18px;
+    -webkit-transition: color 0.25s;
+    -moz-transition: color 0.25s;
+    -o-transition: color 0.25s;
+    -ms-transition: color 0.25s;
+    transition: color 0.25s;
+    cursor: pointer;
+}
+
+.pic-small {
+    font-size: 20px;
+    padding-left: 15px;
+    vertical-align: middle;
+}
+
+.pic-big {
+    padding-left: 15px;
+    font-size: 30px;
+    vertical-align: middle;
+}
+
+.item {
+    background-color: #eeeeee;
+    text-decoration: none;
+    margin-top: 10px;
+    padding: 15px;
+    border: 1px solid #d7d7d7;
+    color: #585757;
+    border-radius: 5px;
+}
+
+.item:hover {
+    background-color: #e6a72f;
+    color: #ffffff;
+}
+
+.item-icon {
+    text-decoration: none;
+    font-size: 35px;
+}
+
+.box-solid {
+    background-color: #eeeeee;
+    border: 1px solid #d7d7d7;
+    border-radius: 5px;
+}
+
+.br_tfoot {
+    font-weight: 600;
+}
+
+tfoot .tcolpsan {
+    text-align: left !important;
+}
+
+table.dataTable.dataTable_width_auto {
+    width: auto;
+}
