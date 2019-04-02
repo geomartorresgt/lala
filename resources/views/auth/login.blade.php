@@ -1,16 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
+	<div class="row mt-5">
+        <div class="col-md-12 text-center">
+            <img src="{{ asset('img/logo.png') }}">
+        </div>
+    </div>
 	<div class="row justify-content-center mt-5">
 	    <div class="col-md-6">
-	        <div class="card mx-4">
+	        <div class="card mx-4 mt-5">
 	            <div class="card-body p-4">
-	            	<div class="row">
-		                <div class="col-md-12">
-		                    
-		                </div>
-		            </div>
-	                <h1 class="text-center">Iniciar Sección</h1>
+	                <h1 class="text-center mt-2">Iniciar Sección</h1>
 	                <p class="text-muted">Bienvenido, Inicia Sesion para continuar</p>
 	                <form id="form-login" method="POST" action="{{ route('login') }}" autocomplete="off" class="form-horizontal">
 		                {{ csrf_field() }}
@@ -31,7 +31,7 @@
 		                <div class="input-group mb-3">
 		                    <div class="input-group-prepend">
 		                        <span class="input-group-text">
-		                            <i class="icon-lock"></i>
+		                            <i class="fas fa-lock"></i>
 		                        </span>
 		                    </div>
 		                    <input

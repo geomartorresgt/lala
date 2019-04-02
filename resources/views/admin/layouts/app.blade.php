@@ -25,6 +25,8 @@
             <button class="sidebar-minimizer brand-minimizer" type="button"></button>
         </div>
         <main class="main">
+        	@yield('content-editor')
+
             <div class="container-fluid mt-2">
                 <div class="animated fadeIn">
                 	@include('flash::message')

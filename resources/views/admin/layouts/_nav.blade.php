@@ -3,11 +3,17 @@
         <li class="nav-item">
             <a class="nav-link" href="index.html">
                 <i class="nav-icon icon-speedometer"></i> Dashboard
-                <span class="badge badge-primary">NEW</span>
+                {{-- <span class="badge badge-primary">NEW</span> --}}
             </a>
         </li>
         <li class="nav-title">Theme</li>
-        
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('editor.index') }}">
+                <i class="nav-icon icon-calculator"></i> Editor
+            </a>
+        </li>
+        <!--
         <li class="nav-item">
             <a class="nav-link" href="widgets.html">
                 <i class="nav-icon icon-calculator"></i> Ejemplo
@@ -19,6 +25,7 @@
                 <i class="nav-icon icon-calculator"></i> Categorias
             </a>
         </li>
+    	-->
         <li class="divider"></li>
 
         <li class="nav-item nav-dropdown">
