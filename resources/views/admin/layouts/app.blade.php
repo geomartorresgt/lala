@@ -27,7 +27,7 @@
         <main class="main">
         	@yield('content-editor')
 
-            <div class="container-fluid mt-2">
+            <div class="container-fluid">
                 <div class="animated fadeIn">
                 	@include('flash::message')
                 	@if (count($errors) > 0)
@@ -40,7 +40,7 @@
 
 		<!-- menu lateral derecho -->
         @include('admin.layouts._menu_derecho')
-        @include('admin.layouts._modal_cambiar_foto');
+        @include('admin.layouts._modal_cambiar_foto')
     </div>
     <footer class="app-footer">
         <div>

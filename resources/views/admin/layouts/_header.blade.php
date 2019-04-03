@@ -41,8 +41,9 @@
             </a>
         </li>
         <li class="nav-item dropdown">
-            <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" id="b-m-r">
+            <a class="nav-link mr-1" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" id="b-m-r">
                 {{-- <img class="img-avatar" src="img/avatars/6.jpg" alt="admin@bootstrapmaster.com"> --}}
+                <i class="fas fa-user"></i>
                 <span>
                 	{{ auth()->user()->nombre_completo }}
                 </span>
@@ -67,9 +68,6 @@
             </div>
         </li>
     </ul>
-    <button class="navbar-toggler aside-menu-toggler d-md-down-none" type="button" data-toggle="aside-menu-lg-show">
-        <span class="navbar-toggler-icon"></span>
-    </button>
     <button class="navbar-toggler aside-menu-toggler d-lg-none" type="button" data-toggle="aside-menu-show">
         <span class="navbar-toggler-icon"></span>
     </button>
