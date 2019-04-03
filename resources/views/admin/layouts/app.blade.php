@@ -42,16 +42,6 @@
         @include('admin.layouts._menu_derecho')
         @include('admin.layouts._modal_cambiar_foto')
     </div>
-    <footer class="app-footer">
-        <div>
-            <a href="https://coreui.io">CoreUI</a>
-            <span>&copy; 2018 creativeLabs.</span>
-        </div>
-        <div class="ml-auto">
-            <span>Powered by</span>
-            <a href="https://coreui.io">CoreUI</a>
-        </div>
-    </footer>
 
     <script type="text/javascript" src="{{asset('js/jquery-3.3.1.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/bootstrap.min.js')}}"></script>
