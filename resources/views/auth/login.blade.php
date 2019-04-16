@@ -47,6 +47,13 @@
 		                <button class="btn btn-block btn-success" type="submit">
 		                    Entrar
 		                </button>
+	                    <div class="row mt-3">
+	                    	<div class="col-12 text-right">
+	                            <a href="{{ route('password.request') }}" class="text-decoration-none">
+	                            	¿Olvido su Contraseña?
+	                            </a>
+	                        </div>
+	                    </div>
 		            </form>
 	            </div>
 	            <div class="card-footer p-4">
