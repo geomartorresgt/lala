@@ -17,7 +17,10 @@
 			    <div class="col-12">
 			    	<div class="card">
 			    		<div class="card-header">
-			    			<span class="card-title">Ingrese el e-mail que inicia sesión</span>
+			    			<span class="card-title font-weight-bold">Ingrese el e-mail que inicia sesión</span>
+			    			<div class="float-right">
+				                <a href="{{ url('/login') }}" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="left" title="Regresar"><i class="fa fa-user"></i></a>
+				            </div>
 			    		</div>
 			    		<div class="card-body">
 			    			<!-- Reminder Form -->
