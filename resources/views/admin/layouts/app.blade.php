@@ -27,7 +27,7 @@
         <main class="main">
         	@yield('content-editor')
 
-            <div class="container-fluid">
+            <div class="container-fluid px-2 mt-2">
                 <div class="animated fadeIn">
                 	@include('flash::message')
                 	@if (count($errors) > 0)

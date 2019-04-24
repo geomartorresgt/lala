@@ -4,8 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CategoriaMueble extends Model
+class Mueble extends Model
 {
     protected $guarded = ['id'];
-    protected $table = 'categorias_muebles';
 }

@@ -18,8 +18,8 @@ class CreateMueblesTable extends Migration {
 			$table->string('nombre', 45)->nullable();
 			$table->string('dimensiones', 45)->nullable();
 			$table->string('foto_url')->nullable();
-			$table->string('archivo_modelo_url')->nullable();
-			$table->string('precio', 45)->nullable();
+			$table->string('directorio_url')->nullable();
+			$table->double('precio')->nullable();
 			$table->integer('categoria_mueble_id')->unsigned();
             $table->foreign('categoria_mueble_id')->references('id')->on('categorias_muebles');
 
@@ -37,5 +37,4 @@ class CreateMueblesTable extends Migration {
 	{
 		Schema::drop('muebles');
 	}
-
 }

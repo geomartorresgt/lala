@@ -3,22 +3,22 @@
 namespace App\Http\Controllers\Admin\Config;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CreateCategoriaMuebleRequest;
-use App\Http\Requests\UpdateCategoriaMuebleRequest;
-use App\Models\CategoriaMueble;
+use App\Http\Requests\CreateMuebleRequest;
+use App\Http\Requests\UpdateMuebleRequest;
+use App\Models\Mueble;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\View;
 
-class CategoriaMuebleController extends Controller
+class MuebleController extends Controller
 {
     public function __construct() {
-        $this->middleware("permission:categorias_muebles_ver");
-        $this->middleware("permission:categorias_muebles_crear")->only("create", "store");
-        $this->middleware("permission:categorias_muebles_editar")->only("edit", "update");
-        $this->middleware("permission:categorias_muebles_eliminar")->only("destroy");
-        View::share('titulo', "Categorias Mueble");
+        $this->middleware("permission:muebles_ver");
+        $this->middleware("permission:muebles_crear")->only("create", "store");
+        $this->middleware("permission:muebles_editar")->only("edit", "update");
+        $this->middleware("permission:muebles_eliminar")->only("destroy");
+        View::share('titulo', "Mueble");
     }
 
     /**
@@ -29,12 +29,12 @@ class CategoriaMuebleController extends Controller
      */
     public function index(Request $request)
     {
-        $categoriamuebles = CategoriaMueble::all();
+        $muebles = Mueble::all();
         if ($request->ajax()) {
-            return response()->json($categoriamuebles);
+            return response()->json($muebles);
         }
 
-        return view("admin.config.categoriasMuebles.index")->withCategoriaMuebles($categoriamuebles);
+        return view("admin.config.muebles.index")->withMuebles($muebles);
     }
 
     /**
@@ -44,8 +44,8 @@ class CategoriaMuebleController extends Controller
      */
     public function create()
     {
-        $categoriaMueble = new CategoriaMueble();
-        return view("admin.config.categoriasMuebles.create")->withCategoriaMueble($categoriaMueble);
+        $mueble = new Mueble();
+        return view("admin.config.muebles.create")->withMueble($mueble);
     }
 
     /**
@@ -54,17 +54,24 @@ class CategoriaMuebleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateCategoriaMuebleRequest $request)
+    public function store(CreateMuebleRequest $request)
     {
         $success = false;
         try{
             DB::beginTransaction();
-            $categoriaMueble = CategoriaMueble::create(
+            
+            dd('', $request->all(), $request->file('directorio_url'), 'nada');
+            // $directorio = storage_path('app/retenciones/');
+
+
+
+
+            $mueble = Mueble::create(
                 $request->all()
             );
             
             DB::commit();
-            $mensaje = "La categoria fue creado con éxito.";
+            $mensaje = "El mueble fue creado con éxito.";
             $success = true;
         } catch (Exception $e) {
             DB::rollback();
@@ -89,50 +96,51 @@ class CategoriaMuebleController extends Controller
                 return back()->withInput(Input::all());
             } else {
                 flash($mensaje)->success();
-                return redirect()->route('categorias-muebles.index');
+                return redirect()->route('muebles.index');
             }
         }
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\CategoriaMueble $categoriamueble
+     * @param  \App\Models\Mueble $mueble
      * @return \Illuminate\Http\Response
      */
-    public function show(CategoriaMueble $categoriamueble)
+    public function show(Mueble $mueble)
     {
-        return redirect()->route('categorias-muebles.index');
+        return redirect()->route('muebles.index');
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\CategoriaMueble  $categoriamueble
+     * @param  \App\Models\Mueble  $mueble
      * @return \Illuminate\Http\Response
      */
-    public function edit(CategoriaMueble $categoriasMueble)
+    public function edit(Mueble $mueble)
     {
-        return view('admin.config.categoriasMuebles.edit')->withCategoriaMueble($categoriasMueble);
+        return view('admin.config.muebles.edit')->withMueble($mueble);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\CategoriaMueble  $categoriamueble
+     * @param  \App\Mueble  $mueble
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCategoriaMuebleRequest $request, CategoriaMueble $categoriasMueble)
+    public function update(UpdateMuebleRequest $request, Mueble $mueble)
     {
         $success = false;
         try{
             DB::beginTransaction();
-            $categoriasMueble->update(
+            $mueble->update(
                 $request->all()
             );
             DB::commit();
-            $mensaje = "Los datos de la categoria han sido actualizado.";
+            $mensaje = "Los datos del mueble han sido actualizado.";
             $success = true;
         } catch (Exception $e) {
             DB::rollback();
@@ -157,7 +165,7 @@ class CategoriaMuebleController extends Controller
                 return back()->withInput(Input::all());
             } else {
                 flash($mensaje)->success();
-                return redirect()->route('categorias-muebles.index');
+                return redirect()->route('muebles.index');
             }
         }
     }
@@ -165,14 +173,14 @@ class CategoriaMuebleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\CategoriaMueble  $categoriamueble
+     * @param  \App\Mueble  $mueble
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, CategoriaMueble $categoriasMueble)
+    public function destroy(Request $request, Mueble $mueble)
     {
         $success = false;
         try {
-            $categoriasMueble->delete();
+            $mueble->delete();
             $mensaje = "Ha sido eliminado con éxito.";
             $success = true;
         } catch (Exception $e) {
@@ -198,7 +206,7 @@ class CategoriaMuebleController extends Controller
                 flash($mensaje)->success();
             }
 
-            return redirect()->route('categorias-muebles.index');
+            return redirect()->route('muebles.index');
         }
     }
 }

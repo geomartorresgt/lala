@@ -59,6 +59,22 @@
                     	</li>
                     </ul>
                 </li>
+    			@permission('categorias_muebles_ver')
+	                <li class="nav-item">
+	                    <a class="nav-link" href="{{ route('categorias-muebles.index') }}" target="_top">
+                            <i class="fas fa-tags"></i>
+	                        Categorias Muebles
+	                    </a>
+	                </li>
+        		@endpermission
+                @permission('muebles_ver')
+	                <li class="nav-item">
+	                    <a class="nav-link" href="{{ route('muebles.index') }}" target="_top">
+                            <i class="fas fa-couch"></i>
+	                        Muebles
+	                    </a>
+	                </li>
+        		@endpermission
             </ul>
         </li>
     </ul>
