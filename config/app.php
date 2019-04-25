@@ -176,6 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Zizaco\Entrust\EntrustServiceProvider::class,
+        Chumper\Zipper\ZipperServiceProvider::class,
 
 
     ],
@@ -228,7 +229,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
-
+        'Zipper' => Chumper\Zipper\Zipper::class,
 
     ],
 
