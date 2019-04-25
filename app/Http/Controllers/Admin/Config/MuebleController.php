@@ -61,11 +61,6 @@ class MuebleController extends Controller
         $success = false;
         try{
             DB::beginTransaction();
-
-            // $mueble = new Mueble();
-            // $mueble->addDatos($request->all());
-            // $mueble->save();
-
             Mueble::create( $request->all() );
             DB::commit();
             $mensaje = "El mueble fue creado con éxito.";
@@ -133,9 +128,10 @@ class MuebleController extends Controller
         $success = false;
         try{
             DB::beginTransaction();
-            $mueble->update(
+            $mueble->actualizar(
                 $request->all()
             );
+            
             DB::commit();
             $mensaje = "Los datos del mueble han sido actualizado.";
             $success = true;

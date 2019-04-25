@@ -98,6 +98,28 @@ class Mueble extends Model
         // after save code
     }
 
+    public function actualizar(array $options = []){
+        $data = collect($options);
+
+        if($this->exists){
+            $data = $data->except(['_token', '_method']);
+
+            if( array_key_exists('directorio_url', $data->toArray())){
+                $this->eliminarDirectoriUrl();
+                $directorioUrl = self::guardarZip($data['directorio_url']);
+                $data['directorio_url'] = $directorioUrl;
+            }
+            
+            if( array_key_exists('foto_url', $data->toArray()) ){
+                $this->eliminarFotoUrl();
+                $fotoUrl = self::guardarFoto($data['foto_url']);
+                $data['foto_url'] = $fotoUrl;
+            }
+        } 
+
+        $this->update( $data->toArray() );
+    }
+
     private function eliminarDirectoriUrl(){
         $directorioUrl = $this->getOriginal('directorio_url');
         return Storage::disk('muebles')->deleteDirectory($directorioUrl);
@@ -120,9 +142,9 @@ class Mueble extends Model
         // ... code here
         // });
 
-        // self::updating(function($model){
-        // ... code here
-        // });
+        self::updating(function($model){
+            // dd('esta actualzando', $model);
+        });
 
         // self::updated(function($model){
         // ... code here
@@ -137,10 +159,5 @@ class Mueble extends Model
         // ... code here
         // });
     }
-
-    private function deleteFile(){
-
-    }
-
 
 }

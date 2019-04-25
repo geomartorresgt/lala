@@ -16,7 +16,7 @@
     </div>
 	<div class="form-group">
         <label for="foto_url">Foto_url</label>
-        <input type="file" id="foto_url" name="foto_url" class="form-control" value="{{old('foto_url', $mueble->foto_url)}}" required >
+        <input type="file" id="foto_url" name="foto_url" class="form-control" value="{{old('foto_url', $mueble->foto_url)}}" required accept="image/*">
     </div>
 	<div class="form-group">
         <label for="dimensiones">Dimensiones</label>
