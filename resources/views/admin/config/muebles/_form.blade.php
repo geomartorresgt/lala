@@ -11,7 +11,7 @@
         <input type="text" id="nombre" name="nombre" class="form-control" value="{{old('nombre', $mueble->nombre)}}" required>
     </div>
 	<div class="form-group">
-        <label for="directorio_url">Directorio_url</label>
+        <label for="directorio_url">Directorio Url</label>
         <input type="file" id="directorio_url" name="directorio_url" class="form-control" value="{{old('directorio_url', $mueble->directorio_url)}}" required  accept="application/zip">
     </div>
 	<div class="form-group">
@@ -23,8 +23,13 @@
         <input type="text" id="dimensiones" name="dimensiones" class="form-control" value="{{old('dimensiones', $mueble->dimensiones)}}" required>
     </div>
 	<div class="form-group">
-        <label for="categoria_mueble_id">Categoria_mueble_id</label>
-        <input type="text" id="categoria_mueble_id" name="categoria_mueble_id" class="form-control" value="{{old('categoria_mueble_id', $mueble->categoria_mueble_id)}}" required>
+        <label for="categoria_mueble_id">Categoría</label>
+        <select class="form-control" id="categoria_mueble_id" name="categoria_mueble_id" required>
+            <option> Seleccione la Categoría</option>
+            @foreach (App\Models\CategoriaMueble::all() as $categoria)
+                <option value="{{ $categoria->id }}" {{ old('categoria_mueble_id', $mueble->categoria_mueble_id) == $categoria->id ? 'selected': '' }} >{{ $categoria->nombre }}</option>
+            @endforeach
+        </select>
     </div>
 	<div class="form-group">
         <label for="precio">Precio</label>

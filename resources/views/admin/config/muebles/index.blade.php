@@ -25,10 +25,10 @@
 	                                <thead class="">
 		                                <tr>
 											<th>Nombre</th>
-											<th>Directorio_url</th>
-											<th>Foto_url</th>
+											<th>Directorio Url</th>
+											<th>Foto Url</th>
 											<th>Dimensiones</th>
-											<th>Categoria_mueble_id</th>
+											<th>Categoria</th>
 											<th>Precio</th>
 											<th>Opciones</th>
 		                                </tr>

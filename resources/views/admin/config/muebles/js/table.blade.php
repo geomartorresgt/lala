@@ -12,9 +12,14 @@
             columns: [
                 {data: 'nombre'},
 				{data: 'directorio_url'},
-				{data: 'foto_url'},
+				{
+                    render: function (data, type, mueble) {
+                        var miniatura = "<img src=\"" + mueble.foto_url + "\" style=\"width:80px;\" class='img-thumbnail' alt="+ mueble.nombre +">";
+                        return (miniatura);
+                    }
+                },
 				{data: 'dimensiones'},
-				{data: 'categoria_mueble_id'},
+				{data: 'nombre_categoria'},
 				{data: 'precio'},
 				{
                     render: function (data, type, mueble) {

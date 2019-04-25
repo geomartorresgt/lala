@@ -62,9 +62,11 @@ class MuebleController extends Controller
         try{
             DB::beginTransaction();
 
-            $mueble = new Mueble();
-            Mueble::guardar($request->all());
-            
+            // $mueble = new Mueble();
+            // $mueble->addDatos($request->all());
+            // $mueble->save();
+
+            Mueble::create( $request->all() );
             DB::commit();
             $mensaje = "El mueble fue creado con éxito.";
             $success = true;

@@ -78,6 +78,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'foto_muebles' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/foto_muebles'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+
     ],
 
 ];
