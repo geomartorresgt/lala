@@ -9,12 +9,10 @@ class Mueble extends Model
     protected $guarded = ['id'];
     protected $table = 'muebles';
 
-    public function guardar($data){
+    public static function guardar($data){
         $fileDirectorioUrl = $data['directorio_url'];
         $nombre = $fileDirectorioUrl->getClientOriginalName();
-
         $data = collect($data);
-
         $zip = new \ZipArchive();
         $zipOpen = $zip->open($fileDirectorioUrl->getPathname());
 
@@ -31,7 +29,6 @@ class Mueble extends Model
             $zip->extractTo(storage_path('app/public/muebles/'.$name.'/'));
             $zip->close();
 
-            // dd($mueble->save());
             $mueble->save();
 
         } else {

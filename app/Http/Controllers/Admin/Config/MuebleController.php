@@ -61,55 +61,9 @@ class MuebleController extends Controller
         $success = false;
         try{
             DB::beginTransaction();
-            
+
             $mueble = new Mueble();
-            $mueble->guardar($request->all());
-
-            dd($request->all());
-            // dd('', $request->all(), $request->file('directorio_url'), $request->directorio_url);
-            // $directorio = storage_path('app/retenciones/');
-
-            //obtenemos el campo file definido en el formulario
-            $fileDirectorioUrl = $request->file('directorio_url');
-
-            //obtenemos el nombre del archivo
-            $nombre = $fileDirectorioUrl->getClientOriginalName();
-
-            //indicamos que queremos guardar un nuevo archivo en el disco local
-            // \Storage::disk('local')->put($nombre,  \File::get($fileDirectorioUrl));
-
-            $zip = new \ZipArchive();
-
-            $res = $zip->open($fileDirectorioUrl->getPathname());
-            // dd($zip, $res);
-
-            if ($res === TRUE) {
-                $zip->extractTo(storage_path('app/public/muebles/un_archivo/'));
-                $zip->close();
-                // Archivo descomprimido correctamente
-                dd('todo bien');
-            } else {
-                // Error descomprimiendo el archivo...
-                dd('todo mal');
-            }
-
-            // $extension = $fileDirectorioUrl->getClientOriginalExtension();
-            // $filename = uniqid();
-            // Storage::disk('muebles')->put($filename.'.'.$extension,  File::get($fileDirectorioUrl));
-            // dd('hola mundo');
-
-            // $urlfinal = $filename . '.' . $extension;
-
-            // dd($fileDirectorioUrl, $nombre, $urlfinal, $filename, $extension);
-
-            // $name = $newname = str_random(32);
-
-            // $logFiles = \Zipper::make(storage_path('app/public/muebles/Downloads.zip'))->listFiles(); 
-	        // \Zipper::make(File::get($fileDirectorioUrl))->extractTo(storage_path('app/public/muebles'));
-
-            // $mueble = Mueble::create(
-            //     $request->all()
-            // );
+            Mueble::guardar($request->all());
             
             DB::commit();
             $mensaje = "El mueble fue creado con éxito.";
