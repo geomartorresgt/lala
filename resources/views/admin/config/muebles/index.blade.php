@@ -25,8 +25,8 @@
 	                                <thead class="">
 		                                <tr>
 											<th>Nombre</th>
-											<th>Directorio Url</th>
-											<th>Foto Url</th>
+											<th>Directorio</th>
+											<th>Foto</th>
 											<th>Dimensiones</th>
 											<th>Categoria</th>
 											<th>Precio</th>

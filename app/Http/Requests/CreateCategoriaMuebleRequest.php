@@ -6,6 +6,9 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class CreateCategoriaMuebleRequest extends FormRequest
 {
+    protected $reglas = [
+        'nombre' => 'required|unique:categorias_muebles'
+    ];
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -23,6 +26,6 @@ class CreateCategoriaMuebleRequest extends FormRequest
      */
     public function rules()
     {
-        return [];
+        return $this->reglas;
     }
 }
