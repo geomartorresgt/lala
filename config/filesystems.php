@@ -85,6 +85,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'editor_capturas' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/editor/capturas'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+
     ],
 
 ];

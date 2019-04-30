@@ -2,11 +2,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <title>Blueprint JS - Floorplan</title>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-<link href="css/app.css" rel="stylesheet">
+<link href="{{asset('editor/css/app.css')}}" rel="stylesheet">
 
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script src="https://cdn.rawgit.com/nnattawat/flip/master/dist/jquery.flip.min.js"></script>
@@ -14,10 +15,10 @@
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<script src="js/bp3djs.min.js"></script>
-<script src="js/items.js"></script>
-<script src="js/items_gltf.js"></script>
-<script src="js/app.js"></script>
+<script src="{{ asset('editor/js/bp3djs.min.js')}}"></script>
+<script src="{{ asset('editor/js/items.js')}}"></script>
+<script src="{{ asset('editor/js/items_gltf.js')}}"></script>
+<script src="{{ asset('editor/js/app.js')}}"></script>
 </head>
 
 <body>
@@ -187,35 +188,30 @@
 
 			$btnCaptureEditor.click(function(event){
 				event.preventDefault();
-				caputurarImagenCanvas();
+				enviarCapture();
 			});
 
 			function caputurarImagenCanvas() {
 				var $canvas = document.getElementById('floorplanner-canvas');
-				console.log($canvas);
-
 				var image = new Image();
 				image.id = "pic"
 				image.src = $canvas.toDataURL();
-				console.log('imagen: ', image.src)
-				// document.getElementById('image_for_crop').appendChild(image);
+
+				return image;
 			}
-
+			
 			function enviarCapture(){
-				// $.ajaxSetup({
-				// 	headers: {
-				// 		'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-				// 	}
-				// });
-
-				// url admin/editor/save-image 
-
+				var image = caputurarImagenCanvas();
 				$.ajax({
 					type:'POST',
-					url:'/ajaxRequest',
-					data:{name:name, password:password, email:email},
+					url: "{{ route('editor.save_image') }}",
+					headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+					data:{name: 'Hola mundo', image: image.src},
+					dataType: 'json',
 					success:function(data){
-						alert(data.success);
+						if (data.success) {
+							alert(data.mensaje);
+						}
 					}
 				});
 			}
