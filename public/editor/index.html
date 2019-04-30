@@ -181,41 +181,31 @@
 
 	<script>
 		$(document).ready(function(){
-			var $btnCaptureEditor = $('#capture_canvas_editor');
-			console.log('boton');
-			console.log($btnCaptureEditor);
-
-			$btnCaptureEditor.click(function(event){
+			$('#capture_canvas_editor').click(function(event){
 				event.preventDefault();
-				caputurarImagenCanvas();
+				enviarCapture();
 			});
 
 			function caputurarImagenCanvas() {
 				var $canvas = document.getElementById('floorplanner-canvas');
-				console.log($canvas);
-
 				var image = new Image();
-				image.id = "pic"
 				image.src = $canvas.toDataURL();
-				console.log('imagen: ', image.src)
-				// document.getElementById('image_for_crop').appendChild(image);
+				return image;
 			}
 
 			function enviarCapture(){
-				// $.ajaxSetup({
-				// 	headers: {
-				// 		'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-				// 	}
-				// });
-
-				// url admin/editor/save-image 
+				var image = caputurarImagenCanvas();
+				var url = window.location.href.replace('editor/', 'admin/editor/save-image')
 
 				$.ajax({
 					type:'POST',
-					url:'/ajaxRequest',
-					data:{name:name, password:password, email:email},
+					url: url,
+					data:{ image: image.src },
+					dataType: 'json',
 					success:function(data){
-						alert(data.success);
+						if (data.success) {
+							alert(data.mensaje);
+						}
 					}
 				});
 			}

@@ -199,13 +199,13 @@
 
 				return image;
 			}
-			
+
 			function enviarCapture(){
 				var image = caputurarImagenCanvas();
 				$.ajax({
 					type:'POST',
 					url: "{{ route('editor.save_image') }}",
-					headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+					// headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
 					data:{name: 'Hola mundo', image: image.src},
 					dataType: 'json',
 					success:function(data){

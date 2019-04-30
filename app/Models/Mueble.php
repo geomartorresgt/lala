@@ -47,6 +47,7 @@ class Mueble extends Model
             $nombre = $newname = str_random(32);
             $zip->extractTo(storage_path('app/public/muebles/'.$nombre.'/'));
             $zip->close();
+            self::renameFilesJson($nombre);
             return $nombre;
         } else {
             // Error descomprimiendo el archivo...
@@ -80,9 +81,20 @@ class Mueble extends Model
         return $imagen;
     }
 
+    private static function renameFilesJson($directorio)
+    {
+        $path = Storage::disk('muebles')->getAdapter()->getPathPrefix().$directorio.'/';
+        foreach (glob($path."*.{js,json}", GLOB_BRACE) as $filename) {
+            $file = realpath($filename);
+            if (!rename($file, $path.'object.js' )) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static function create(array $options = [])
     {
-
         $directorioUrl = self::guardarZip($options['directorio_url']);
         $fotoUrl = self::guardarFoto($options['foto_url']);
         $options['directorio_url'] = $directorioUrl;
