@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 
 use App\Models\Editor;
+use App\Models\Mueble;
 
 
 class EditorController extends Controller
@@ -37,6 +38,16 @@ class EditorController extends Controller
     public function iframe()
     {
         return view('admin.editor.editor');
+    }
+
+    public function getMuebles(Request $request)
+    {
+        $muebles = Mueble::all();
+        if ($request->ajax()) {
+            return response()->json($muebles);
+        }
+
+        return response()->json($muebles);
     }
     
 }

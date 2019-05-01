@@ -21,14 +21,14 @@ Route::group(['middleware' => ['auth', "session_time"]], function (){
 		Route::name('root_path')->get('/', 'InicioController@index');
 
 		// editor
-		Route::resource('/editor', 'EditorController');
+		Route::resource('/editor', 'EditorController')->only(['index']);
 		Route::name('editor.save_image')->post('/editor/save-image', 'EditorController@saveImage');
 		Route::name('editor.iframe')->get('/editor-iframe', 'EditorController@iframe');
+		Route::get('/editor/muebles', 'EditorController@getMuebles');		
 
 	    Route::group(['prefix' => 'config', 'namespace' => 'Config'], function () {
 			Route::resource('/categorias-muebles', 'CategoriaMuebleController');
 			Route::resource('muebles', 'MuebleController');
-			
 
 		    Route::resource('/usuarios', 'UsuarioController');
             Route::put('/usuariosSide','UsuarioController@usuariosSide'); // cambiar datos del usuario logueado

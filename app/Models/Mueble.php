@@ -10,7 +10,7 @@ class Mueble extends Model
 {
     protected $guarded = ['id'];
     protected $table = 'muebles';
-    protected $appends = ["nombre_categoria"];
+    protected $appends = ['nombre_categoria', 'object_image', 'object_js'];
     
     public function categoria(){
         return $this->belongsTo(CategoriaMueble::class, 'categoria_mueble_id');
@@ -74,8 +74,6 @@ class Mueble extends Model
             return url("/img/user_default.jpg");
         }else{
         	return url("/storage/foto_muebles").'/'.$imagen;
-           return url("").$imagen;
- 
         }
 
         return $imagen;
@@ -170,6 +168,33 @@ class Mueble extends Model
         // self::deleted(function($model){
         // ... code here
         // });
+    }
+
+    public function getObjectImageAttribute()
+    {
+        $directorio = $this->directorio_url;
+        $image = array_filter(Storage::disk('muebles')->files($directorio), function ($item) {return strpos($item, 'jpg');});
+        $image = array_values($image);
+        if(array_key_exists(0, $image)){
+            return url("/storage/muebles").'/'.$image[0];
+            // return Storage::disk('muebles')->getAdapter()->getPathPrefix().$image[0];
+        }
+
+        return '';
+    }
+
+    public function getObjectJsAttribute()
+    {
+        $directorio = $this->directorio_url;
+        $objectJs = array_filter(Storage::disk('muebles')->files($directorio), function ($item) {return strpos($item, 'js');});
+        $objectJs = array_values($objectJs);
+
+        if(array_key_exists(0, $objectJs)){
+            return url("/storage/muebles").'/'.$objectJs[0];
+            // return Storage::disk('muebles')->getAdapter()->getPathPrefix().$objectJs[0];
+        }
+        
+        return '';
     }
 
 }

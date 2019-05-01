@@ -202,4 +202,5 @@ class MuebleController extends Controller
             return redirect()->route('muebles.index');
         }
     }
+
 }

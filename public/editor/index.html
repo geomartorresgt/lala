@@ -64,6 +64,7 @@
 				</a> 
 				<a href="#" class="btn btn-default btn-sm glyphicon glyphicon-asterisk"	id="saveMesh" title="Save Scene as a mesh"></a>
 				<a href="#" class="btn btn-default btn-sm glyphicon glyphicon-export"	id="saveGLTF" title="Save Scene as a GLTF"></a>
+				<!-- <a href="#" class="btn btn-default btn-sm glyphicon glyphicon-camera"	id="capture_canvas_editor_3d" title="Save Scene as a GLTF"></a> -->
 			</div>
 		</div>
 	</div>
@@ -119,12 +120,20 @@
 		          <button type="button" class="close" data-dismiss="modal">&times;</button>
 		          <h4 class="modal-title">Lineas</h4>
 		        </div>
-		        <div class="modal-body">
+					<div class="modal-body">
 		          <div id="add-items" class="panel-group">
 					<div id="floor-items" class="panel panel-default">
 						<div id="floor-items-header" class="panel-heading"><h4 class="panel-title"><a data-toggle="collapse" data-parent="#add-items" href="#floor-items-body">Anza</a></h4></div>
 						<div id="floor-items-body" class="panel-collapse collapse in inventory-content">	
 							<div class="row panel-body" id="anza">
+								<!-- Items added here by items.js -->
+							</div>
+						</div>
+					</div>
+					<div id="floor-items" class="panel panel-default">
+						<div id="floor-items-header" class="panel-heading"><h4 class="panel-title"><a data-toggle="collapse" data-parent="#add-items" href="#floor-items-body">Muebles</a></h4></div>
+						<div id="floor-items-body" class="panel-collapse collapse in inventory-content">	
+							<div class="row panel-body" id="muebles">
 								<!-- Items added here by items.js -->
 							</div>
 						</div>
@@ -178,38 +187,5 @@
 			</div>
 		</div>
 	</div>
-
-	<script>
-		$(document).ready(function(){
-			$('#capture_canvas_editor').click(function(event){
-				event.preventDefault();
-				enviarCapture();
-			});
-
-			function caputurarImagenCanvas() {
-				var $canvas = document.getElementById('floorplanner-canvas');
-				var image = new Image();
-				image.src = $canvas.toDataURL();
-				return image;
-			}
-
-			function enviarCapture(){
-				var image = caputurarImagenCanvas();
-				var url = window.location.href.replace('editor/', 'admin/editor/save-image')
-
-				$.ajax({
-					type:'POST',
-					url: url,
-					data:{ image: image.src },
-					dataType: 'json',
-					success:function(data){
-						if (data.success) {
-							alert(data.mensaje);
-						}
-					}
-				});
-			}
-		});
-	</script>
 </body>
 </html>
