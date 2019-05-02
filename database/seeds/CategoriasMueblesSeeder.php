@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Models\CategoriaMueble;
 
 class CategoriasMueblesSeeder extends Seeder
 {
@@ -13,32 +14,37 @@ class CategoriasMueblesSeeder extends Seeder
     {
         $categoriasMuebles = [
             [
-                'nombre' => 'primera',
+                'nombre' => 'Anza',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'nombre' => 'Segunda',
+                'nombre' => 'Cerejeira Brillo',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'nombre' => 'Tercera',
+                'nombre' => 'Cerejeira Mate',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'nombre' => 'Cuarta',
+                'nombre' => 'Imbuia',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'nombre' => 'Quinta',
+                'nombre' => 'StyloNobre - Clásica',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'nombre' => 'StyloNoble - Noble',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]
         ];
 
-        App\Models\CategoriaMueble::insert($categoriasMuebles);
+        CategoriaMueble::insert($categoriasMuebles);
     }
 }

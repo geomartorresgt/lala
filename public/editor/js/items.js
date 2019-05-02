@@ -82,86 +82,61 @@ $(document).ready(function() {
     */
   ]
 
-  getMuebles();
-  var modelTypesNum = ["1","2","3","7","8","9"];
-  var modelTypesIds = ["floor-items", "wall-items", "in-wall-items", "in-wall-floor-items", "on-floor-items", "wall-floor-items"];
-  var itemsDiv = $("#items-wrapper");
-  for (var i = 0; i < items.length; i++) 
-  {
-	  var item = items[i];
-    itemsDiv = $("#"+item.cat);
-	  var modelformat = (item.format) ?' model-format="'+item.format+'"' : "";
-    var html = '<div class="col-sm-4">' + '<a class="thumbnail add-item"' +' model-name="'+ item.name +'"' +' model-url="' +item.model+'"' +' model-type="' +item.type+'"' + modelformat+'>'+'<img src="'+item.image +'" alt="Add Item"  data-dismiss="modal"> '+item.name +'</a></div>';
-    itemsDiv.append(html);
-  }
-
-  $('#capture_canvas_editor').click(function(event){
-    event.preventDefault();
-    var image = caputurarImagenCanvas();
-    enviarCapture(image);
-  });
-
-  $('#capture_canvas_editor_3d').click(function(event){
-    event.preventDefault();
-    var $canvas = document.querySelector('#viewer canvas');
-    var image = new Image();
-    image.src = $canvas.toDataURL();
-    enviarCapture(image);
-  });
-
-  function caputurarImagenCanvas() {
-    var $canvas = document.getElementById('floorplanner-canvas');
-    var image = new Image();
-    image.src = $canvas.toDataURL();
-    return image;
-  }
-
-  function enviarCapture(image){
-    var url = window.location.href.replace('editor/', 'admin/editor/save-image')
-
-    $.ajax({
-      type:'POST',
-      url: url,
-      data:{ image: image.src },
-      dataType: 'json',
-      success:function(data){
-        if (data.success) {
-          alert(data.mensaje);
-        }
-      }
-    });
-  }
-
-  function mostrarMuebles(muebles) {
-    itemsDiv = $("#muebles");
-    // itemsDiv.append("<h1>hola mundo<h1>");
-    console.log('muebles original: ', muebles)
-
-    muebles.forEach(mueble => {
-      console.log('primero: ', mueble);
-      var html = `
-        <div class="col-sm-4">
-          <a class="thumbnail add-item" model-name="AÉREO 0.40 1 PTA. A" model-url="${mueble.object_js}" model-type="2">
-            <img src="${mueble.foto_url}" alt="Add Item" data-dismiss="modal"> 
-            ${mueble.nombre.toUpperCase()}
-          </a>
-        </div>
-      `;
-
-      itemsDiv.append(html);
-    });
-  }
-
-  function getMuebles() {
-    var url = window.location.href.replace('editor/', 'admin/editor/muebles')
-    console.log('la ruda es: ', url);
+  getAllCategories()
+  function getAllCategories() {
+    var url = window.location.href.replace('editor/', 'admin/config/categorias-muebles');
     $.ajax({
       type:'GET',
       url: url,
       success:function(data){
-        console.log('los muebles: ', data);
-        mostrarMuebles(data);
+        contentModalCategories(data);
       }
     });
+  }
+
+  function contentModalCategories(categories) {
+    var items = categories.map(category => templateItemAcordeon(category) );
+    $('#add-items').html(items);
+  }
+
+  function templateItemAcordeon(category) {
+    const title = category.nombre.toLowerCase().replace(' - ', '-').replace(' ', '-');
+    let renderItems = ''; 
+    category.muebles.forEach( mueble => (
+      renderItems += templateItemMuebles(mueble)
+    ));
+    
+    return `
+      <div id="${title}-items" class="panel panel-default">
+        <div id="${title}-items-header" class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#add-items" href="#${title}-items-body" class="collapsed">
+              ${category.nombre}
+            </a>
+          </h4>
+        </div>
+        <div id="${title}-items-body" class="panel-collapse collapse inventory-content">
+          <div class="panel-body" id="${title}-items-wrapper">
+            <div class="container-fluid" style="padding-right: 0px; padding-left: 0px;">
+              <div class="row">
+                ${renderItems}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      `;
+  }
+
+  function templateItemMuebles(mueble) {
+    const modelformat = '';
+    return `
+      <div class="col-sm-4">
+        <a class="thumbnail add-item" model-name="${mueble.nombre}" model-url="${mueble.object_js}" model-type="${mueble.orden}" ${modelformat} >
+          <img src="${mueble.foto_url}" alt="Add Item" data-dismiss="modal"> 
+          ${mueble.nombre.toUpperCase()}
+        </a>
+      </div>
+      `;
   }
 });

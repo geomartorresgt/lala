@@ -29,7 +29,7 @@ class CategoriaMuebleController extends Controller
      */
     public function index(Request $request)
     {
-        $categoriamuebles = CategoriaMueble::all();
+        $categoriamuebles = CategoriaMueble::with(['muebles'])->get();
         if ($request->ajax()) {
             return response()->json($categoriamuebles);
         }

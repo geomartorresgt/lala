@@ -33,6 +33,15 @@
             </select>
         </div>
         <div class="form-group col-12 col-md-6">
+            <label for="categoria_mueble_id">Orden</label>
+            <select class="form-control" id="orden" name="orden" required>
+                <option> Seleccione Orden</option>
+                @foreach (["1","2","3","7","8","9"] as $orden)
+                    <option value="{{ $orden }}" {{ old('orden', $mueble->orden) == $orden ? 'selected': '' }} >{{ $orden }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="form-group col-12 col-md-6">
             <label for="precio">Precio</label>
             <input type="text" id="precio" name="precio" class="form-control" value="{{old('precio', $mueble->precio)}}" required>
         </div>
