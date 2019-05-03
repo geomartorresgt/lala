@@ -8,6 +8,16 @@ use Illuminate\Support\Facades\File;
 
 class Mueble extends Model
 {
+
+    const TIPO_MUEBLE = [
+        1 => 'Floor Items',
+        2 => 'Wall Items',
+        3 => 'In Wall Items',
+        7 => 'In Wall Floor Items',
+        8 => 'On Floor Items',
+        9 => 'Wall Floor Items'
+    ];
+
     protected $guarded = ['id'];
     protected $table = 'muebles';
     protected $appends = ['nombre_categoria', 'object_image', 'object_js'];

@@ -47,7 +47,8 @@ class MuebleController extends Controller
     public function create()
     {
         $mueble = new Mueble();
-        return view("admin.config.muebles.create")->withMueble($mueble);
+        $tipoMueble = Mueble::TIPO_MUEBLE;
+        return view("admin.config.muebles.create")->withMueble($mueble)->withTipoMueble($tipoMueble);;
     }
 
     /**
@@ -113,7 +114,8 @@ class MuebleController extends Controller
      */
     public function edit(Mueble $mueble)
     {
-        return view('admin.config.muebles.edit')->withMueble($mueble);
+        $tipoMueble = Mueble::TIPO_MUEBLE;
+        return view('admin.config.muebles.edit')->withMueble($mueble)->withTipoMueble($tipoMueble);
     }
 
     /**

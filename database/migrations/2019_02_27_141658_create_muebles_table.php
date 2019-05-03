@@ -20,7 +20,7 @@ class CreateMueblesTable extends Migration {
 			$table->string('foto_url')->nullable();
 			$table->string('directorio_url')->nullable();
 			$table->double('precio')->nullable();
-			$table->integer('orden')->unsigned()->nullable();
+			$table->integer('tipo_mueble')->unsigned()->nullable();
 			$table->integer('categoria_mueble_id')->unsigned();
             $table->foreign('categoria_mueble_id')->references('id')->on('categorias_muebles');
 
