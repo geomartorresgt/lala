@@ -146,7 +146,7 @@ class PresupuestoController extends Controller
         try{
             DB::beginTransaction();
 
-            $data = $request->except(['id_muebles']);
+            $data = $request->only(['nombre_cliente', 'email_cliente', 'telefono_cliente', 'cedula_cliente', 'fecha', 'descuento', 'data_json']);
             $data['fecha'] = now();
             $data['user_id'] = auth()->user()->id;
 

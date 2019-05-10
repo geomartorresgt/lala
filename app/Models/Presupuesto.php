@@ -22,8 +22,16 @@ class Presupuesto extends Model
 
     public function addMuebles($id_muebles)
     {
-        $this->muebles()->detach();
-        $this->muebles()->attach( $id_muebles );
+        if($this->muebles){
+            $this->muebles()->delete();
+        }
+
+        $muebles = [];
+        foreach ($id_muebles as $key => $mueble_id) {
+            $muebles[] = new PresupuestoMueble(['mueble_id' => $mueble_id]);
+        }
+
+        $this->muebles()->saveMany($muebles);
     }
 
     // mutatos 
@@ -36,4 +44,6 @@ class Presupuesto extends Model
     {
         return Carbon::parse($value)->format('d-m-Y');
     }
+
+    
 }
