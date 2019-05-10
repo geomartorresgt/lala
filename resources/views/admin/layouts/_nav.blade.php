@@ -8,12 +8,14 @@
         </li> --}}
         {{-- <li class="nav-title">Theme</li> --}}
 
+        {{-- 
         <li class="nav-item">
             <a class="nav-link" href="{{ route('editor.index') }}">
                 <i class="fa fa-edit"></i>
                 Editor
             </a>
         </li>
+        --}}
         @permission('presupuestos_ver')
         <li class="nav-item">
             <a class="nav-link" href="{{ route('presupuestos.index') }}">
