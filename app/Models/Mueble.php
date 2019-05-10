@@ -187,7 +187,6 @@ class Mueble extends Model
         $image = array_values($image);
         if(array_key_exists(0, $image)){
             return url("/storage/muebles").'/'.$image[0];
-            // return Storage::disk('muebles')->getAdapter()->getPathPrefix().$image[0];
         }
 
         return '';
@@ -201,10 +200,20 @@ class Mueble extends Model
 
         if(array_key_exists(0, $objectJs)){
             return url("/storage/muebles").'/'.$objectJs[0];
-            // return Storage::disk('muebles')->getAdapter()->getPathPrefix().$objectJs[0];
         }
         
         return '';
+    }
+
+    // relaciones
+    public function presupuestos()
+    {
+        return $this->belongsToMany(Presupuesto::class, 'muebles_presupuesto', 'mueble_id', 'presupuesto_id')
+                ->withTimestamps()
+                ->withPivot(
+                    'presupuesto_id', 
+                    'mueble_id'
+                );
     }
 
 }

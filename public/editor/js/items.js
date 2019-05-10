@@ -132,7 +132,7 @@ $(document).ready(function() {
     const modelformat = '';
     return `
       <div class="col-sm-4">
-        <a class="thumbnail add-item" model-name="${mueble.nombre}" model-url="${mueble.object_js}" model-type="${mueble.tipo_mueble}" ${modelformat} >
+        <a class="thumbnail add-item" model-name="${mueble.nombre}*${mueble.id}" model-url="${mueble.object_js}" model-type="${mueble.tipo_mueble}" ${modelformat} >
           <img src="${mueble.foto_url}" alt="Add Item" data-dismiss="modal"> 
           ${mueble.nombre.toUpperCase()}
         </a>

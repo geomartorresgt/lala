@@ -128,6 +128,59 @@ class PermisosSeeder extends Seeder
 	            'description'=>'Eliminar',
 	            'created_at' => now(),
 	            'updated_at' => now()
+			],
+			
+			// Presupuestos
+	        [
+	            'name'=> 'presupuestos_ver',
+	            'display_name'=>'Presupuestos Ver',
+	            'description'=>'Ver Presupuestos',
+	            'created_at' => now(),
+	            'updated_at' => now()
+	        ],
+	        [
+	            'name'=> 'presupuestos_crear',
+	            'display_name'=>'Presupuestos Crear',
+	            'description'=>'Crear Presupuestos',
+	            'created_at' => now(),
+	            'updated_at' => now()
+	        ],
+	        [
+	            'name'=> 'presupuestos_editar',
+	            'display_name'=>'Presupuestos Editar',
+	            'description'=>'Editar Presupuestos',
+	            'created_at' => now(),
+	            'updated_at' => now()
+	        ],
+	        [
+	            'name'=> 'presupuestos_eliminar',
+	            'display_name'=>'Presupuestos Eliminar',
+	            'description'=>'Eliminar Presupuestos',
+	            'created_at' => now(),
+	            'updated_at' => now()
+			],
+
+			// mis presupuestos
+			[
+	            'name'=> 'mis_presupuestos_ver',
+	            'display_name'=>'Mis Presupuestos Ver',
+	            'description'=>'Ver Mis Presupuestos',
+	            'created_at' => now(),
+	            'updated_at' => now()
+			],
+			[
+	            'name'=> 'mis_presupuestos_crear',
+	            'display_name'=>'Mis Presupuestos Crear',
+	            'description'=>'Crear Mis Presupuestos',
+	            'created_at' => now(),
+	            'updated_at' => now()
+			],
+			[
+	            'name'=> 'mis_presupuestos_eliminar',
+	            'display_name'=>'Mis Presupuestos Eliminar',
+	            'description'=>'Eliminar Mis Presupuestos',
+	            'created_at' => now(),
+	            'updated_at' => now()
 	        ]
 	    ];
 

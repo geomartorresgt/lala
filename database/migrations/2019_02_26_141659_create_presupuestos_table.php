@@ -14,7 +14,8 @@ class CreatePresupuestosTable extends Migration {
 	{
 		Schema::create('presupuestos', function(Blueprint $table)
 		{
-            $table->increments('id');
+			$table->increments('id');
+			$table->text('data_json')->nullable();
 			$table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
 			$table->string('nombre_cliente', 45)->nullable();
