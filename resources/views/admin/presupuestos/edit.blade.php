@@ -25,4 +25,6 @@
 	</div>	
 	
 	@include('admin.presupuestos.muebles._index')
+
+	@include('admin.presupuestos.capturas._index')
 @endsection

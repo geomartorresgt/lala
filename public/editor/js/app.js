@@ -632,7 +632,7 @@ function setDataPresupuesto(data){
 function showModalPresupuesto() {
 	var $modalPresupuesto = $('#modalPresupuesto');
 	var presupuesto_id = localStorage.getItem("presupuesto_id");
-
+	localStorage.setItem("presupuesto_captura_id", presupuesto_id );
 	console.log('presupuesto local: ', presupuesto_id);
 	if (presupuesto_id) {
     var urlAjax = window.location.href.replace('editor/', `admin/presupuestos/${presupuesto_id}`);

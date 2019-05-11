@@ -39,6 +39,7 @@ class PresupuestoMueble extends Model
             $items = $dataJson['items'];
             $newItems = collect();
             $count = 0;
+            
 
             foreach ($items as $key => $item) {
                 if( explode('*', $item['item_name'])[1] == $mueble_id && $count === 0 ) {
@@ -47,6 +48,8 @@ class PresupuestoMueble extends Model
                     $newItems->push($items[$key]);
                 }
             }
+
+            // dd($items, $newItems);
 
             $dataJson['items'] = $newItems->toArray();
             $dataJson = json_encode($dataJson);

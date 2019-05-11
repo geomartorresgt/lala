@@ -43,6 +43,14 @@ Route::group(['middleware' => ['auth', "session_time"]], function (){
 			]
 		])->only(['index', 'destroy']);
 
+		Route::resource('/presupuesto/{presupuesto}/capturas-presupuesto', 'CapturaPresupuestoController', [
+			'names' => [
+				'index' => 'presupuestosCapturas.index',
+				'store' => 'presupuestosCapturas.store',
+				'destroy' => 'presupuestosCapturas.destroy',
+			]
+		])->only(['index', 'destroy', 'store']);
+
 	    Route::group(['prefix' => 'config', 'namespace' => 'Config'], function () {
 			Route::resource('/categorias-muebles', 'CategoriaMuebleController');
 			Route::resource('muebles', 'MuebleController');

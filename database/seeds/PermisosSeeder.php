@@ -181,7 +181,16 @@ class PermisosSeeder extends Seeder
 	            'description'=>'Eliminar Mis Presupuestos',
 	            'created_at' => now(),
 	            'updated_at' => now()
-	        ]
+			],
+			
+			// capturas
+			[
+	            'name'=> 'capturas_eliminar',
+	            'display_name'=>'Eliminar Capturas del Presupuesto',
+	            'description'=>'Eliminar Capturas del Presupuesto',
+	            'created_at' => now(),
+	            'updated_at' => now()
+			],
 	    ];
 
 	    Permiso::insert($permisos);

@@ -162,22 +162,22 @@ class Mueble extends Model
         // ... code here
         // });
 
-        self::updating(function($model){
-            // dd('esta actualzando', $model);
-        });
+        // self::updating(function($model){
+        //     ... code here
+        // });
 
         // self::updated(function($model){
         // ... code here
         // });
 
-        self::deleting(function($model){
+        // self::deleting(function($model){
+        // ... code here
+        // });
+
+        self::deleted(function($model){
             $model->eliminarDirectoriUrl();
             $model->eliminarFotoUrl();
         });
-
-        // self::deleted(function($model){
-        // ... code here
-        // });
     }
 
     public function getObjectImageAttribute()

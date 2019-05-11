@@ -178,6 +178,9 @@ class CategoriaMuebleController extends Controller
         } catch (Exception $e) {
             $mensaje = $e->getMessage();
             $success = false;
+        } catch(\Illuminate\Database\QueryException $e){
+            $mensaje = "No es posible eliminarla por que hay registros relacionados";
+            $success = false;
         }
 
         if ($request->ajax()) {

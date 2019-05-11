@@ -10,15 +10,7 @@ class Presupuesto extends Model
     protected $guarded = ['id'];
     protected $with = ['user'];
 
-    public function muebles()
-    {
-        return $this->hasMany(PresupuestoMueble::class);;
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+    
 
     public function addMuebles($id_muebles)
     {
@@ -43,6 +35,22 @@ class Presupuesto extends Model
     public function getFechaAttribute($value)
     {
         return Carbon::parse($value)->format('d-m-Y');
+    }
+
+    // relaciones
+    public function muebles()
+    {
+        return $this->hasMany(PresupuestoMueble::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function capturas()
+    {
+        return $this->hasMany(CapturasPresupuesto::class);
     }
 
     

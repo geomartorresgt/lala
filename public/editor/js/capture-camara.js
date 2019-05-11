@@ -21,7 +21,9 @@ $(document).ready(function() {
   }
 
   function enviarCapture(image){
-    var url = window.location.href.replace('editor/', 'admin/editor/save-image')
+    var presupuesto_id = localStorage.getItem("presupuesto_captura_id");
+    var url = window.location.href.replace('editor/', `admin/presupuesto/${presupuesto_id}/capturas-presupuesto`)
+
     $.ajax({
       type:'POST',
       url: url,
