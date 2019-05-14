@@ -24,11 +24,11 @@
                                	<table id="datatable_presupuestos" class="table table-striped  dt-responsive nowrap w-100">
 	                                <thead class="">
 		                                <tr>
-											<th>User_id</th>
-											<th>Nombre_cliente</th>
-											<th>Email_cliente</th>
-											<th>Telefono_cliente</th>
-											<th>Cedula_cliente</th>
+											<th>Usuario</th>
+											<th>Nombre Cliente</th>
+											<th>Email Cliente</th>
+											<th>Telefono Cliente</th>
+											<th>Cedula Cliente</th>
 											<th>Fecha</th>
 											<th>Descuento</th>
 											<th>Opciones</th>

@@ -38,7 +38,6 @@ class CapturasPresupuesto extends Model
         parent::boot();
 
         self::creating(function($model){
-            // dd('$imageUrl', '$imageUrl');
             $base64_image = $model->img_url;
             if (preg_match('/^data:image\/(\w+);base64,/', $base64_image)) {
                 $image = substr($base64_image, strpos($base64_image, ',') + 1);

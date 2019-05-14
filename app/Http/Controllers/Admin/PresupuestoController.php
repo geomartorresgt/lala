@@ -141,7 +141,6 @@ class PresupuestoController extends Controller
      */
     public function update(UpdatePresupuestoRequest $request, Presupuesto $presupuesto)
     {
-
         $success = false;
         try{
             DB::beginTransaction();

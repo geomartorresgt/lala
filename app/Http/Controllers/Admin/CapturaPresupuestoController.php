@@ -13,10 +13,7 @@ use Illuminate\Support\Facades\View;
 class CapturaPresupuestoController extends Controller{
     
     public function __construct() {
-        // $this->middleware("permission:capturas_ver");
-        // $this->middleware("permission:capturas_crear")->only("create", "store");
-        // $this->middleware("permission:capturas_editar")->only("edit", "update");
-        // $this->middleware("permission:capturas_eliminar")->only("destroy");
+        $this->middleware("permission:capturas_eliminar")->only("destroy");
         View::share('titulo', "Capturas");
     }
 
@@ -58,8 +55,7 @@ class CapturaPresupuestoController extends Controller{
             DB::rollback();
             return response()->json([
                 'success' => false,
-                // 'mensaje' => 'Ha ocurrido un error al realizar la captura de imagen.',
-                'mensaje' => $e->getMessage(),
+                'mensaje' => 'Ha ocurrido un error al realizar la captura de imagen.',
             ]);
         }
     }

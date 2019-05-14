@@ -12,6 +12,7 @@ var cameraPropFolder = null;
 var presupuesto = undefined;
 var firstLoad = true;
 var dataJson = true;
+localStorage.removeItem("editor_cargado");
 /*
  * Floorplanner controls
  */
@@ -616,7 +617,6 @@ function getDataModalPresupuesto() {
 
 
 function setDataPresupuesto(data){
-	console.log('set presupuesto: ', data);
 	presupuesto = data;
 
 	$('#nombre_cliente').val(presupuesto.nombre_cliente);
@@ -633,10 +633,9 @@ function showModalPresupuesto() {
 	var $modalPresupuesto = $('#modalPresupuesto');
 	var presupuesto_id = localStorage.getItem("presupuesto_id");
 	localStorage.setItem("presupuesto_captura_id", presupuesto_id );
-	console.log('presupuesto local: ', presupuesto_id);
+	localStorage.setItem("aux_presupuesto_id", presupuesto_id );
 	if (presupuesto_id) {
     var urlAjax = window.location.href.replace('editor/', `admin/presupuestos/${presupuesto_id}`);
-		
 		$.ajax({
 			async: false,
 			type: "GET",
@@ -644,11 +643,10 @@ function showModalPresupuesto() {
 			data: {presupuesto_id: presupuesto_id},
 			dataType: 'json',
 			success:function(data){
-				localStorage.removeItem("presupuesto_id");
 				setDataPresupuesto(data);
+				localStorage.removeItem("presupuesto_id");
 			}
 		});
-		
 	}
 
 	if (!siPresupuesto()) {
@@ -662,9 +660,11 @@ function showModalPresupuesto() {
 function hideModalPresupuesto() {
 	var $modalPresupuesto = $('#modalPresupuesto');
 	var data = getDataModalPresupuesto();
+	var editorCargado = localStorage.getItem("editor_cargado");
 	if (!siPresupuesto()) {
 		$modalPresupuesto.modal('show');
 	} else {
+		if(editorCargado){ return; }
 		initAllDocument();
 	}
 }
@@ -718,6 +718,55 @@ function loadJsonPresupuesto(blueprint3d) {
 
 $(document).ready(function() 
 {
+
+	$('#btn_cuardar_presupuesto').on('click', function(e){
+		e.preventDefault();
+		var urlAjax = window.location.href.replace('editor/', `admin/presupuestos/${presupuesto.id}`);
+		var form = $('#form_presupuesto').serializeArray();
+		var dataForm = {};
+
+		form.forEach( input => {
+			dataForm[input.name] = input.value;
+		});
+
+		dataForm.data_json = presupuesto.data_json;
+
+		$.ajax({
+			url: urlAjax,
+			data: dataForm,
+			type: 'PUT',
+			dataType: "json",
+			success: function(data, textStatus, jqXHR){
+				localStorage.setItem("editor_cargado", true );
+				if(data.success){
+					$('#modalPresupuesto').modal('hide');
+					setDataPresupuesto(dataForm);
+				}
+			}
+		});
+	})
+
+	$('#editar_datos').on('click', function(e){
+		e.preventDefault();
+
+		if (presupuesto.id) {
+			var urlAjax = window.location.href.replace('editor/', `admin/presupuestos/${presupuesto.id}`);
+			
+			$.ajax({
+				async: false,
+				type: "GET",
+				url: urlAjax,
+				data: {presupuesto_id: presupuesto.id},
+				dataType: 'json',
+				success:function(data){
+					setDataPresupuesto(data)
+					$('#modalPresupuesto').modal('show');
+				}
+			});
+		}
+
+	})
+
 	// mostrar el modal nuevamente en caso de que presupuesto siga siendo null
 	$('#modalPresupuesto').on('hidden.bs.modal', function (e) {
 		hideModalPresupuesto();
@@ -728,6 +777,8 @@ $(document).ready(function()
 	}
 
 	initAllDocument();
+	localStorage.setItem("editor_cargado", true );
+	console.log('******** ESTE ES EL FINAL **********');
 });
 
 function initAllDocument(){
