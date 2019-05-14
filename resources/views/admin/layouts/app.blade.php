@@ -3,6 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>..:: Unigres ::..</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
@@ -27,7 +29,7 @@
         <main class="main">
         	@yield('content-editor')
 
-            <div class="container-fluid">
+            <div class="container-fluid px-2 mt-2">
                 <div class="animated fadeIn">
                 	@include('flash::message')
                 	@if (count($errors) > 0)

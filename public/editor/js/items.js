@@ -1,190 +1,142 @@
 // add items to the "Add Items" tab
-
 $(document).ready(function() {
-  var items = [
-   {
-      "name" : "Closed Door",
+  var items = [ 
+    {
+      "name" : "AÉREO 0.40 1 PTA. A",
       "image" : "models/thumbnails/thumbnail_Screen_Shot_2014-10-27_at_8.04.12_PM.png",
-      "model" : "models/js/closed-door28x80_baked.js",
-      "type" : "7"
-    }, 
-    {
-      "name" : "Open Door",
-      "image" : "models/thumbnails/thumbnail_Screen_Shot_2014-10-27_at_8.22.46_PM.png",
-      "model" : "models/js/open_door.js",
-      "type" : "7"
-    }, 
-    {
-      "name" : "Window",
-      "image" : "models/thumbnails/thumbnail_window.png",
-      "model" : "models/js/whitewindow.js",
-      "type" : "3"
-    }, 
-    {
-      "name" : "Chair",
-      "image" : "models/thumbnails/thumbnail_Church-Chair-oak-white_1024x1024.jpg",
-      "model" : "models/js/gus-churchchair-whiteoak.js",
-      "type" : "1"
-    }, 
-    {
-      "name" : "Red Chair",
-      "image" : "models/thumbnails/thumbnail_tn-orange.png",
-      "model" : "models/js/ik-ekero-orange_baked.js",
-      "type" : "1"
+      "model" : "models/js/3a/3.js",
+      "type" : "2",
+      "cat" : "anza"
     },
     {
-      "name" : "Blue Chair",
-      "image" : "models/thumbnails/thumbnail_ekero-blue3.png",
-      "model" : "models/js/ik-ekero-blue_baked.js",
-      "type" : "1"
-    },
-    {
-      "name" : "Dresser - Dark Wood",
-      "image" : "models/thumbnails/thumbnail_matera_dresser_5.png",
-      "model" : "models/js/DWR_MATERA_DRESSER2.js",
-      "type" : "1"
-    }, 
-    {
-      "name" : "Dresser - White",
-      "image" : "models/thumbnails/thumbnail_img25o.jpg",
-      "model" : "models/js/we-narrow6white_baked.js",
-      "type" : "1"
+      "name" : "AÉREO 0.30 1 PTA. B",
+      "image" : "models/thumbnails/thumbnail_Screen_Shot_2014-10-27_at_8.04.12_PM.png",
+      "model" : "models/js/3b/3.js",
+      "type" : "2",
+      "cat" : "anza"
     },  
     {
-      "name" : "Bedside table - Shale",
-      "image" : "models/thumbnails/thumbnail_Blu-Dot-Shale-Bedside-Table.jpg",
-      "model" : "models/js/bd-shalebedside-smoke_baked.js",
-      "type" : "1"
+      "name" : "AÉREO BODEGA 0.20BAA/30",
+      "image" : "models/thumbnails/thumbnail_Screen_Shot_2014-10-27_at_8.04.12_PM.png",
+      "model" : "models/js/4a/4.js",
+      "type" : "2",
+      "cat" : "anza"
     }, 
     {
-      "name" : "Bedside table - White",
-      "image" : "models/thumbnails/thumbnail_arch-white-oval-nightstand.jpg",
-      "model" : "models/js/cb-archnight-white_baked.js",
-      "type" : "1"
+      "name" : "AÉREO BODEGA 0.15BAA826",
+      "image" : "models/thumbnails/thumbnail_Screen_Shot_2014-10-27_at_8.04.12_PM.png",
+      "model" : "models/js/4b/4.js",
+      "type" : "2",
+      "cat" : "anza"
     }, 
     {
-      "name" : "Wardrobe - White",
-      "image" : "models/thumbnails/thumbnail_TN-ikea-kvikine.png",
-      "model" : "models/js/ik-kivine_baked.js",
-      "type" : "1"
+      "name" : "MUEBLE PANELEIRO",
+      "image" : "models/thumbnails/thumbnail_Screen_Shot_2014-10-27_at_8.04.12_PM.png",
+      "model" : "models/js/5/5.js",
+      "type" : "2",
+       "cat" : "anza"
     }, 
     {
-      "name" : "Full Bed",
-      "image" : "models/thumbnails/thumbnail_nordli-bed-frame__0159270_PE315708_S4.JPG",
-      "model" : "models/js/ik_nordli_full.js",
-      "type" : "1"
+      "name" : "AÉREO MICRO GRANDE",
+      "image" : "models/thumbnails/thumbnail_Screen_Shot_2014-10-27_at_8.04.12_PM.png",
+      "model" : "models/js/7/7.js",
+      "type" : "2",
+      "cat" : "anza"
     }, 
     {
-      "name" : "Bookshelf",
-      "image" : "models/thumbnails/thumbnail_kendall-walnut-bookcase.jpg",
-      "model" : "models/js/cb-kendallbookcasewalnut_baked.js",
-      "type" : "1"
-    }, 
-        {
-      "name" : "Media Console - White",
-      "image" : "models/thumbnails/thumbnail_clapboard-white-60-media-console-1.jpg",
-      "model" : "models/js/cb-clapboard_baked.js",
-      "type" : "9"
-    }, 
-        {
-      "name" : "Media Console - Black",
-      "image" : "models/thumbnails/thumbnail_moore-60-media-console-1.jpg",
-      "model" : "models/js/cb-moore_baked.js",
-      "type" : "9"
-    }, 
-       {
-      "name" : "Sectional - Olive",
-      "image" : "models/thumbnails/thumbnail_img21o.jpg",
-      "model" : "models/js/we-crosby2piece-greenbaked.js",
-      "type" : "1"
+      "name" : "AÉREO 0.80 PTA. REBATIBLE VIDRIO",
+      "image" : "models/thumbnails/thumbnail_Screen_Shot_2014-10-27_at_8.04.12_PM.png",
+      "model" : "models/js/8/8.js",
+      "type" : "2",
+      "cat" : "anza"
     }, 
     {
-      "name" : "Sofa - Grey",
-      "image" : "models/thumbnails/thumbnail_rochelle-sofa-3.jpg",
-      "model" : "models/js/cb-rochelle-gray_baked.js",
-      "type" : "1"
-    }, 
-        {
-      "name" : "Wooden Trunk",
-      "image" : "models/thumbnails/thumbnail_teca-storage-trunk.jpg",
-      "model" : "models/js/cb-tecs_baked.js",
-      "type" : "1"
-    }, 
-        {
-      "name" : "Floor Lamp",
-      "image" : "models/thumbnails/thumbnail_ore-white.png",
-      "model" : "models/js/ore-3legged-white_baked.js",
-      "type" : "1"
-    },
-    {
-      "name" : "Coffee Table - Wood",
-      "image" : "models/thumbnails/thumbnail_stockholm-coffee-table__0181245_PE332924_S4.JPG",
-      "model" : "models/js/ik-stockholmcoffee-brown.js",
-      "type" : "1"
+      "name" : "AÉREO 0.80 PTRA. REBATIBLE VIDRIO",
+      "image" : "models/thumbnails/thumbnail_Screen_Shot_2014-10-27_at_8.04.12_PM.png",
+      "model" : "models/js/9/9.js",
+      "type" : "2",
+      "cat" : "anza"
     }, 
     {
-      "name" : "Side Table",
-      "image" : "models/thumbnails/thumbnail_Screen_Shot_2014-02-21_at_1.24.58_PM.png",
-      "model" : "models/js/GUSossingtonendtable.js",
-      "type" : "1"
+      "name" : "AÉREO TERMINAL",
+      "image" : "models/thumbnails/thumbnail_Screen_Shot_2014-10-27_at_8.04.12_PM.png",
+      "model" : "models/js/10/10.js",
+      "type" : "2",
+      "cat" : "anza"
     }, 
     {
-      "name" : "Dining Table",
-      "image" : "models/thumbnails/thumbnail_scholar-dining-table.jpg",
-      "model" : "models/js/cb-scholartable_baked.js",
-      "type" : "1"
+      "name" : "MUEBLE AÉREO 1.20 3 PTAS.",
+      "image" : "models/thumbnails/thumbnail_Screen_Shot_2014-10-27_at_8.04.12_PM.png",
+      "model" : "models/js/11/11.js",
+      "type" : "2",
+      "cat" : "anza"
     }, 
-    {
-      "name" : "Dining table",
-      "image" : "models/thumbnails/thumbnail_Screen_Shot_2014-01-28_at_6.49.33_PM.png",
-      "model" : "models/js/BlakeAvenuejoshuatreecheftable.js",
-      "type" : "1"
-    },
-    {
-      "name" : "Blue Rug",
-      "image" : "models/thumbnails/thumbnail_cb-blue-block60x96.png",
-      "model" : "models/js/cb-blue-block-60x96.js",
-      "type" : "8"
-    },
-    {
-      "name" : "NYC Poster",
-      "image" : "models/thumbnails/thumbnail_nyc2.jpg",
-      "model" : "models/js/nyc-poster2.js",
-      "type" : "2"
-    },
-    {
-      "name" : "Simple Cabinet",
-      "image" : "models/thumbnails/thumbnail_cabinet.png",
-      "model" : "models/js/cabinet.json",
-      "type" : "1"
-    },
-    {
-        "name" : "Duck",
-        "image" : "models/thumbnails/thumbnail_duck.png",
-        "model" : "models/js/Duck.gltf",
-        "type" : "1",
-        "format": "gltf",
-      }
    /*     
    {
       "name" : "",
       "image" : "",
       "model" : "",
-      "type" : "1"
+      "type" : "1",
+      "cat" : ""
     }, 
     */
   ]
 
+  getAllCategories()
+  function getAllCategories() {
+    var url = window.location.href.replace('editor/', 'admin/config/categorias-muebles');
+    $.ajax({
+      type:'GET',
+      url: url,
+      success:function(data){
+        contentModalCategories(data);
+      }
+    });
+  }
 
-  var modelTypesNum = ["1","2","3","7","8","9"];
-  var modelTypesIds = ["floor-items", "wall-items", "in-wall-items", "in-wall-floor-items", "on-floor-items", "wall-floor-items"];
-  var itemsDiv = $("#items-wrapper");
-  for (var i = 0; i < items.length; i++) 
-  {
-	var item = items[i];
-    itemsDiv = $("#"+modelTypesIds[modelTypesNum.indexOf(item.type)]+"-wrapper");
-	var modelformat = (item.format) ?' model-format="'+item.format+'"' : "";
-    var html = '<div class="col-sm-4">' + '<a class="thumbnail add-item"' +' model-name="'+ item.name +'"' +' model-url="' +item.model+'"' +' model-type="' +item.type+'"' + modelformat+'>'+'<img src="'+item.image +'" alt="Add Item"  data-dismiss="modal"> '+item.name +'</a></div>';
-    itemsDiv.append(html);
+  function contentModalCategories(categories) {
+    var items = categories.map(category => templateItemAcordeon(category) );
+    $('#add-items').html(items);
+  }
+
+  function templateItemAcordeon(category) {
+    const title = category.nombre.toLowerCase().replace(' - ', '-').replace(' ', '-');
+    let renderItems = ''; 
+    category.muebles.forEach( mueble => (
+      renderItems += templateItemMuebles(mueble)
+    ));
+    
+    return `
+      <div id="${title}-items" class="panel panel-default">
+        <div id="${title}-items-header" class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#add-items" href="#${title}-items-body" class="collapsed">
+              ${category.nombre}
+            </a>
+          </h4>
+        </div>
+        <div id="${title}-items-body" class="panel-collapse collapse inventory-content">
+          <div class="panel-body" id="${title}-items-wrapper">
+            <div class="container-fluid" style="padding-right: 0px; padding-left: 0px;">
+              <div class="row">
+                ${renderItems}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      `;
+  }
+
+  function templateItemMuebles(mueble) {
+    const modelformat = '';
+    return `
+      <div class="col-sm-4">
+        <a class="thumbnail add-item" model-name="${mueble.nombre}" model-url="${mueble.object_js}" model-type="${mueble.orden}" ${modelformat} >
+          <img src="${mueble.foto_url}" alt="Add Item" data-dismiss="modal"> 
+          ${mueble.nombre.toUpperCase()}
+        </a>
+      </div>
+      `;
   }
 });

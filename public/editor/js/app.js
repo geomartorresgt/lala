@@ -680,9 +680,7 @@ $(document).ready(function()
 		blueprint3d.three.switchView($(this).attr('id'));
 	});
 	
-	
-	
-	$("#add-items").find(".add-item").mousedown(function(e) {
+	$("#add-items").on('mousedown', ".add-item", function(e) {
 	      var modelUrl = $(this).attr("model-url");
 	      var itemType = parseInt($(this).attr("model-type"));
 	      var itemFormat = $(this).attr('model-format');
@@ -692,8 +690,9 @@ $(document).ready(function()
 	        modelUrl: modelUrl,
 	        itemType: itemType,
 	        format: itemFormat,
-	        
-	      }
+				}
+				
+				console.log('metadata: ', metadata);
 	      
 	      if([2,3,7,9].indexOf(metadata.itemType) != -1 && aWall.currentWall)
     	  {

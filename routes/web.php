@@ -20,17 +20,19 @@ Route::group(['middleware' => ['auth', "session_time"]], function (){
 	Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 		Route::name('root_path')->get('/', 'InicioController@index');
 
-		Route::get('/editor', function(){
-        	return view('admin.editor.index');
-		})->name('editor.index');
+		// editor
+		Route::resource('/editor', 'EditorController')->only(['index']);
+		Route::name('editor.save_image')->post('/editor/save-image', 'EditorController@saveImage');
+		Route::name('editor.iframe')->get('/editor-iframe', 'EditorController@iframe');
+		Route::get('/editor/muebles', 'EditorController@getMuebles');		
 
 	    Route::group(['prefix' => 'config', 'namespace' => 'Config'], function () {
-	    	Route::resource('/categorias-muebles', 'CategoriaMuebleController');
+			Route::resource('/categorias-muebles', 'CategoriaMuebleController');
+			Route::resource('muebles', 'MuebleController');
 
 		    Route::resource('/usuarios', 'UsuarioController');
             Route::put('/usuariosSide','UsuarioController@usuariosSide'); // cambiar datos del usuario logueado
             Route::put('/cambiarFoto/{user_id}', 'UsuarioController@cambiarFoto');
-
 
 		    Route::group(['prefix' => 'privilegios', 'namespace' => 'Privilegios'], function () {
 		        Route::resource('/roles', 'RolController');

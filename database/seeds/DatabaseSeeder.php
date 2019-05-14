@@ -3,6 +3,7 @@
 use App\Models\Permiso;
 use App\Models\Rol;
 use App\Models\User;
+use App\Models\CategoriaMueble;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
@@ -25,11 +26,13 @@ class DatabaseSeeder extends Seeder
             Rol::truncate();
             Permiso::truncate();
             User::truncate();
+            CategoriaMueble::truncate();
 
             // agregan datos
             $this->call(PermisosSeeder::class);
             $this->call(RolesSeeder::class);
             $this->call(UsersSeeder::class);
+            $this->call(CategoriasMueblesSeeder::class);
         }
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
