@@ -241,4 +241,11 @@ class PresupuestoController extends Controller
         $presupuesto = new Presupuesto();
         return view("admin.presupuestos.editar_diseno")->withPresupuesto($presupuesto);
     }
+
+    public function reporte(Request $request, $presupuesto_id)
+    {
+        $presupuesto = Presupuesto::with(['muebles', 'capturas'])->findOrFail($presupuesto_id);
+        $reporte = $presupuesto->generarReporte();
+        return $reporte;
+    }
 }

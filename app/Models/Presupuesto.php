@@ -10,8 +10,6 @@ class Presupuesto extends Model
     protected $guarded = ['id'];
     protected $with = ['user'];
 
-    
-
     public function addMuebles($id_muebles)
     {
         if($this->muebles){
@@ -24,6 +22,18 @@ class Presupuesto extends Model
         }
 
         $this->muebles()->saveMany($muebles);
+    }
+
+    public function generarReporte()
+    {
+        $pdf = \PDF::loadView('admin.presupuestos.reporte', ['presupuesto' => $this]);
+        return $pdf->stream();
+        return $pdf->download('presupuesto.pdf');
+    }
+
+    public function getTotal()
+    {
+        return $this->muebles->sum('mueble.precio');
     }
 
     // mutatos 

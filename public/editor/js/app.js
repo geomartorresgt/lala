@@ -964,9 +964,8 @@ function guardarPresupuesto() {
 			console.log('respuesta presupuesto: ', data);
 			
 			if (data.success) {
-				console.log('todo bien con la peticion: ')
 				presupuesto.id = data.presupuesto_id;
-				console.log('presupuesto actualizado en id: ', presupuesto);
+				localStorage.setItem("presupuesto_captura_id", presupuesto.id );
 			}
 		}
 	});
