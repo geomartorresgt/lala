@@ -8,12 +8,30 @@
         </li> --}}
         {{-- <li class="nav-title">Theme</li> --}}
 
+        {{-- 
         <li class="nav-item">
             <a class="nav-link" href="{{ route('editor.index') }}">
                 <i class="fa fa-edit"></i>
                 Editor
             </a>
         </li>
+        --}}
+        @permission('presupuestos_ver')
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('presupuestos.index') }}">
+                <i class="fas fa-clipboard-list"></i>
+                Presupuestos
+            </a>
+        </li>
+        @endpermission
+        @permission('mis_presupuestos_crear')
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('presupuestos.misPresupuestos') }}">
+                <i class="fas fa-clipboard-list"></i>
+                Mis Presupuestos
+            </a>
+        </li>
+        @endpermission
         <!--
         <li class="nav-item">
             <a class="nav-link" href="widgets.html">

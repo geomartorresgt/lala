@@ -8,6 +8,16 @@ use Illuminate\Support\Facades\File;
 
 class Mueble extends Model
 {
+
+    const TIPO_MUEBLE = [
+        1 => 'Floor Items',
+        2 => 'Wall Items',
+        3 => 'In Wall Items',
+        7 => 'In Wall Floor Items',
+        8 => 'On Floor Items',
+        9 => 'Wall Floor Items'
+    ];
+
     protected $guarded = ['id'];
     protected $table = 'muebles';
     protected $appends = ['nombre_categoria', 'object_image', 'object_js'];
@@ -152,22 +162,22 @@ class Mueble extends Model
         // ... code here
         // });
 
-        self::updating(function($model){
-            // dd('esta actualzando', $model);
-        });
+        // self::updating(function($model){
+        //     ... code here
+        // });
 
         // self::updated(function($model){
         // ... code here
         // });
 
-        self::deleting(function($model){
+        // self::deleting(function($model){
+        // ... code here
+        // });
+
+        self::deleted(function($model){
             $model->eliminarDirectoriUrl();
             $model->eliminarFotoUrl();
         });
-
-        // self::deleted(function($model){
-        // ... code here
-        // });
     }
 
     public function getObjectImageAttribute()
@@ -177,7 +187,6 @@ class Mueble extends Model
         $image = array_values($image);
         if(array_key_exists(0, $image)){
             return url("/storage/muebles").'/'.$image[0];
-            // return Storage::disk('muebles')->getAdapter()->getPathPrefix().$image[0];
         }
 
         return '';
@@ -191,10 +200,20 @@ class Mueble extends Model
 
         if(array_key_exists(0, $objectJs)){
             return url("/storage/muebles").'/'.$objectJs[0];
-            // return Storage::disk('muebles')->getAdapter()->getPathPrefix().$objectJs[0];
         }
         
         return '';
+    }
+
+    // relaciones
+    public function presupuestos()
+    {
+        return $this->belongsToMany(Presupuesto::class, 'muebles_presupuesto', 'mueble_id', 'presupuesto_id')
+                ->withTimestamps()
+                ->withPivot(
+                    'presupuesto_id', 
+                    'mueble_id'
+                );
     }
 
 }

@@ -9,9 +9,22 @@ var itemPropFolder = null;
 var wallPropFolder = null;
 var floorPropFolder = null;
 var cameraPropFolder = null;
+var presupuesto = undefined;
+var firstLoad = true;
+var dataJson = true;
+localStorage.removeItem("editor_cargado");
 /*
  * Floorplanner controls
  */
+
+function siPresupuesto(){
+	if(typeof presupuesto == "undefined"){
+		return false;
+	}
+	return true;
+}
+
+
 
 var ViewerFloorplanner = function(blueprint3d) 
 {
@@ -30,47 +43,57 @@ var ViewerFloorplanner = function(blueprint3d)
     scope.handleWindowResize();
     
     scope.floorplanner.addEventListener(BP3DJS.EVENT_MODE_RESET, function(mode) 
-    {
+    {	
       $(draw).removeClass(activeStlye);
       $(remove).removeClass(activeStlye);
       $(move).removeClass(activeStlye);
       if (mode == BP3DJS.floorplannerModes.MOVE) 
       {
+				console.log('cambios 5');
+
           $(move).addClass(activeStlye);
       } 
       else if (mode == BP3DJS.floorplannerModes.DRAW) 
       {
-          $(draw).addClass(activeStlye);
+				console.log('cambios 6');
+				$(draw).addClass(activeStlye);
       } 
       else if (mode == BP3DJS.floorplannerModes.DELETE) 
       {
+				console.log('cambios 7');
           $(remove).addClass(activeStlye);
       }
       
       if (mode == BP3DJS.floorplannerModes.DRAW) 
       {
+				console.log('cambios 8');
         $("#draw-walls-hint").show();
         scope.handleWindowResize();
       } 
       else 
       {
+				console.log('cambios 9 camabios en el mapa al editar el diseño de arquitectura');
+				cambiosEnEditor(blueprint3d);
         $("#draw-walls-hint").hide();
       }
     });
 
     $(move).click(function()
     {
+			console.log('cambios 10');
       scope.floorplanner.setMode(BP3DJS.floorplannerModes.MOVE);
     });
 
     $(draw).click(function()
     {
+			console.log('cambios 11');
       scope.floorplanner.setMode(BP3DJS.floorplannerModes.DRAW);
     });
 
     $(remove).click(function()
     {
-      scope.floorplanner.setMode(BP3DJS.floorplannerModes.DELETE);
+				console.log('cambios 12');
+				scope.floorplanner.setMode(BP3DJS.floorplannerModes.DELETE);
     });
   }
 
@@ -83,7 +106,10 @@ var ViewerFloorplanner = function(blueprint3d)
     scope.floorplanner.resizeView();
   };
 
-  init();
+	init();
+	
+	// data = '{"floorplan":{"corners":{"56d9ebd1-91b2-875c-799d-54b3785fca1f":{"x":630.555,"y":-227.58400000000006},"8f4a050d-e102-3c3f-5af9-3d9133555d76":{"x":294.64,"y":-227.58400000000006},"4e312eca-6c4f-30d1-3d9a-a19a9d1ee359":{"x":294.64,"y":232.664},"254656bf-8a53-3987-c810-66b349f49b19":{"x":745.7439999999998,"y":232.664},"11d25193-4411-fbbf-78cb-ae7c0283164b":{"x":1044.7019999999998,"y":232.664},"edf0de13-df9f-cd6a-7d11-9bd13c36ce12":{"x":1044.7019999999998,"y":-105.66399999999999},"e7db8654-efe1-bda2-099a-70585874d8c0":{"x":745.7439999999998,"y":-105.66399999999999}},"walls":[{"corner1":"4e312eca-6c4f-30d1-3d9a-a19a9d1ee359","corner2":"254656bf-8a53-3987-c810-66b349f49b19","frontTexture":{"url":"rooms/textures/wallmap.png","stretch":true,"scale":0},"backTexture":{"url":"https://blueprint-dev.s3.amazonaws.com/uploads/floor_wall_texture/file/wallmap_yellow.png","stretch":true,"scale":null}},{"corner1":"254656bf-8a53-3987-c810-66b349f49b19","corner2":"e7db8654-efe1-bda2-099a-70585874d8c0","frontTexture":{"url":"rooms/textures/wallmap.png","stretch":true,"scale":0},"backTexture":{"url":"https://blueprint-dev.s3.amazonaws.com/uploads/floor_wall_texture/file/wallmap_yellow.png","stretch":true,"scale":null}},{"corner1":"56d9ebd1-91b2-875c-799d-54b3785fca1f","corner2":"8f4a050d-e102-3c3f-5af9-3d9133555d76","frontTexture":{"url":"rooms/textures/wallmap.png","stretch":true,"scale":0},"backTexture":{"url":"https://blueprint-dev.s3.amazonaws.com/uploads/floor_wall_texture/file/wallmap_yellow.png","stretch":true,"scale":null}},{"corner1":"8f4a050d-e102-3c3f-5af9-3d9133555d76","corner2":"4e312eca-6c4f-30d1-3d9a-a19a9d1ee359","frontTexture":{"url":"rooms/textures/wallmap.png","stretch":true,"scale":0},"backTexture":{"url":"https://blueprint-dev.s3.amazonaws.com/uploads/floor_wall_texture/file/wallmap_yellow.png","stretch":true,"scale":null}},{"corner1":"254656bf-8a53-3987-c810-66b349f49b19","corner2":"11d25193-4411-fbbf-78cb-ae7c0283164b","frontTexture":{"url":"rooms/textures/wallmap.png","stretch":true,"scale":0},"backTexture":{"url":"rooms/textures/wallmap.png","stretch":true,"scale":0}},{"corner1":"11d25193-4411-fbbf-78cb-ae7c0283164b","corner2":"edf0de13-df9f-cd6a-7d11-9bd13c36ce12","frontTexture":{"url":"rooms/textures/wallmap.png","stretch":true,"scale":0},"backTexture":{"url":"https://blueprint-dev.s3.amazonaws.com/uploads/floor_wall_texture/file/light_brick.jpg","stretch":false,"scale":100}},{"corner1":"edf0de13-df9f-cd6a-7d11-9bd13c36ce12","corner2":"e7db8654-efe1-bda2-099a-70585874d8c0","frontTexture":{"url":"rooms/textures/wallmap.png","stretch":true,"scale":0},"backTexture":{"url":"rooms/textures/wallmap.png","stretch":true,"scale":0}},{"corner1":"e7db8654-efe1-bda2-099a-70585874d8c0","corner2":"56d9ebd1-91b2-875c-799d-54b3785fca1f","frontTexture":{"url":"rooms/textures/wallmap.png","stretch":true,"scale":0},"backTexture":{"url":"https://blueprint-dev.s3.amazonaws.com/uploads/floor_wall_texture/file/wallmap_yellow.png","stretch":true,"scale":null}}],"wallTextures":[],"floorTextures":{},"newFloorTextures":{"11d25193-4411-fbbf-78cb-ae7c0283164b,254656bf-8a53-3987-c810-66b349f49b19,e7db8654-efe1-bda2-099a-70585874d8c0,edf0de13-df9f-cd6a-7d11-9bd13c36ce12":{"url":"https://blueprint-dev.s3.amazonaws.com/uploads/floor_wall_texture/file/light_fine_wood.jpg","scale":300}}},"items":[{"item_name":"Full Bed","item_type":1,"model_url":"https://blueprint-dev.s3.amazonaws.com/uploads/item_model/model/39/ik_nordli_full.js","xpos":939.5525544513545,"ypos":50,"zpos":-15.988409993966997,"rotation":-1.5707963267948966,"scale_x":1,"scale_y":1,"scale_z":1,"fixed":false}]}'
+  // blueprint3d.model.loadSerialized(data);
 };
 
 var mainControls = function(blueprint3d) 
@@ -411,6 +437,7 @@ function addBlueprintListeners(blueprint3d)
 	
 	function wallClicked(wall)
 	{
+		console.log('cambios 1');
 		aWall.setWall(wall);
 		aWall.setFloor(null);
 		itemPropFolder.close();
@@ -419,6 +446,7 @@ function addBlueprintListeners(blueprint3d)
 	
 	function floorClicked(floor)
 	{
+		console.log('cambios 2');
 		aWall.setFloor(floor);
 		aWall.setWall(null);
 		itemPropFolder.close();
@@ -427,12 +455,16 @@ function addBlueprintListeners(blueprint3d)
 	
 	function itemSelected(item)
 	{
+		console.log('cambios 3');
+		cambiosEnEditor(blueprint3d);
 		anItem.setItem(item);
 		itemPropFolder.open();
 		wallPropFolder.close();
 	}
 	function itemUnselected()
 	{
+		console.log('cambios');
+		cambiosEnEditor(blueprint3d);
 		anItem.setItem(undefined);
 		itemPropFolder.close();
 	}
@@ -440,8 +472,8 @@ function addBlueprintListeners(blueprint3d)
 	three.addEventListener(BP3DJS.EVENT_ITEM_SELECTED, function(o){itemSelected(o.item);});
 	three.addEventListener(BP3DJS.EVENT_ITEM_UNSELECTED, function(o){itemUnselected();});	
 	three.addEventListener(BP3DJS.EVENT_WALL_CLICKED, (o)=>{wallClicked(o.item);});
-    three.addEventListener(BP3DJS.EVENT_FLOOR_CLICKED, (o)=>{floorClicked(o.item);});
-    three.addEventListener(BP3DJS.EVENT_FPS_EXIT, ()=>{$('#showDesign').trigger('click')});    
+	three.addEventListener(BP3DJS.EVENT_FLOOR_CLICKED, (o)=>{floorClicked(o.item);});
+	three.addEventListener(BP3DJS.EVENT_FPS_EXIT, ()=>{$('#showDesign').trigger('click')});    
 // three.skybox.toggleEnvironment(this.checked);
 // currentTarget.setTexture(textureUrl, textureStretch, textureScale);
 // three.skybox.setEnvironmentMap(textureUrl);
@@ -579,9 +611,177 @@ function datGUI(three, floorplanner)
 	itemPropFolder = getItemPropertiesFolder(gui, anItem);
 }
 
+function getDataModalPresupuesto() {
+	var $btnGuardatPresupuesto = $('#btn_cuardar_presupuesto');
+}
+
+
+function setDataPresupuesto(data){
+	presupuesto = data;
+
+	$('#nombre_cliente').val(presupuesto.nombre_cliente);
+	$('#email_cliente').val(presupuesto.email_cliente);
+	$('#telefono_cliente').val(presupuesto.telefono_cliente);
+	$('#cedula_cliente').val(presupuesto.cedula_cliente);
+	$('#fecha').val(presupuesto.fecha);
+	$('#descuento').val(presupuesto.descuento);	
+
+	dataJson = presupuesto.data_json;
+}
+
+function showModalPresupuesto() {
+	var $modalPresupuesto = $('#modalPresupuesto');
+	var presupuesto_id = localStorage.getItem("presupuesto_id");
+	localStorage.setItem("presupuesto_captura_id", presupuesto_id );
+	localStorage.setItem("aux_presupuesto_id", presupuesto_id );
+	if (presupuesto_id) {
+    var urlAjax = window.location.href.replace('editor/', `admin/presupuestos/${presupuesto_id}`);
+		$.ajax({
+			async: false,
+			type: "GET",
+			url: urlAjax,
+			data: {presupuesto_id: presupuesto_id},
+			dataType: 'json',
+			success:function(data){
+				setDataPresupuesto(data);
+				localStorage.removeItem("presupuesto_id");
+			}
+		});
+	}
+
+	if (!siPresupuesto()) {
+		$modalPresupuesto.modal('show');
+		return true;
+	}
+
+	return false;
+}
+
+function hideModalPresupuesto() {
+	var $modalPresupuesto = $('#modalPresupuesto');
+	var data = getDataModalPresupuesto();
+	var editorCargado = localStorage.getItem("editor_cargado");
+	if (!siPresupuesto()) {
+		$modalPresupuesto.modal('show');
+	} else {
+		if(editorCargado){ return; }
+		initAllDocument();
+	}
+}
+
+function getFormData($form){
+	var unindexed_array = $form.serializeArray();
+	var indexed_array = {};
+
+	$.map(unindexed_array, function(n, i){
+			indexed_array[n['name']] = n['value'];
+	});
+
+	return indexed_array;
+}
+
+function getDataModalPresupuesto(){
+	var $formPresupuesto = $('#form_presupuesto');
+	var valido = validarCamposPresupuesto($formPresupuesto);
+
+	if (valido) {
+		presupuesto = getFormData($formPresupuesto);
+	} else {
+		presupuesto = undefined;
+	}
+}
+
+//Función para comprobar los campos de texto
+function validarCamposPresupuesto(obj) {
+	var camposRellenados = true;
+	obj.find("input").each(function() {
+		var $this = $(this);
+		if( $this.val().length <= 0 ) {
+			camposRellenados = false;
+			return false;
+		}
+	});
+	
+	if(camposRellenados == false) {
+		return false;
+	}
+
+	else {
+		return true;
+	}
+}
+
+function loadJsonPresupuesto(blueprint3d) {
+	var data_json = dataJson;
+	blueprint3d.model.loadSerialized(data_json);
+}
 
 $(document).ready(function() 
 {
+
+	$('#btn_cuardar_presupuesto').on('click', function(e){
+		e.preventDefault();
+		var urlAjax = window.location.href.replace('editor/', `admin/presupuestos/${presupuesto.id}`);
+		var form = $('#form_presupuesto').serializeArray();
+		var dataForm = {};
+
+		form.forEach( input => {
+			dataForm[input.name] = input.value;
+		});
+
+		dataForm.data_json = presupuesto.data_json;
+
+		$.ajax({
+			url: urlAjax,
+			data: dataForm,
+			type: 'PUT',
+			dataType: "json",
+			success: function(data, textStatus, jqXHR){
+				localStorage.setItem("editor_cargado", true );
+				if(data.success){
+					$('#modalPresupuesto').modal('hide');
+					setDataPresupuesto(dataForm);
+				}
+			}
+		});
+	})
+
+	$('#editar_datos').on('click', function(e){
+		e.preventDefault();
+
+		if (presupuesto.id) {
+			var urlAjax = window.location.href.replace('editor/', `admin/presupuestos/${presupuesto.id}`);
+			
+			$.ajax({
+				async: false,
+				type: "GET",
+				url: urlAjax,
+				data: {presupuesto_id: presupuesto.id},
+				dataType: 'json',
+				success:function(data){
+					setDataPresupuesto(data)
+					$('#modalPresupuesto').modal('show');
+				}
+			});
+		}
+
+	})
+
+	// mostrar el modal nuevamente en caso de que presupuesto siga siendo null
+	$('#modalPresupuesto').on('hidden.bs.modal', function (e) {
+		hideModalPresupuesto();
+	})
+
+	if (showModalPresupuesto()) {
+		return
+	}
+
+	initAllDocument();
+	localStorage.setItem("editor_cargado", true );
+	console.log('******** ESTE ES EL FINAL **********');
+});
+
+function initAllDocument(){
 	dat.GUI.prototype.removeFolder = function(name) 
 	{
 		  var folder = this.__folders[name];
@@ -681,32 +881,144 @@ $(document).ready(function()
 	});
 	
 	$("#add-items").on('mousedown', ".add-item", function(e) {
-	      var modelUrl = $(this).attr("model-url");
-	      var itemType = parseInt($(this).attr("model-type"));
-	      var itemFormat = $(this).attr('model-format');
-	      var metadata = {
-	        itemName: $(this).attr("model-name"),
-	        resizable: true,
-	        modelUrl: modelUrl,
-	        itemType: itemType,
-	        format: itemFormat,
-				}
-				
-				console.log('metadata: ', metadata);
-	      
-	      if([2,3,7,9].indexOf(metadata.itemType) != -1 && aWall.currentWall)
-    	  {
-	    	  var placeAt = aWall.currentWall.center.clone();
-	    	  blueprint3d.model.scene.addItem(itemType, modelUrl, metadata, null, null, null, false, {position: placeAt, edge: aWall.currentWall});
-    	  }
-	      else if(aWall.currentFloor)
-    	  {
-	    	  var placeAt = aWall.currentFloor.center.clone();
-	    	  blueprint3d.model.scene.addItem(itemType, modelUrl, metadata, null, null, null, false, {position: placeAt});
-    	  }
-	      else
-    	  {
-	    	  blueprint3d.model.scene.addItem(itemType, modelUrl, metadata);
-    	  }
-	    });	
-});
+		var modelUrl = $(this).attr("model-url");
+		var itemType = parseInt($(this).attr("model-type"));
+		var itemFormat = $(this).attr('model-format');
+		var metadata = {
+			itemName: $(this).attr("model-name"),
+			resizable: true,
+			modelUrl: modelUrl,
+			itemType: itemType,
+			format: itemFormat,
+		}
+		
+		if([2,3,7,9].indexOf(metadata.itemType) != -1 && aWall.currentWall)
+		{
+			var placeAt = aWall.currentWall.center.clone();
+			blueprint3d.model.scene.addItem(itemType, modelUrl, metadata, null, null, null, false, {position: placeAt, edge: aWall.currentWall});
+		}
+		else if(aWall.currentFloor)
+		{
+			var placeAt = aWall.currentFloor.center.clone();
+			blueprint3d.model.scene.addItem(itemType, modelUrl, metadata, null, null, null, false, {position: placeAt});
+		}
+		else
+		{
+			blueprint3d.model.scene.addItem(itemType, modelUrl, metadata);
+		}
+	});
+
+	if(presupuesto.id){
+		loadJsonPresupuesto(blueprint3d);
+	}
+}
+
+function cambiosEnEditor(blueprint3d) {
+	var data = JSON.parse(blueprint3d.model.exportSerialized());
+	const muebles = data.items.map( mueble => mueble.item_name.split('*')[1] )
+
+	var auxPresupuesto = clone(presupuesto);
+
+	auxPresupuesto.data_json = data;
+	auxPresupuesto.id_muebles = muebles;
+
+	console.log("firstLoad: ", firstLoad);
+	console.log("primera carga presupuesto: ", presupuesto);
+
+	if (Object.compare(auxPresupuesto, presupuesto)) {
+		console.log('son iguales');
+		return
+	} else {
+		console.log('no son iguales');
+		presupuesto = clone(auxPresupuesto);
+	}
+
+	console.log('actualizar o crear presupuesto');
+	guardarPresupuesto();
+}
+
+function guardarPresupuesto() {
+	var url = 'http://localhost/pedro-unigres/public/admin/presupuestos';
+	var type = 'POST';
+	var presupuesto_id = presupuesto.id;
+
+	if (presupuesto_id) {
+		console.log('un update');
+		type = 'PUT'
+		url = `${url}/${presupuesto_id}`;
+	} else {
+		console.log('un store');
+		type = 'POST'
+	}
+
+	var auxPresupuesto = clone(presupuesto);
+
+	auxPresupuesto.data_json = JSON.stringify(auxPresupuesto.data_json);
+
+	$.ajax({
+		type: type,
+		url: url,
+		data: auxPresupuesto,
+		dataType: 'json',
+		success:function(data){
+			console.log('respuesta presupuesto: ', data);
+			
+			if (data.success) {
+				console.log('todo bien con la peticion: ')
+				presupuesto.id = data.presupuesto_id;
+				console.log('presupuesto actualizado en id: ', presupuesto);
+			}
+		}
+	});
+}
+
+function compararModificacionPresupuesto(obj1, obj2) {
+	
+}
+
+function clone(obj) {
+	if (null == obj || "object" != typeof obj) return obj;
+	var copy = obj.constructor();
+	for (var attr in obj) {
+			if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
+	}
+	return copy;
+}
+
+Object.compare = function (obj1, obj2) {
+	//Loop through properties in object 1
+	for (var p in obj1) {
+		//Check property exists on both objects
+		if (obj1.hasOwnProperty(p) !== obj2.hasOwnProperty(p)) return false;
+ 
+		switch (typeof (obj1[p])) {
+			//Deep compare objects
+			case 'object':
+				if (!Object.compare(obj1[p], obj2[p])) return false;
+				break;
+			//Compare function code
+			case 'function':
+				if (typeof (obj2[p]) == 'undefined' || (p != 'compare' && obj1[p].toString() != obj2[p].toString())) return false;
+				break;
+			//Compare values
+			default:
+				if (obj1[p] != obj2[p]) return false;
+		}
+	}
+ 
+	//Check object 2 for any extra properties
+	for (var p in obj2) {
+		if (typeof (obj1[p]) == 'undefined') return false;
+	}
+	return true;
+};
+
+
+// type: "POST",
+// url: postDataUrl,
+// data: formData,
+// processData: false,
+// contentType: false,
+// dataType: "json",
+// success: function(data, textStatus, jqXHR) {
+

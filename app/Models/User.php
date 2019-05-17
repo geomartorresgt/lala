@@ -31,9 +31,15 @@ class User extends Authenticatable
 
     protected $table = "users";
 
+    // relaciones
     public function roles()
     {
         return $this->belongsToMany(Rol::class);
+    }
+
+    public function presupuestos()
+    {
+        return $this->hasMany(Presupuesto::class);
     }
 
 	public function getNombreCompletoAttribute()

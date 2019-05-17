@@ -1,24 +1,25 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Config;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CreateCategoriaMuebleRequest;
-use App\Http\Requests\UpdateCategoriaMuebleRequest;
-use App\Models\CategoriaMueble;
+use App\Http\Requests\CreatePresupuestoRequest;
+use App\Http\Requests\UpdatePresupuestoRequest;
+use App\Models\Presupuesto;
+use App\Models\PresupuestoMueble;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\View;
 
-class CategoriaMuebleController extends Controller
+class PresupuestoMuebleController extends Controller
 {
     public function __construct() {
-        $this->middleware("permission:categorias_muebles_ver");
-        $this->middleware("permission:categorias_muebles_crear")->only("create", "store");
-        $this->middleware("permission:categorias_muebles_editar")->only("edit", "update");
-        $this->middleware("permission:categorias_muebles_eliminar")->only("destroy");
-        View::share('titulo', "Categorias Mueble");
+        // $this->middleware("permission:presupuestos_ver");
+        // $this->middleware("permission:presupuestos_crear")->only("create", "store");
+        // $this->middleware("permission:presupuestos_editar")->only("edit", "update");
+        // $this->middleware("permission:presupuestos_eliminar")->only("destroy");
+        View::share('titulo', "Presupuesto");
     }
 
     /**
@@ -27,14 +28,14 @@ class CategoriaMuebleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, Presupuesto $presupuesto)
     {
-        $categoriamuebles = CategoriaMueble::with(['muebles'])->get();
         if ($request->ajax()) {
-            return response()->json($categoriamuebles);
+            $muebles = $presupuesto->muebles;
+            return response()->json($muebles);
         }
 
-        return view("admin.config.categoriasMuebles.index")->withCategoriaMuebles($categoriamuebles);
+        return abort(404);
     }
 
     /**
@@ -44,8 +45,8 @@ class CategoriaMuebleController extends Controller
      */
     public function create()
     {
-        $categoriaMueble = new CategoriaMueble();
-        return view("admin.config.categoriasMuebles.create")->withCategoriaMueble($categoriaMueble);
+        $presupuesto = new Presupuesto();
+        return view("admin.presupuestos.create")->withPresupuesto($presupuesto);
     }
 
     /**
@@ -54,17 +55,26 @@ class CategoriaMuebleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateCategoriaMuebleRequest $request)
+    public function store(CreatePresupuestoRequest $request)
     {
         $success = false;
         try{
             DB::beginTransaction();
-            $categoriaMueble = CategoriaMueble::create(
-                $request->all()
+
+            $data = $request->except(['id_muebles']);
+            $data['fecha'] = now();
+            $data['user_id'] = auth()->user()->id;
+
+            $presupuesto = Presupuesto::create(
+                $data
             );
+
+            if ($presupuesto && $request->has('id_muebles')) {
+                $presupuesto->addMuebles($request->id_muebles);
+            }
             
             DB::commit();
-            $mensaje = "La categoria fue creado con éxito.";
+            $mensaje = "El presupuesto fue creado con éxito.";
             $success = true;
         } catch (Exception $e) {
             DB::rollback();
@@ -73,13 +83,15 @@ class CategoriaMuebleController extends Controller
         }
 
         if ($request->ajax()) {
-            if(!$success){
+            if($success){
                 return response()->json([
-                    'success' => 'true',
+                    'success' => true,
                     'mensaje' => $mensaje,
+                    'presupuesto_id' => $presupuesto->id,
                 ]);
             } else {
                 return response()->json([
+                    'success' => false,
                     'error' => $mensaje,
                 ]);
             }
@@ -89,50 +101,58 @@ class CategoriaMuebleController extends Controller
                 return back()->withInput(Input::all());
             } else {
                 flash($mensaje)->success();
-                return redirect()->route('categorias-muebles.index');
+                return redirect()->route('presupuestos.index');
             }
         }
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\CategoriaMueble $categoriamueble
+     * @param  \App\Models\Presupuesto $presupuesto
      * @return \Illuminate\Http\Response
      */
-    public function show(CategoriaMueble $categoriamueble)
+    public function show(Presupuesto $presupuesto)
     {
-        return redirect()->route('categorias-muebles.index');
+        return redirect()->route('presupuestos.index');
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\CategoriaMueble  $categoriamueble
+     * @param  \App\Models\Presupuesto  $presupuesto
      * @return \Illuminate\Http\Response
      */
-    public function edit(CategoriaMueble $categoriasMueble)
+    public function edit(Presupuesto $presupuesto)
     {
-        return view('admin.config.categoriasMuebles.edit')->withCategoriaMueble($categoriasMueble);
+        return view('admin.presupuestos.edit')->withPresupuesto($presupuesto);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\CategoriaMueble  $categoriamueble
+     * @param  \App\Presupuesto  $presupuesto
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCategoriaMuebleRequest $request, CategoriaMueble $categoriasMueble)
+    public function update(UpdatePresupuestoRequest $request, Presupuesto $presupuesto)
     {
+
         $success = false;
         try{
             DB::beginTransaction();
-            $categoriasMueble->update(
-                $request->all()
-            );
+
+            $data = $request->except(['id_muebles']);
+            $data['fecha'] = now();
+            $data['user_id'] = auth()->user()->id;
+
+            if ($presupuesto->update($data) && $request->has('id_muebles')) {
+                $presupuesto->addMuebles($request->id_muebles);
+            }
+
             DB::commit();
-            $mensaje = "Los datos de la categoria han sido actualizado.";
+            $mensaje = "Los datos del presupuesto han sido actualizado.";
             $success = true;
         } catch (Exception $e) {
             DB::rollback();
@@ -141,13 +161,15 @@ class CategoriaMuebleController extends Controller
         }
         
         if ($request->ajax()) {
-            if(!$success){
+            if($success){
                 return response()->json([
-                    'success' => 'true',
+                    'success' => true,
                     'mensaje' => $mensaje,
+                    'presupuesto_id' => $presupuesto->id,
                 ]);
             } else {
                 return response()->json([
+                    'success' => false,
                     'error' => $mensaje,
                 ]);
             }
@@ -157,7 +179,7 @@ class CategoriaMuebleController extends Controller
                 return back()->withInput(Input::all());
             } else {
                 flash($mensaje)->success();
-                return redirect()->route('categorias-muebles.index');
+                return redirect()->route('presupuestos.index');
             }
         }
     }
@@ -165,28 +187,31 @@ class CategoriaMuebleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\CategoriaMueble  $categoriamueble
+     * @param  \App\Presupuesto  $presupuesto
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, CategoriaMueble $categoriasMueble)
+    public function destroy(Request $request, Presupuesto $presupuesto, PresupuestoMueble $presupuestoMueble)
     {
         $success = false;
         try {
-            $categoriasMueble->delete();
+            DB::beginTransaction();
+
+            $presupuestoMueble->delete();
             $mensaje = "Ha sido eliminado con éxito.";
+
+
+            DB::commit();
             $success = true;
         } catch (Exception $e) {
+            DB::rollback();
             $mensaje = $e->getMessage();
-            $success = false;
-        } catch(\Illuminate\Database\QueryException $e){
-            $mensaje = "No es posible eliminarla por que hay registros relacionados";
             $success = false;
         }
 
         if ($request->ajax()) {
-            if(!$success){
+            if($success){
                 return response()->json([
-                    'success' => 'true',
+                    'success' => true,
                     'mensaje' => $mensaje,
                 ]);
             } else {
@@ -201,7 +226,8 @@ class CategoriaMuebleController extends Controller
                 flash($mensaje)->success();
             }
 
-            return redirect()->route('categorias-muebles.index');
+            return redirect()->route('presupuestos.index');
         }
     }
+
 }
