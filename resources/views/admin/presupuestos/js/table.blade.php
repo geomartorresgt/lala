@@ -22,6 +22,7 @@
                     	var $btnEditar = '';
 						var $btnEliminar = '';	
 						var $btnEditarDiseno = ''
+						var $btnPdf = ''
 
 	                	@permission('presupuestos_editar')
 							$btnEditar = `<a href="${urlPresupuestos}/${presupuesto.id}/edit" class="btn btn-sm btn-success" title="Editar" data-toggle="tooltip">
@@ -47,8 +48,13 @@
 							</a>
 						`;
 
+						$btnPdf = `
+							<button class="btn btn-sm btn-warning text-white btn-reporte" type="button" title="Reporte" data-toggle="tooltip" data-presupuesto="${presupuesto.id}">
+								<i class="far fa-file-pdf"></i>
+							</button>
+						`;
 
-        				return $btnEditar + $btnEditarDiseno + $btnEliminar;
+        				return $btnEditar + $btnEditarDiseno + $btnPdf + $btnEliminar;
                     }
                 },
             ]
@@ -70,8 +76,14 @@
 				window.location = e.target.href;
 			}
 		});
-		
 
+		$('#datatable_presupuestos').on('click', '.btn-reporte', function(e){
+			e.preventDefault();
+			var presupuesto_id = $(this).data('presupuesto')
+			var urlReporte = `${urlPresupuestos}/${presupuesto_id}/reporte`;
+			window.open(urlReporte, '_blank');
+			return;
+		});
 	});
 
 	function setLocalStorage( presupuesto_id ) {

@@ -30,6 +30,8 @@ Route::group(['middleware' => ['auth', "session_time"]], function (){
 		Route::resource('/presupuestos', 'PresupuestoController');
 		Route::get('/mis-presupuestos', 'PresupuestoController@misPresupuestos')->name('presupuestos.misPresupuestos');
 		Route::get('/presupuestos/{presupuesto}/edit-diseno', 'PresupuestoController@editDiseno')->name('presupuestos.editDiseno');
+		Route::get('/presupuestos/{presupuesto}/reporte', 'PresupuestoController@reporte')->name('presupuestos.reporte');
+
 		Route::resource('/presupuesto/{presupuesto}/presupuesto-mueble', 'PresupuestoMuebleController', [
 			'names' => [
 				'index' => 'presupuestosMuebles.index',
