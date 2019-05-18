@@ -14,11 +14,13 @@ class CreateMueblesPresupuestoTable extends Migration {
 	{
 		Schema::create('muebles_presupuesto', function(Blueprint $table)
 		{
-            $table->increments('id');
-			$table->integer('mueble_local_id')->unsigned();
+			$table->increments('id');
+			$table->integer('presupuesto_id')->unsigned()->nullable();;
+            $table->foreign('presupuesto_id')->references('id')->on('presupuestos');
+			$table->integer('mueble_id')->unsigned()->nullable();;
+            $table->foreign('mueble_id')->references('id')->on('muebles');
+			$table->integer('mueble_local_id')->unsigned()->nullable();;
             $table->foreign('mueble_local_id')->references('id')->on('muebles_local');
-            $table->integer('muebles_local')->unsigned();
-            $table->foreign('muebles_local')->references('id')->on('presupuestos');
 
             $table->timestamps();
 		});

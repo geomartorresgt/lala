@@ -178,6 +178,8 @@ return [
         Zizaco\Entrust\EntrustServiceProvider::class,
         Chumper\Zipper\ZipperServiceProvider::class,
 
+        Barryvdh\DomPDF\ServiceProvider::class,
+
 
     ],
 
@@ -230,7 +232,7 @@ return [
 
         'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
         'Zipper' => Chumper\Zipper\Zipper::class,
-
+        'PDF' => Barryvdh\DomPDF\Facade::class,
     ],
 
 ];
