@@ -938,7 +938,7 @@ function cambiosEnEditor(blueprint3d) {
 }
 
 function guardarPresupuesto() {
-	var url = 'http://localhost/pedro-unigres/public/admin/presupuestos';
+	var url = window.location.href.replace('editor/', `admin/presupuestos`);
 	var type = 'POST';
 	var presupuesto_id = presupuesto.id;
 
