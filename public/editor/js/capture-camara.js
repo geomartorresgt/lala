@@ -1,3 +1,4 @@
+
 $(document).ready(function() {
   $('#capture_canvas_editor').click(function(event){
     event.preventDefault();
