@@ -24,8 +24,6 @@ function siPresupuesto(){
 	return true;
 }
 
-
-
 var ViewerFloorplanner = function(blueprint3d) 
 {
   var canvasWrapper = '#floorplanner';
@@ -1011,13 +1009,3 @@ Object.compare = function (obj1, obj2) {
 	}
 	return true;
 };
-
-
-// type: "POST",
-// url: postDataUrl,
-// data: formData,
-// processData: false,
-// contentType: false,
-// dataType: "json",
-// success: function(data, textStatus, jqXHR) {
-

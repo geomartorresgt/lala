@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="es">
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Blueprint JS - Floorplan</title>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -14,15 +15,24 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.3/dat.gui.min.js"></script>
 
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	
+	<!-- <script type="text/javascript" src="https://github.com/niklasvh/html2canvas/releases/download/0.4.1/html2canvas.js"></script>
+	<script type="text/javascript" src="http://www.nihilogic.dk/labs/canvas2image/base64.js"></script>
+	<script type="text/javascript" src="http://www.nihilogic.dk/labs/canvas2image/canvas2image.js"></script> -->
+
+	<script src="js/html2canvas.min.js"></script>
+	<script src="js/canvas2image.min.js"></script>
 
 	<script src="js/bp3djs.min.js"></script>
 	<script src="js/items.js"></script>
-	<script src="js/capture-camara.js"></script>
 	<script src="js/items_gltf.js"></script>
 	<script src="js/app.js"></script>
+	<script src="js/capture-camara.js"></script>
 </head>
 
 <body>
+	<div class="" id="img-out" style="width: 100%; height: 200px; background-color: red; margin-top: 30px"></div>
 	<div id='interfaces' class='card'>
 		<div id="floorplanner" class='front'>
 			<div id="floorplanner-controls">
