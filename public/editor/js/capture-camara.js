@@ -2,20 +2,18 @@
 $(document).ready(function() {
   $('#capture_canvas_editor').click(function(event){
     event.preventDefault();
-    var image = caputurarImagenCanvas();
+    var image = caputurarImagenCanvas('#floorplanner-canvas');
     enviarCapture(image);
   });
 
   $('#capture_canvas_editor_3d').click(function(event){
     event.preventDefault();
-    var $canvas = document.querySelector('#viewer canvas');
-    var image = new Image();
-    image.src = $canvas.toDataURL();
+    var image = caputurarImagenCanvas('#viewer canvas');
     enviarCapture(image);
   });
 
-  function caputurarImagenCanvas() {
-    var $canvas = document.getElementById('floorplanner-canvas');
+  function caputurarImagenCanvas(querySelector) {
+    var $canvas = document.querySelector(querySelector);
     var image = new Image();
     image.src = $canvas.toDataURL();
     return image;

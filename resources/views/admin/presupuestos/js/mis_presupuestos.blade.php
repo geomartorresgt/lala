@@ -49,8 +49,14 @@
 							</a>
 						`;
 
+						$btnPdf = `
+							<button class="btn btn-sm btn-warning text-white btn-reporte" type="button" title="Reporte" data-toggle="tooltip" data-presupuesto="${presupuesto.id}">
+								<i class="far fa-file-pdf"></i>
+							</button>
+						`;
 
-        				return $btnEditar + $btnEditarDiseno + $btnEliminar;
+
+        				return $btnEditar + $btnEditarDiseno + $btnPdf + $btnEliminar;
                     }
                 },
             ]
@@ -71,6 +77,14 @@
 			} else {
 				window.location = e.target.href;
 			}
+		});
+
+		$('#datatable_presupuestos').on('click', '.btn-reporte', function(e){
+			e.preventDefault();
+			var presupuesto_id = $(this).data('presupuesto')
+			var urlReporte = `${urlPresupuestos}/${presupuesto_id}/reporte`;
+			window.open(urlReporte, '_blank');
+			return;
 		});
 		
 
