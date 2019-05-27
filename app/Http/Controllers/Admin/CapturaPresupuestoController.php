@@ -55,7 +55,8 @@ class CapturaPresupuestoController extends Controller{
             DB::rollback();
             return response()->json([
                 'success' => false,
-                'mensaje' => 'Ha ocurrido un error al realizar la captura de imagen.',
+                // 'mensaje' => 'Ha ocurrido un error al realizar la captura de imagen.',
+                'mensaje' => $e->getMessage(),
             ]);
         }
     }
