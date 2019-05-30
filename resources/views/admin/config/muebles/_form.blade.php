@@ -8,6 +8,10 @@
 
     <div class="row">
         <div class="form-group col-12 col-md-6">
+            <label for="codigo">Código</label>
+            <input type="text" id="codigo" name="codigo" class="form-control" value="{{old('codigo', $mueble->codigo)}}" required>
+        </div>
+        <div class="form-group col-12 col-md-6">
             <label for="nombre">Nombre</label>
             <input type="text" id="nombre" name="nombre" class="form-control" value="{{old('nombre', $mueble->nombre)}}" required>
         </div>

@@ -7,6 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 class CreateMuebleRequest extends FormRequest
 {
     protected $reglas = [
+        'codigo' => 'required',
         'nombre' => 'required',
         'dimensiones' => 'required',
         'precio' => 'required|numeric',

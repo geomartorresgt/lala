@@ -1,5 +1,6 @@
 html {
   overflow: hidden;
+  overflow-y: auto;
   height: 100%;
 }
 
@@ -7,6 +8,7 @@ body {
   margin: 0;
   padding: 0;
   overflow: hidden;
+  overflow-y: auto;
   height: 100%;
 }
 
@@ -140,4 +142,31 @@ div {
 .dg select
 {
 	color: #000000;
+}
+
+.dg.ac{
+  z-index: 888888 !important;
+}
+
+.content_muebles {
+  position: absolute;
+  top: 10px;
+  left: 260px;
+  padding: 0;  
+}
+
+w-100 {
+  width: 100%;
+}
+
+mt-n-50{
+  margin-top: -50px;
+}
+
+font-weight-bold{
+  font-weight: bold !important;
+}
+
+font-size-2{
+  font-size: 2rem;
 }

@@ -1,3 +1,4 @@
+var blueprint3d = null;
 var aGlobal = null;
 var anItem = null;
 var aWall = null;
@@ -462,6 +463,7 @@ function addBlueprintListeners(blueprint3d)
 	function itemUnselected()
 	{
 		console.log('cambios');
+		showMuebles();
 		cambiosEnEditor(blueprint3d);
 		anItem.setItem(undefined);
 		itemPropFolder.close();
@@ -714,10 +716,32 @@ function loadJsonPresupuesto(blueprint3d) {
 	blueprint3d.model.loadSerialized(data_json);
 }
 
+function showMuebles() {
+	var card = `
+		<div style="width: 60px; height: 60px; margin: 0 5px; background-color: red; float: left" >
+			<img class="img-responsive" src="http://localhost/trabajo-unigres/public/storage/foto_muebles/5cebea69c1a5c.jpg" alt="Mueble" />
+		<div>
+	`
+
+	var $contentMuebles = $('.content_muebles');
+	console.log('agregar mueble al canvas');
+	$contentMuebles.append(card);
+}
+
 $(document).ready(function() 
 {
 
-	$('#btn_cuardar_presupuesto').on('click', function(e){
+	// show presupuesto
+	$('.close-collapse').click(function(e) {
+		$(this).closest('.collapse').collapse('toggle');
+	});
+
+	$('#btn_save_design').on('click', function(e){
+		e.preventDefault();
+		cambiosEnEditor(blueprint3d)
+	})
+
+	$('#btn_cuardar_presupuesto, #btn_save_design').on('click', function(e){
 		e.preventDefault();
 		var urlAjax = window.location.href.replace('editor/', `admin/presupuestos/${presupuesto.id}`);
 		var form = $('#form_presupuesto').serializeArray();
@@ -800,7 +824,7 @@ function initAllDocument(){
 			textureDir: "models/textures/",
 			widget: false
 	}
-	var blueprint3d = new BP3DJS.BlueprintJS(opts);  
+	blueprint3d = new BP3DJS.BlueprintJS(opts);  
 	var viewerFloorplanner = new ViewerFloorplanner(blueprint3d);
 	mainControls(blueprint3d);
 	
@@ -920,18 +944,18 @@ function cambiosEnEditor(blueprint3d) {
 	auxPresupuesto.data_json = data;
 	auxPresupuesto.id_muebles = muebles;
 
-	console.log("firstLoad: ", firstLoad);
-	console.log("primera carga presupuesto: ", presupuesto);
+	// console.log("firstLoad: ", firstLoad);
+	// console.log("primera carga presupuesto: ", presupuesto);
 
 	if (Object.compare(auxPresupuesto, presupuesto)) {
-		console.log('son iguales');
+		// console.log('son iguales');
 		return
 	} else {
-		console.log('no son iguales');
+		// console.log('no son iguales');
 		presupuesto = clone(auxPresupuesto);
 	}
 
-	console.log('actualizar o crear presupuesto');
+	// console.log('actualizar o crear presupuesto');
 	guardarPresupuesto();
 }
 

@@ -5,7 +5,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Blueprint JS - Floorplan</title>
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -20,54 +19,9 @@
 	<script src="js/items_gltf.js"></script>
 	<script src="js/app.js"></script>
 	<script src="js/capture-camara.js"></script>
-	<script src="js/presupuesto.js"></script>
 </head>
 
 <body>
-	<div class="collapse" id="collapsePresupuesto" style="position: absolute; z-index: 2147483647;" >
-		<div class="well">
-			<button type="button" class="close close-collapse" data-dismiss="collapse" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			<span style="visibility: hidden;">
-				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic enim mollitia fuga reiciendis excepturi adipisci praesentium maxime dolorem facilis optio velit consequatur, consequuntur iste eos minima nemo, qui, eligendi esse.
-			</span>
-			<div class="container-fluid" style="margin-top: -50px" >
-				<div class="row">
-					<div class="col-md-12 text-center">
-						<h4>Presupuesto</h4>
-					</div>
-				</div>
-
-				<div class="row" id="content-muebles"></div>
-
-				<div class="row">
-					<div class="col-md-12 text-right">
-						<strong class="font-size-2 font-weight-bold">Sub-Total: </strong>
-						<div style="width: 90px; float: right;">
-							<span class="">$  </span>
-							<span class="" id="subtotal_presupuesto"></span>
-						</div>
-					</div>
-					<div class="col-md-12 text-right">
-						<strong class="font-size-2 font-weight-bold"> 
-							<span class="" id="descuento_porcentaje"></span>% 
-							Descuento: 
-						</strong>
-						<div style="width: 90px; float: right;">
-							<span class="">$ </span>
-							<span class="" id="descuento_presupuesto"></span>
-						</div>
-					</div>
-					<div class="col-md-12 text-right">
-						<strong class="font-size-2 font-weight-bold">Total a pagar: </strong>
-						<div style="width: 90px; float: right;">
-							<span class="">$  </span>
-							<span class="" id="total_presupuesto"></span>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 	<div id='interfaces' class='card'>
 		<div id="floorplanner" class='front'>
 			<div id="floorplanner-controls">
@@ -86,9 +40,29 @@
 				<button id="editar_datos" class="btn btn-sm btn-default" title="Editar Datos" type="button">
 					<span class="glyphicon glyphicon-pencil"></span> Datos					
 				</button>
-				<button class="btn btn-sm btn-default" type="button" data-toggle="collapse" data-target="#collapsePresupuesto" aria-expanded="false" aria-controls="collapseExample">
-					<i class="fas fa-cash-register"></i>
+				<div class="content_muebles"></div>
+				<!--
+				<a href="#" class="btn btn-default btn-sm glyphicon glyphicon-floppy-disk" id="new2d" title="New Layout"></a>
+				<button id="move" class="btn btn-sm btn-default" title="Move Walls">
+					<span class="glyphicon glyphicon-move"></span>
 				</button>
+				<button id="draw" class="btn btn-sm btn-default" title="Draw New Walls">
+					<span class="glyphicon glyphicon-pencil"></span>
+				</button>
+				<button id="delete" class="btn btn-sm btn-default" title="Delete Walls">
+					<span class="glyphicon glyphicon-remove"></span>
+				</button>
+				<button id="help2d" class="btn btn-sm btn-default"
+					title="Tips&#10;Shift Key: Snap To Axis&#10;ESC: Stop drawing walls">
+					<span class="glyphicon glyphicon-info-sign"></span>
+				</button>
+				<button id="capture_canvas_editor" class="btn btn-sm btn-default" title="Capturar Imagen">
+					<span class="glyphicon glyphicon-camera"></span>
+				</button>
+				<button id="editar_datos" class="btn btn-sm btn-default" title="Editar Datos" type="button">
+					<span class="glyphicon glyphicon-pencil"></span> Datos					
+				</button>
+				-->
 			</div>
 			<div class="btn-hint ">Press the "Esc" key to stop drawing
 				walls</div>
@@ -100,14 +74,17 @@
 					<button id="btn_save_design" class="btn btn-sm btn-default" title="Guardar Diseño">
 						<span class="glyphicon glyphicon-floppy-disk"></span>
 					</button>
-					<button id="capture_canvas_editor_3d" class="btn btn-sm btn-default" title="Capturar Imagen">
+					<button id="draw" class="btn btn-sm btn-default" title="Draw New Walls">
+						<span class="glyphicon glyphicon-pencil"></span>
+					</button>
+					<button id="delete" class="btn btn-sm btn-default" title="Eliminar">
+						<span class="glyphicon glyphicon-remove"></span>
+					</button>
+					<button id="capture_canvas_editor" class="btn btn-sm btn-default" title="Capturar Imagen">
 						<span class="glyphicon glyphicon-camera"></span>
 					</button>
 					<button id="editar_datos" class="btn btn-sm btn-default" title="Editar Datos" type="button">
 						<span class="glyphicon glyphicon-pencil"></span> Datos					
-					</button>
-					<button class="btn btn-sm btn-default" type="button" data-toggle="collapse" data-target="#collapsePresupuesto" aria-expanded="false" aria-controls="collapseExample">
-						<i class="fas fa-cash-register"></i>
 					</button>
 				<!--
 				<a href="#" class="btn btn-default btn-sm glyphicon glyphicon-floppy-disk" id="new" title="New Layout"></a> <a
@@ -122,6 +99,7 @@
 				<a href="#" class="btn btn-default btn-sm glyphicon glyphicon-camera"	id="capture_canvas_editor_3d" title="Save Scene as a GLTF"></a>
 				-->
 			</div>
+			<div class="content_muebles"></div>
 		</div>
 	</div>
 	<div id='interface-controls'>
@@ -177,7 +155,22 @@
 				</div>
 				<div class="modal-body">
 					<div id="add-items" class="panel-group">
-						
+						<!--
+						<div id="floor-items" class="panel panel-default">
+							<div id="floor-items-header" class="panel-heading">
+								<h4 class="panel-title">
+									<a data-toggle="collapse" data-parent="#add-items" href="#floor-items-body">
+										Floor Items
+									</a>
+								</h4>
+							</div>
+							<div id="floor-items-body" class="panel-collapse collapse in inventory-content">	
+								<div class="row panel-body" id="floor-items-wrapper">
+									
+								</div>
+							</div>
+						</div>
+						-->
 					</div>
 				</div>
 				<div class="modal-footer">
@@ -210,8 +203,12 @@
 							<input type="text" class="form-control" id="telefono_cliente" name="telefono_cliente">
 						</div>
 						<div class="form-group">
-							<label for="recipient-name" class="control-label">Cédula / Rut:</label>
+							<label for="recipient-name" class="control-label">Cedula Cliente:</label>
 							<input type="text" class="form-control" id="cedula_cliente" name="cedula_cliente">
+						</div>
+						<div class="form-group">
+							<label for="recipient-name" class="control-label">Fecha:</label>
+							<input type="text" class="form-control" id="fecha" name="fecha">
 						</div>
 						<div class="form-group">
 							<label for="recipient-name" class="control-label">Descuento:</label>
@@ -226,6 +223,8 @@
 			</div>
 		</div>
 	</div>
+
+	@yield('hola')
 </body>
 
 </html>
