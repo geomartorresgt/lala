@@ -730,12 +730,6 @@ function showMuebles() {
 
 $(document).ready(function() 
 {
-
-	// show presupuesto
-	$('.close-collapse').click(function(e) {
-		$(this).closest('.collapse').collapse('toggle');
-	});
-
 	$('#btn_save_design').on('click', function(e){
 		e.preventDefault();
 		cambiosEnEditor(blueprint3d)

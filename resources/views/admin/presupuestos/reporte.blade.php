@@ -32,23 +32,23 @@
             <div class="col text-left mt-5">
             	<p class="m-0 p-0">
             		<strong>Cliente:</strong>
-            		<span>Pedro Perez</span>
+					<span>{{ $presupuesto->nombre_cliente }}</span>
             	</p>
             	<p class="m-0 p-0">
-            		<strong>Cedula:</strong>
-            		<span>18377474</span>
+            		<strong>Cédula / Rut:</strong>
+					<span>{{ $presupuesto->cedula_cliente }}</span>
             	</p>
             	<p class="m-0 p-0">
             		<strong>E-mail:</strong>
-            		<span>pj@gmail.com</span>
+					<span>{{ $presupuesto->email_cliente }}</span>            		
             	</p>
             	<p class="m-0 p-0">
             		<strong>Teléfono:</strong>
-            		<span>+334764948746</span>
+					<span>{{ $presupuesto->telefono_cliente }}</span>
             	</p>
             	<p class="m-0 p-0">
             		<strong>Fecha Presupuesto:</strong>
-            		<span>10/11/2020</span>
+					<span>{{ $presupuesto->fecha }}</span>
             	</p>
             </div>
         </div>
