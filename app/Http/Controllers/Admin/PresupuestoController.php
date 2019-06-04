@@ -82,6 +82,7 @@ class PresupuestoController extends Controller
                 return response()->json([
                     'success' => true,
                     'mensaje' => $mensaje,
+                    'presupuesto' => $presupuesto,
                     'presupuesto_id' => $presupuesto->id,
                 ]);
             } else {
@@ -163,6 +164,7 @@ class PresupuestoController extends Controller
                 return response()->json([
                     'success' => true,
                     'mensaje' => $mensaje,
+                    'presupuesto' => $presupuesto,
                     'presupuesto_id' => $presupuesto->id,
                 ]);
             } else {

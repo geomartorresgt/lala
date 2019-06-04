@@ -72,7 +72,7 @@ var ViewerFloorplanner = function(blueprint3d)
       else 
       {
 				console.log('cambios 9 camabios en el mapa al editar el diseño de arquitectura');
-				cambiosEnEditor(blueprint3d);
+				// cambiosEnEditor(blueprint3d);
         $("#draw-walls-hint").hide();
       }
     });
@@ -455,7 +455,7 @@ function addBlueprintListeners(blueprint3d)
 	function itemSelected(item)
 	{
 		console.log('cambios 3');
-		cambiosEnEditor(blueprint3d);
+		// cambiosEnEditor(blueprint3d);
 		anItem.setItem(item);
 		itemPropFolder.open();
 		wallPropFolder.close();
@@ -463,8 +463,8 @@ function addBlueprintListeners(blueprint3d)
 	function itemUnselected()
 	{
 		console.log('cambios');
-		showMuebles();
-		cambiosEnEditor(blueprint3d);
+		// showMuebles();
+		// cambiosEnEditor(blueprint3d);
 		anItem.setItem(undefined);
 		itemPropFolder.close();
 	}
@@ -611,9 +611,9 @@ function datGUI(three, floorplanner)
 	itemPropFolder = getItemPropertiesFolder(gui, anItem);
 }
 
-function getDataModalPresupuesto() {
-	var $btnGuardatPresupuesto = $('#btn_cuardar_presupuesto');
-}
+// function getDataModalPresupuesto() {
+// 	var $btnGuardatPresupuesto = $('#btn_cuardar_presupuesto');
+// }
 
 
 function setDataPresupuesto(data){
@@ -674,8 +674,12 @@ function getFormData($form){
 	var indexed_array = {};
 
 	$.map(unindexed_array, function(n, i){
-			indexed_array[n['name']] = n['value'];
+		indexed_array[n['name']] = n['value'];
 	});
+
+	if (presupuesto.id) {
+		indexed_array.id = presupuesto.id;
+	}
 
 	return indexed_array;
 }
@@ -730,14 +734,32 @@ function showMuebles() {
 
 $(document).ready(function() 
 {
-	$('#btn_save_design').on('click', function(e){
+	var $collapsePresupuesto = $('#collapsePresupuesto');
+
+	$('.btn_save_design').on('click', function(e){
+		console.log('guardo diseño 1');
 		e.preventDefault();
 		cambiosEnEditor(blueprint3d)
 	})
 
-	$('#btn_cuardar_presupuesto, #btn_save_design').on('click', function(e){
+	// al abrir el collapse
+	$collapsePresupuesto.on('show.bs.collapse', function (e) {
+		console.log('abriendo el collapse')
+		loadDataPresupuesto()
+		toggleMuebles();
+	})
+
+	// al cerrar el collapse
+	$collapsePresupuesto.on('hide.bs.collapse', function (e) {
+		console.log('cerrando el collapse')
+		toggleMuebles();
+	})
+
+	$('#btn_guardar_presupuesto').on('click', function(e){
+		console.log('guardo diseño 2');
 		e.preventDefault();
-		var urlAjax = window.location.href.replace('editor/', `admin/presupuestos/${presupuesto.id}`);
+		var urlAjax = '';
+		var verboHttp = '';
 		var form = $('#form_presupuesto').serializeArray();
 		var dataForm = {};
 
@@ -745,24 +767,36 @@ $(document).ready(function()
 			dataForm[input.name] = input.value;
 		});
 
-		dataForm.data_json = presupuesto.data_json;
+		if(typeof presupuesto === 'undefined'){
+			urlAjax = window.location.href.replace('editor/', `admin/presupuestos`);
+			verboHttp = 'POST';
+			dataForm.data_json = '{"floorplan":{"corners":{"f90da5e3-9e0e-eba7-173d-eb0b071e838e":{"x":-232.02900000000136,"y":235.20400000000032},"da026c08-d76a-a944-8e7b-096b752da9ed":{"x":235.3309999999999,"y":235.20400000000032},"4e3d65cb-54c0-0681-28bf-bddcc7bdb571":{"x":235.3309999999999,"y":-232.15600000000046},"71d4f128-ae80-3d58-9bd2-711c6ce6cdf2":{"x":-232.02900000000136,"y":-232.15600000000046}},"walls":[{"corner1":"71d4f128-ae80-3d58-9bd2-711c6ce6cdf2","corner2":"f90da5e3-9e0e-eba7-173d-eb0b071e838e","frontTexture":{"url":"rooms/textures/wallmap.png","stretch":true,"scale":0},"backTexture":{"url":"rooms/textures/wallmap.png","stretch":true,"scale":0}},{"corner1":"f90da5e3-9e0e-eba7-173d-eb0b071e838e","corner2":"da026c08-d76a-a944-8e7b-096b752da9ed","frontTexture":{"url":"rooms/textures/wallmap.png","stretch":true,"scale":0},"backTexture":{"url":"rooms/textures/wallmap.png","stretch":true,"scale":0}},{"corner1":"da026c08-d76a-a944-8e7b-096b752da9ed","corner2":"4e3d65cb-54c0-0681-28bf-bddcc7bdb571","frontTexture":{"url":"rooms/textures/wallmap.png","stretch":true,"scale":0},"backTexture":{"url":"rooms/textures/wallmap.png","stretch":true,"scale":0}},{"corner1":"4e3d65cb-54c0-0681-28bf-bddcc7bdb571","corner2":"71d4f128-ae80-3d58-9bd2-711c6ce6cdf2","frontTexture":{"url":"rooms/textures/wallmap.png","stretch":true,"scale":0},"backTexture":{"url":"rooms/textures/wallmap.png","stretch":true,"scale":0}}],"wallTextures":[],"floorTextures":{},"newFloorTextures":{}},"items":[]}';
+		} else {
+			urlAjax = window.location.href.replace('editor/', `admin/presupuestos/${presupuesto.id}`);
+			verboHttp = 'PUT';
+			dataForm.data_json = presupuesto.data_json;
+		}
 
 		$.ajax({
 			url: urlAjax,
 			data: dataForm,
-			type: 'PUT',
+			type: verboHttp,
 			dataType: "json",
 			success: function(data, textStatus, jqXHR){
-				localStorage.setItem("editor_cargado", true );
 				if(data.success){
+					setDataPresupuesto(data.presupuesto);
+					localStorage.setItem("presupuesto_captura_id", presupuesto.id );
+					localStorage.setItem("aux_presupuesto_id", presupuesto.id );
+					hideModalPresupuesto();
+					localStorage.setItem("editor_cargado", true );
 					$('#modalPresupuesto').modal('hide');
-					setDataPresupuesto(dataForm);
 				}
 			}
 		});
+		
 	})
 
-	$('#editar_datos').on('click', function(e){
+	$('body').on('click', '.editar_datos', function(e){
 		e.preventDefault();
 
 		if (presupuesto.id) {
@@ -794,6 +828,9 @@ $(document).ready(function()
 
 	initAllDocument();
 	localStorage.setItem("editor_cargado", true );
+
+
+	
 	console.log('******** ESTE ES EL FINAL **********');
 });
 
@@ -982,13 +1019,10 @@ function guardarPresupuesto() {
 			if (data.success) {
 				presupuesto.id = data.presupuesto_id;
 				localStorage.setItem("presupuesto_captura_id", presupuesto.id );
+				loadDataPresupuesto();
 			}
 		}
 	});
-}
-
-function compararModificacionPresupuesto(obj1, obj2) {
-	
 }
 
 function clone(obj) {
@@ -1027,3 +1061,83 @@ Object.compare = function (obj1, obj2) {
 	}
 	return true;
 };
+
+function loadDataPresupuesto(){
+	const presupuesto_id = localStorage.getItem("aux_presupuesto_id");
+	var url = window.location.href.replace('editor/', `admin/presupuestos/${presupuesto_id}`)
+
+	$.ajax({
+			type:'GET',
+			url: url,
+			data:{ presupuesto_id: presupuesto_id },
+			dataType: 'json',
+			success:function(data){
+					if (data.id == presupuesto_id) {
+							showPresupuesto(data)
+					}
+			}
+	});
+
+	// toggleMuebles();
+}
+
+function showPresupuesto(presupuesto) {
+	var $collapsePresupuesto = $('#collapsePresupuesto');
+	var $divMuebles = $('.div-muebles');
+	
+	var $contentMuebles = $divMuebles.find('#content-muebles');
+	var $subtotalPresupuesto = $collapsePresupuesto.find('#subtotal_presupuesto');
+	var $descuentoPresupuesto = $collapsePresupuesto.find('#descuento_presupuesto');
+	var $totalPresupuesto = $collapsePresupuesto.find('#total_presupuesto');
+	var data = '';
+
+	$('#nombre_cliente_collapse').html(presupuesto.nombre_cliente);
+	$('.fecha_presupuesto').html(presupuesto.fecha);
+
+	// limpiando el collapse
+	$contentMuebles.html(data);
+	
+	data = presupuesto.muebles.map( data => {
+		return muebleTemplate(data.mueble)
+	});
+
+	// add data in collapse
+	$contentMuebles.html(data);
+	$subtotalPresupuesto.html(`U$S ${presupuesto.subtotal}`);
+	$descuentoPresupuesto.html(`U$S ${presupuesto.descuento_dinero}`);
+	$totalPresupuesto.html(`U$S ${presupuesto.total}`);
+
+}
+
+function toggleMuebles() {
+	var $divMuebles = $('.div-muebles');
+	var $contentCanvas = $('.content-canvas');
+	$divMuebles.toggleClass('show');
+
+	if ($divMuebles.hasClass('show') ) {
+			$contentCanvas.removeClass('show-100')
+			$contentCanvas.addClass('show-85')
+	} else {
+			$contentCanvas.removeClass('show-85')
+			$contentCanvas.addClass('show-100')
+	}
+
+}
+
+function muebleTemplate(mueble){
+
+	return `
+			<div class="col-md-12 text-left border-b-1" style="padding-top: 1rem;">
+					<div class="media">
+							<div class="media-left">
+									<img class="media-object" width="40" src="${mueble.foto_url}" alt="Mueble" >
+							</div>
+							<div class="media-body">
+									<h6 class="media-heading">${mueble.nombre}</h6>
+									<p style="margin:0;">${mueble.dimensiones}</p>
+									<p style="margin:0;">U$S ${mueble.precio}</p>
+							</div>
+					</div>
+			</div>
+	`;
+}

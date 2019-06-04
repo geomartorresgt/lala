@@ -96,6 +96,11 @@ class Presupuesto extends Model
     {
         parent::boot();
 
+        self::deleting(function($model){
+            $model->muebles()->delete();
+            $model->capturas()->delete();
+        });
+
         self::creating(function($model){
             $model->fecha = now();
             $model->user_id = auth()->user()->id;

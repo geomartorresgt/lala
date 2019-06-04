@@ -5,6 +5,21 @@ $(document).ready(function() {
 
     // al abrir el collapse
     $collapsePresupuesto.on('show.bs.collapse', function (e) {
+        loadDataPresupuesto();
+    })
+
+    // al cerrar el collapse
+    $collapsePresupuesto.on('hide.bs.collapse', function (e) {
+        toggleMuebles();
+    })
+
+    // close presupuesto
+	$('.close-collapse').click(function(e) {
+        $(this).closest('.collapse').collapse('toggle');
+    });
+    
+    function loadDataPresupuesto(){
+        const presupuesto_id = localStorage.getItem("aux_presupuesto_id");
         var url = window.location.href.replace('editor/', `admin/presupuestos/${presupuesto_id}`)
     
         $.ajax({
@@ -20,17 +35,7 @@ $(document).ready(function() {
         });
 
         toggleMuebles();
-    })
-
-    // al cerrar el collapse
-    $collapsePresupuesto.on('hide.bs.collapse', function (e) {
-        toggleMuebles();
-    })
-
-    // close presupuesto
-	$('.close-collapse').click(function(e) {
-        $(this).closest('.collapse').collapse('toggle');
-	});
+    }
 
     function showPresupuesto(presupuesto) {
         var $contentMuebles = $divMuebles.find('#content-muebles');

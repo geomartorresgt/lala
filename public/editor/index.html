@@ -20,7 +20,6 @@
 	<script src="js/items_gltf.js"></script>
 	<script src="js/app.js"></script>
 	<script src="js/capture-camara.js"></script>
-	<script src="js/presupuesto.js"></script>
 	<style>
 		m-0{
 			margin: 0px !important;
@@ -34,9 +33,9 @@
 				<div class="container-fluid" style="" >
 					<div class="row">
 						<div class="col-md-3" style="border-right: 1.2px #000 solid">
-							<h4 class="m-0" style="margin:0;">PRESUPUESTO 03/05/2019</h4>
+							<h4 class="m-0" style="margin:0;">PRESUPUESTO <span class="fecha_presupuesto"></span></h4>
 							<strong>Cliente: </strong>
-							<span id="nombre_cliente">Alvaro Lopez</span>
+							<span id="nombre_cliente_collapse"></span>
 						</div>
 						<div class="col-md-3 text-center" style="border-right: 1.2px #000 solid">
 							<h4 class="m-0" id="subtotal_presupuesto" style="margin:0;"></h4>
@@ -64,7 +63,7 @@
 		<div id='interfaces' class='card'>
 			<div id="floorplanner" class='front'>
 				<div id="floorplanner-controls">
-					<button id="btn_save_design" class="btn btn-sm btn-default" title="Guardar Diseño">
+					<button class="btn btn-sm btn-default btn_save_design" title="Guardar Diseño">
 						<span class="glyphicon glyphicon-floppy-disk"></span>
 					</button>
 					<button id="draw" class="btn btn-sm btn-default" title="Draw New Walls">
@@ -76,8 +75,8 @@
 					<button id="capture_canvas_editor" class="btn btn-sm btn-default" title="Capturar Imagen">
 						<span class="glyphicon glyphicon-camera"></span>
 					</button>
-					<button id="editar_datos" class="btn btn-sm btn-default" title="Editar Datos" type="button">
-						<span class="glyphicon glyphicon-pencil"></span> Datos					
+					<button class="btn btn-sm btn-default editar_datos" title="Editar Datos" type="button">
+						<span class="glyphicon glyphicon-pencil"></span> Datos
 					</button>
 					<button class="btn btn-sm btn-default" type="button" data-toggle="collapse" data-target="#collapsePresupuesto" aria-expanded="false" aria-controls="collapseExample">
 						<i class="fas fa-clipboard-list"></i> Presupuesto
@@ -90,13 +89,13 @@
 
 			<div id="viewer" class='back'>
 				<div id="main-controls">
-						<button id="btn_save_design" class="btn btn-sm btn-default" title="Guardar Diseño">
+						<button class="btn btn-sm btn-default btn_save_design" title="Guardar Diseño">
 							<span class="glyphicon glyphicon-floppy-disk"></span>
 						</button>
 						<button id="capture_canvas_editor_3d" class="btn btn-sm btn-default" title="Capturar Imagen">
 							<span class="glyphicon glyphicon-camera"></span>
 						</button>
-						<button id="editar_datos" class="btn btn-sm btn-default" title="Editar Datos" type="button">
+						<button class="btn btn-sm btn-default editar_datos" title="Editar Datos" type="button">
 							<span class="glyphicon glyphicon-pencil"></span> Datos					
 						</button>
 						<button class="btn btn-sm btn-default" type="button" data-toggle="collapse" data-target="#collapsePresupuesto" aria-expanded="false" aria-controls="collapseExample">
@@ -214,7 +213,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-					<button type="button" id="btn_cuardar_presupuesto" class="btn btn-primary" data-dismiss="modal">Guardar</button>
+					<button type="button" id="btn_guardar_presupuesto" class="btn btn-primary">Guardar</button>
 				</div>
 			</div>
 		</div>
