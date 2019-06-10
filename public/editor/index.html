@@ -5,6 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Blueprint JS - Floorplan</title>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -19,96 +20,145 @@
 	<script src="js/items_gltf.js"></script>
 	<script src="js/app.js"></script>
 	<script src="js/capture-camara.js"></script>
+	<style>
+		m-0{
+			margin: 0px !important;
+		}
+	</style>
 </head>
 
 <body>
-	<div id='interfaces' class='card'>
-		<div id="floorplanner" class='front'>
-			<div id="floorplanner-controls">
-				<a href="#" class="btn btn-default btn-sm glyphicon glyphicon-floppy-disk" id="new2d" title="New Layout"></a>
-				<button id="move" class="btn btn-sm btn-default" title="Move Walls">
-					<span class="glyphicon glyphicon-move"></span>
-				</button>
-				<button id="draw" class="btn btn-sm btn-default" title="Draw New Walls">
-					<span class="glyphicon glyphicon-pencil"></span>
-				</button>
-				<button id="delete" class="btn btn-sm btn-default" title="Delete Walls">
-					<span class="glyphicon glyphicon-remove"></span>
-				</button>
-				<button id="help2d" class="btn btn-sm btn-default"
-					title="Tips&#10;Shift Key: Snap To Axis&#10;ESC: Stop drawing walls">
-					<span class="glyphicon glyphicon-info-sign"></span>
-				</button>
-				<button id="capture_canvas_editor" class="btn btn-sm btn-default" title="Capturar Imagen">
+	<div class="collapse show-100" id="collapsePresupuesto" style="position: relative; z-index: 2147483647;" >
+			<div class="well" style="margin-bottom: 0; padding: .3rem;">
+				<div class="container-fluid" style="" >
+					<div class="row">
+						<div class="col-md-3" style="border-right: 1.2px #000 solid">
+							<h4 class="m-0" style="margin:0;">PRESUPUESTO <span class="fecha_presupuesto"></span></h4>
+							<strong>Cliente: </strong>
+							<span id="nombre_cliente_collapse"></span>
+						</div>
+						<div class="col-md-3 text-center" style="border-right: 1.2px #000 solid">
+							<h4 class="m-0" id="subtotal_presupuesto" style="margin:0;"></h4>
+							<span>Precio Sub Total</span>
+						</div>
+						<div class="col-md-3 text-center" style="border-right: 1.2px #000 solid">
+							<h4 class="m-0" style="margin:0;" id="descuento_presupuesto"></h4>
+							<span>Descuento</span>
+						</div>
+						<div class="col-md-3 text-center">
+							<h4 class="m-0" style="margin:0;" id="total_presupuesto"></h4>
+							<span>Total Neto</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<div class="div-muebles">
+		<div class="container">
+			<div class="row" id="content-muebles"></div>
+		</div>
+	</div>
+	
+	<div class="content-canvas" style="position: relative; float: left;">
+		<div id='interfaces' class='card'>
+			<div id="floorplanner" class='front'>
+				<div id="floorplanner-controls">
+					<button class="btn btn-sm btn-default btn_save_design" title="Guardar Diseño">
+						<span class="glyphicon glyphicon-floppy-disk"></span>
+					</button>
+					<button id="draw" class="btn btn-sm btn-default" title="Draw New Walls">
+						<span class="glyphicon glyphicon-pencil"></span>
+					</button>
+					<button id="delete" class="btn btn-sm btn-default" title="Eliminar">
+						<span class="glyphicon glyphicon-remove"></span>
+					</button>
+					<button id="capture_canvas_editor" class="btn btn-sm btn-default" title="Capturar Imagen">
+						<span class="glyphicon glyphicon-camera"></span>
+					</button>
+					<button class="btn btn-sm btn-default editar_datos" title="Editar Datos" type="button">
+						<span class="glyphicon glyphicon-pencil"></span> Datos
+					</button>
+					<button class="btn btn-sm btn-default" type="button" data-toggle="collapse" data-target="#collapsePresupuesto" aria-expanded="false" aria-controls="collapseExample">
+						<i class="fas fa-clipboard-list"></i> Presupuesto
+					</button>
+				</div>
+				<div class="btn-hint ">Press the "Esc" key to stop drawing
+					walls</div>
+				<canvas id="floorplanner-canvas"></canvas>
+			</div>
+
+			<div id="viewer" class='back'>
+				<div id="main-controls">
+						<button class="btn btn-sm btn-default btn_save_design" title="Guardar Diseño">
+							<span class="glyphicon glyphicon-floppy-disk"></span>
+						</button>
+						<button id="capture_canvas_editor_3d" class="btn btn-sm btn-default" title="Capturar Imagen">
+							<span class="glyphicon glyphicon-camera"></span>
+						</button>
+						<button class="btn btn-sm btn-default editar_datos" title="Editar Datos" type="button">
+							<span class="glyphicon glyphicon-pencil"></span> Datos					
+						</button>
+						<button class="btn btn-sm btn-default" type="button" data-toggle="collapse" data-target="#collapsePresupuesto" aria-expanded="false" aria-controls="collapseExample">
+							<i class="fas fa-clipboard-list"></i> Presupuesto
+						</button>
+					<!--
+					<a href="#" class="btn btn-default btn-sm glyphicon glyphicon-floppy-disk" id="new" title="New Layout"></a> <a
+						href="#" class="btn btn-default btn-sm glyphicon glyphicon-floppy-save" id="saveFile" title="Save Layout"></a>
+					<a class="btn btn-sm btn-default btn-file glyphicon glyphicon-floppy-open">
+						<input type="file" class="hidden-input" id="loadFile">
+					</a>
+					<a href="#" class="btn btn-default btn-sm glyphicon glyphicon-asterisk" id="saveMesh"
+						title="Save Scene as a mesh"></a>
+					<a href="#" class="btn btn-default btn-sm glyphicon glyphicon-export" id="saveGLTF"
+						title="Save Scene as a GLTF"></a>
+					<a href="#" class="btn btn-default btn-sm glyphicon glyphicon-camera"	id="capture_canvas_editor_3d" title="Save Scene as a GLTF"></a>
+					-->
+				</div>
+			</div>
+		</div>
+		<div id='interface-controls'>
+			<button id="showFloorPlan" class="btn btn-sm btn-default active" title="Edit 2D floorplan">
+				<span class="glyphicon glyphicon-move"></span> Floor Plan
+			</button>
+			<button id="showDesign" class="btn btn-sm btn-default" title="Edit 3D floorplan">
+				<span class="glyphicon glyphicon-move"></span> 3D
+			</button>
+			<div class="btn-group-vertical" id='viewcontrols'>
+				<div class="btn btn-sm btn-default">
+					<a class="btn btn-default bottom" href="#" id="leftview" title="Show side view (left)">
+						<span class="glyphicon glyphicon glyphicon-object-align-left"></span>
+					</a>
+					<span class="btn-group-vertical">
+						<a class="btn btn-default" href="#" id="topview" title="Show top view">
+							<span class="glyphicon glyphicon glyphicon-object-align-horizontal"></span>
+						</a>
+						<a class="btn btn-default" href="#" id="isometryview" title="Show 3d view">
+							<span class="glyphicon glyphicon glyphicon-inbox"></span>
+						</a>
+						<a class="btn btn-default" href="#" id="frontview" title="Show front view">
+							<span class="glyphicon glyphicon glyphicon-object-align-vertical"></span>
+						</a>
+					</span>
+					<a class="btn btn-default bottom" href="#" id="rightview" title="Show side view (right)">
+						<span class="glyphicon glyphicon glyphicon-object-align-right"></span>
+					</a>
+				</div>
+				<button id="showSwitchCameraMode" class="btn btn-sm btn-default" title="Switch Camera ortho/perspective">
 					<span class="glyphicon glyphicon-camera"></span>
 				</button>
-				<button id="editar_datos" class="btn btn-sm btn-default" title="Editar Datos" type="button">
-					<span class="glyphicon glyphicon-pencil"></span> Datos					
+				<button id="showSwitchWireframeMode" class="btn btn-sm btn-default" title="Switch wireframe mode">
+					<span class="glyphicon glyphicon-pencil"></span>
 				</button>
 			</div>
-			<div class="btn-hint ">Press the "Esc" key to stop drawing
-				walls</div>
-			<canvas id="floorplanner-canvas"></canvas>
-		</div>
-
-		<div id="viewer" class='back'>
-			<div id="main-controls">
-				<a href="#" class="btn btn-default btn-sm glyphicon glyphicon-floppy-disk" id="new" title="New Layout"></a> <a
-					href="#" class="btn btn-default btn-sm glyphicon glyphicon-floppy-save" id="saveFile" title="Save Layout"></a>
-				<a class="btn btn-sm btn-default btn-file glyphicon glyphicon-floppy-open">
-					<input type="file" class="hidden-input" id="loadFile">
-				</a>
-				<a href="#" class="btn btn-default btn-sm glyphicon glyphicon-asterisk" id="saveMesh"
-					title="Save Scene as a mesh"></a>
-				<a href="#" class="btn btn-default btn-sm glyphicon glyphicon-export" id="saveGLTF"
-					title="Save Scene as a GLTF"></a>
-				<a href="#" class="btn btn-default btn-sm glyphicon glyphicon-camera"	id="capture_canvas_editor_3d" title="Save Scene as a GLTF"></a>
-			</div>
-		</div>
-	</div>
-	<div id='interface-controls'>
-		<button id="showFloorPlan" class="btn btn-sm btn-default active" title="Edit 2D floorplan">
-			<span class="glyphicon glyphicon-move"></span> Floor Plan
-		</button>
-		<button id="showDesign" class="btn btn-sm btn-default" title="Edit 3D floorplan">
-			<span class="glyphicon glyphicon-move"></span> 3D
-		</button>
-		<div class="btn-group-vertical" id='viewcontrols'>
-			<div class="btn btn-sm btn-default">
-				<a class="btn btn-default bottom" href="#" id="leftview" title="Show side view (left)">
-					<span class="glyphicon glyphicon glyphicon-object-align-left"></span>
-				</a>
-				<span class="btn-group-vertical">
-					<a class="btn btn-default" href="#" id="topview" title="Show top view">
-						<span class="glyphicon glyphicon glyphicon-object-align-horizontal"></span>
-					</a>
-					<a class="btn btn-default" href="#" id="isometryview" title="Show 3d view">
-						<span class="glyphicon glyphicon glyphicon-inbox"></span>
-					</a>
-					<a class="btn btn-default" href="#" id="frontview" title="Show front view">
-						<span class="glyphicon glyphicon glyphicon-object-align-vertical"></span>
-					</a>
-				</span>
-				<a class="btn btn-default bottom" href="#" id="rightview" title="Show side view (right)">
-					<span class="glyphicon glyphicon glyphicon-object-align-right"></span>
-				</a>
-			</div>
-			<button id="showSwitchCameraMode" class="btn btn-sm btn-default" title="Switch Camera ortho/perspective">
-				<span class="glyphicon glyphicon-camera"></span>
+			<button id="showAddItems" class="btn btn-sm btn-default" data-toggle="modal" data-target="#add-items-modal"
+				title="Add/Remove items in 3D">
+				<span class="glyphicon glyphicon-plus"></span>
 			</button>
-			<button id="showSwitchWireframeMode" class="btn btn-sm btn-default" title="Switch wireframe mode">
-				<span class="glyphicon glyphicon-pencil"></span>
+			<button id="showFirstPerson" class="btn btn-sm btn-default" title="Walk through">
+				<span class="glyphicon glyphicon-eye-open"></span>
 			</button>
 		</div>
-		<button id="showAddItems" class="btn btn-sm btn-default" data-toggle="modal" data-target="#add-items-modal"
-			title="Add/Remove items in 3D">
-			<span class="glyphicon glyphicon-plus"></span>
-		</button>
-		<button id="showFirstPerson" class="btn btn-sm btn-default" title="Walk through">
-			<span class="glyphicon glyphicon-eye-open"></span>
-		</button>
 	</div>
-
 	<!-- Add Items -->
 	<div class="modal fade" id="add-items-modal" role="dialog">
 		<div class="modal-dialog">
@@ -119,22 +169,7 @@
 				</div>
 				<div class="modal-body">
 					<div id="add-items" class="panel-group">
-						<!--
-						<div id="floor-items" class="panel panel-default">
-							<div id="floor-items-header" class="panel-heading">
-								<h4 class="panel-title">
-									<a data-toggle="collapse" data-parent="#add-items" href="#floor-items-body">
-										Floor Items
-									</a>
-								</h4>
-							</div>
-							<div id="floor-items-body" class="panel-collapse collapse in inventory-content">	
-								<div class="row panel-body" id="floor-items-wrapper">
-									
-								</div>
-							</div>
-						</div>
-						-->
+						
 					</div>
 				</div>
 				<div class="modal-footer">
@@ -167,12 +202,8 @@
 							<input type="text" class="form-control" id="telefono_cliente" name="telefono_cliente">
 						</div>
 						<div class="form-group">
-							<label for="recipient-name" class="control-label">Cedula Cliente:</label>
+							<label for="recipient-name" class="control-label">Cédula / Rut:</label>
 							<input type="text" class="form-control" id="cedula_cliente" name="cedula_cliente">
-						</div>
-						<div class="form-group">
-							<label for="recipient-name" class="control-label">Fecha:</label>
-							<input type="text" class="form-control" id="fecha" name="fecha">
 						</div>
 						<div class="form-group">
 							<label for="recipient-name" class="control-label">Descuento:</label>
@@ -182,7 +213,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-					<button type="button" id="btn_cuardar_presupuesto" class="btn btn-primary" data-dismiss="modal">Guardar</button>
+					<button type="button" id="btn_guardar_presupuesto" class="btn btn-primary">Guardar</button>
 				</div>
 			</div>
 		</div>

@@ -59,7 +59,6 @@ class MuebleController extends Controller
      */
     public function store(CreateMuebleRequest $request)
     {
-        $success = false;
         try{
             DB::beginTransaction();
             Mueble::create( $request->all() );
@@ -75,7 +74,7 @@ class MuebleController extends Controller
         if ($request->ajax()) {
             if(!$success){
                 return response()->json([
-                    'success' => 'true',
+                    'success' => true,
                     'mensaje' => $mensaje,
                 ]);
             } else {

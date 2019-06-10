@@ -9,7 +9,7 @@ class PresupuestoMueble extends Model
 {
     protected $guarded = ['id'];
     protected $table = 'muebles_presupuesto';
-    protected $with = ['mueble', 'presupuesto'];
+    protected $with = ['mueble'];
 
     public function mueble()
     {

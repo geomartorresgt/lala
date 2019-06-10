@@ -23,7 +23,7 @@ class CreatePresupuestosTable extends Migration {
 			$table->string('telefono_cliente', 45)->nullable();
 			$table->string('cedula_cliente', 45)->nullable();
 			$table->timestamp('fecha')->nullable();
-			$table->string('descuento', 45)->nullable();
+			$table->double('descuento')->default(0);
 
             $table->timestamps();
 		});

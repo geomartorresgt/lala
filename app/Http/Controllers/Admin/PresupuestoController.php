@@ -60,12 +60,8 @@ class PresupuestoController extends Controller
         try{
             DB::beginTransaction();
 
-            $data = $request->except(['id_muebles']);
-            $data['fecha'] = now();
-            $data['user_id'] = auth()->user()->id;
-
             $presupuesto = Presupuesto::create(
-                $data
+                $request->except(['id_muebles'])
             );
 
             if ($presupuesto && $request->has('id_muebles')) {
@@ -86,6 +82,7 @@ class PresupuestoController extends Controller
                 return response()->json([
                     'success' => true,
                     'mensaje' => $mensaje,
+                    'presupuesto' => $presupuesto,
                     'presupuesto_id' => $presupuesto->id,
                 ]);
             } else {
@@ -167,6 +164,7 @@ class PresupuestoController extends Controller
                 return response()->json([
                     'success' => true,
                     'mensaje' => $mensaje,
+                    'presupuesto' => $presupuesto,
                     'presupuesto_id' => $presupuesto->id,
                 ]);
             } else {

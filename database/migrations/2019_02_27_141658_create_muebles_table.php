@@ -15,7 +15,8 @@ class CreateMueblesTable extends Migration {
 		Schema::create('muebles', function(Blueprint $table)
 		{
             $table->increments('id');
-			$table->string('nombre', 45)->nullable();
+			$table->string('codigo', 45);
+			$table->string('nombre', 45);
 			$table->string('dimensiones', 45)->nullable();
 			$table->string('foto_url')->nullable();
 			$table->string('directorio_url')->nullable();

@@ -10,6 +10,7 @@
                 dataSrc: ''
             },
             columns: [
+                {data: 'codigo'},
                 {data: 'nombre'},
 				{data: 'directorio_url'},
 				{

@@ -10,7 +10,7 @@
                 dataSrc: ''
             },
             columns: [
-                {data: 'user_id'},
+                {data: 'user_id', visible: false},
 				{data: 'nombre_cliente'},
 				{data: 'email_cliente'},
 				{data: 'telefono_cliente'},

@@ -8,7 +8,24 @@ use Carbon\Carbon;
 class Presupuesto extends Model
 {
     protected $guarded = ['id'];
-    protected $with = ['user'];
+    protected $with = ['user', 'muebles'];
+    protected $appends = ['subtotal', 'descuento_dinero', 'total' ];
+
+    // appends
+    public function getSubtotalAttribute()
+    {
+        return $this->getTotal();
+    }
+
+    public function getDescuentoDineroAttribute()
+    {
+        return $this->getDescuentoDinero();
+    }
+
+    public function getTotalAttribute()
+    {
+        return $this->subtotal - $this->descuento_dinero;
+    }
 
     public function addMuebles($id_muebles)
     {
@@ -34,6 +51,16 @@ class Presupuesto extends Model
     public function getTotal()
     {
         return $this->muebles->sum('mueble.precio');
+    }
+
+    public function getDescuentoDinero()
+    {
+        $total = $this->getTotal();
+        if($total && $total > 0){
+            return $this->getTotal() * $this->descuento / 100;
+        }
+
+        return 0;
     }
 
     // mutatos 
@@ -63,5 +90,21 @@ class Presupuesto extends Model
         return $this->hasMany(CapturasPresupuesto::class);
     }
 
+
+    // eventos
+    public static function boot()
+    {
+        parent::boot();
+
+        self::deleting(function($model){
+            $model->muebles()->delete();
+            $model->capturas()->delete();
+        });
+
+        self::creating(function($model){
+            $model->fecha = now();
+            $model->user_id = auth()->user()->id;
+        });
+    }
     
 }
