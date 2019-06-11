@@ -21,6 +21,13 @@
                 {data: 'rol'},
                 {
                     render: function (data, type, usuario) {
+
+                        if(!usuario.local) return 'n/a ';
+                        return usuario.local.nombre;
+                    }
+                },
+                {
+                    render: function (data, type, usuario) {
                     	var $btnEditar = '';
                     	var $btnEliminar = '';	
 

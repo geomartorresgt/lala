@@ -14,10 +14,10 @@ use Illuminate\Support\Facades\View;
 class PresupuestoController extends Controller
 {
     public function __construct() {
-        // $this->middleware("permission:presupuestos_ver");
-        // $this->middleware("permission:presupuestos_crear")->only("create", "store");
-        // $this->middleware("permission:presupuestos_editar")->only("edit", "update");
-        // $this->middleware("permission:presupuestos_eliminar")->only("destroy");
+        $this->middleware("permission:presupuestos_ver");
+        $this->middleware("permission:presupuestos_crear")->only("create", "store");
+        $this->middleware("permission:presupuestos_editar")->only("edit", "update");
+        $this->middleware("permission:presupuestos_eliminar")->only("destroy");
         View::share('titulo', "Presupuesto");
     }
 

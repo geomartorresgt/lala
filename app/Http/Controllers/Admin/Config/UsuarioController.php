@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\Admin\Config;
 
-use App\Http\Controllers\Controller;
 use App\Models\Rol;
 use App\Models\User;
+use App\Models\Local;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Redirect;
 
 class UsuarioController extends Controller
 {
@@ -30,7 +31,7 @@ class UsuarioController extends Controller
      */
     public function index(Request $request)
     {
-    	$usuarios = User::all();
+    	$usuarios = User::with('local')->get();
         if ($request->ajax()) {
             return response()->json($usuarios);
         }
@@ -49,9 +50,9 @@ class UsuarioController extends Controller
         $usuario = User::findOrFail(auth()->user()->id);
 
 		
-        if($request->habilitar==true)
+        if($request->habilitar == true)
         {
-            $usuario->estado=true;
+            $usuario->estado = true;
             $usuario->save();
             return response()->json([
                 'success' => 'true',
@@ -126,8 +127,12 @@ class UsuarioController extends Controller
     public function create()
     {
         $roles = Rol::all();
+        $locales = Local::all();
         $usuario = new User();
-        return view('admin.config.usuarios.create')->withRoles($roles)->withUsuario($usuario);
+        return view('admin.config.usuarios.create')
+                ->withRoles($roles)
+                ->withUsuario($usuario)
+                ->withLocales($locales);
     }
 
     /**
@@ -138,28 +143,24 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
+
+        $customMessages = [
+            'required_if' => 'El campo Local es obligatorio si el usuario tiene el rol "Local".'
+        ];
+
         $this->validate($request, [
             'nombres' => 'required',
             'apellidos' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required|same:repClave|min:6',
-            'rol' => 'required'
-        ]);
+            'rol' => 'required',
+            'local_id' => 'required_if:rol,==,2',
+        ], $customMessages);
 
         try {
             $urlfinal="";
 
             if($request->foto_perfil){
-
-              // $foto_perfil = $request->foto_perfil;
-
-              // $ruta = "img/foto_perfil/".uniqid().'.png';
-              // Storage::put('public/'.$ruta,  $this->decode_imageCropit($request->input('foto_perfil')));
-              // $urlfinal = "/storage/$ruta";
-
-
-
-
               	$cover = $request->file('foto_perfil');
 			    $extension = $cover->getClientOriginalExtension();
 			    $filename = uniqid();
@@ -229,8 +230,12 @@ class UsuarioController extends Controller
     public function edit($id)
     {
         $roles = Rol::all();
+        $locales = Local::all();
         $usuario = User::findOrFail($id);
-        return view('admin.config.usuarios.edit', compact('roles','usuario'));
+        return view('admin.config.usuarios.edit')
+                ->withRoles($roles)
+                ->withUsuario($usuario)
+                ->withLocales($locales);
     }
 
     /**
@@ -256,12 +261,18 @@ class UsuarioController extends Controller
         }else{
             $data = [
                 'nombres' => 'required',
-                'apellidos' => 'required'
+                'apellidos' => 'required',
+                'local_id' => 'required_if:rol,==,2',
+            ];
+
+            $customMessages = [
+                'required_if' => 'El campo Local es obligatorio si el usuario tiene el rol "Local".'
             ];
 
             if ($request->password != "") {
                 $data['password'] = 'required|same:repClave';
             }
+            
 
             if ($request->anterior_email != $request->email) {
             	
@@ -270,7 +281,7 @@ class UsuarioController extends Controller
                 // $data['email'] = 'required|email|unique:users';
             }
 
-            $this->validate($request, $data); 
+            $this->validate($request, $data, $customMessages);
             try {
                 $usuario->fill($request->except('repClave', 'rol', 'habilitar','anterior_email','password','foto_perfil', 'cambiar_imagen'));
 

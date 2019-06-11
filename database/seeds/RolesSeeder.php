@@ -52,7 +52,6 @@ class RolesSeeder extends Seeder
                             'presupuestos_crear', 
                             'presupuestos_editar', 
                             'presupuestos_eliminar',
-                            'categorias_muebles_ver',
                         ])->get();
         $rolLocal->attachPermissions($permisosLocal);
     }
