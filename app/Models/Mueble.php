@@ -20,11 +20,7 @@ class Mueble extends Model
 
     protected $guarded = ['id'];
     protected $table = 'muebles';
-    protected $appends = ['nombre_categoria', 'object_image', 'object_js'];
-    
-    public function categoria(){
-        return $this->belongsTo(CategoriaMueble::class, 'categoria_mueble_id');
-    }
+    protected $appends = ['nombre_categoria', 'object_image', 'object_js', ];
 
     public function getNombreCategoriaAttribute(){
         return ucwords($this->categoria->nombre);
@@ -214,6 +210,20 @@ class Mueble extends Model
                     'presupuesto_id', 
                     'mueble_id'
                 );
+    }
+
+    public function locales()
+    {
+        return $this->belongsToMany(Local::class, 'muebles_local')->withPivot('precio');
+    }
+
+    public function localMuebles()
+    {
+        return $this->hasMany(LocalMueble::class);
+    }
+
+    public function categoria(){
+        return $this->belongsTo(CategoriaMueble::class, 'categoria_mueble_id');
     }
 
 }

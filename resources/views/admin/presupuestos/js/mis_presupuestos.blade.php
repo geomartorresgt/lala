@@ -18,7 +18,16 @@
 				{data: 'telefono_cliente'},
 				{data: 'cedula_cliente'},
 				{data: 'fecha'},
-				{data: 'descuento'},
+				{
+					render: function (data, type, presupuesto) {
+						return `U$S ${presupuesto.descuento_dinero}`;
+					}
+				},
+				{
+					render: function (data, type, presupuesto) {
+						return `U$S ${presupuesto.total}`;
+					}
+				},
 				{
                     render: function (data, type, presupuesto) {
                     	var $btnEditar = '';

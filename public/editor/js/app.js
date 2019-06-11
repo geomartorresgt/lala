@@ -737,26 +737,26 @@ $(document).ready(function()
 	var $collapsePresupuesto = $('#collapsePresupuesto');
 
 	$('.btn_save_design').on('click', function(e){
-		console.log('guardo diseño 1');
 		e.preventDefault();
-		cambiosEnEditor(blueprint3d)
+		cambiosEnEditor(blueprint3d);
+
+		setTimeout(() => {
+			loadDataPresupuesto();
+		}, 1000);
 	})
 
 	// al abrir el collapse
 	$collapsePresupuesto.on('show.bs.collapse', function (e) {
-		console.log('abriendo el collapse')
 		loadDataPresupuesto()
 		toggleMuebles();
 	})
 
 	// al cerrar el collapse
 	$collapsePresupuesto.on('hide.bs.collapse', function (e) {
-		console.log('cerrando el collapse')
 		toggleMuebles();
 	})
 
 	$('#btn_guardar_presupuesto').on('click', function(e){
-		console.log('guardo diseño 2');
 		e.preventDefault();
 		var urlAjax = '';
 		var verboHttp = '';
@@ -828,10 +828,6 @@ $(document).ready(function()
 
 	initAllDocument();
 	localStorage.setItem("editor_cargado", true );
-
-
-	
-	console.log('******** ESTE ES EL FINAL **********');
 });
 
 function initAllDocument(){
@@ -971,22 +967,15 @@ function cambiosEnEditor(blueprint3d) {
 	const muebles = data.items.map( mueble => mueble.item_name.split('*')[1] )
 
 	var auxPresupuesto = clone(presupuesto);
-
 	auxPresupuesto.data_json = data;
 	auxPresupuesto.id_muebles = muebles;
 
-	// console.log("firstLoad: ", firstLoad);
-	// console.log("primera carga presupuesto: ", presupuesto);
-
 	if (Object.compare(auxPresupuesto, presupuesto)) {
-		// console.log('son iguales');
 		return
 	} else {
-		// console.log('no son iguales');
 		presupuesto = clone(auxPresupuesto);
 	}
 
-	// console.log('actualizar o crear presupuesto');
 	guardarPresupuesto();
 }
 
@@ -996,11 +985,9 @@ function guardarPresupuesto() {
 	var presupuesto_id = presupuesto.id;
 
 	if (presupuesto_id) {
-		console.log('un update');
 		type = 'PUT'
 		url = `${url}/${presupuesto_id}`;
 	} else {
-		console.log('un store');
 		type = 'POST'
 	}
 
@@ -1014,8 +1001,6 @@ function guardarPresupuesto() {
 		data: auxPresupuesto,
 		dataType: 'json',
 		success:function(data){
-			console.log('respuesta presupuesto: ', data);
-			
 			if (data.success) {
 				presupuesto.id = data.presupuesto_id;
 				localStorage.setItem("presupuesto_captura_id", presupuesto.id );
@@ -1098,7 +1083,7 @@ function showPresupuesto(presupuesto) {
 	$contentMuebles.html(data);
 	
 	data = presupuesto.muebles.map( data => {
-		return muebleTemplate(data.mueble)
+		return muebleTemplate(data)
 	});
 
 	// add data in collapse
@@ -1124,8 +1109,9 @@ function toggleMuebles() {
 
 }
 
-function muebleTemplate(mueble){
-
+function muebleTemplate(data){
+	const mueble = data.mueble;
+	const local_mueble = data.local_mueble;
 	return `
 			<div class="col-md-12 text-left border-b-1" style="padding-top: 1rem;">
 					<div class="media">
@@ -1135,7 +1121,7 @@ function muebleTemplate(mueble){
 							<div class="media-body">
 									<h6 class="media-heading">${mueble.nombre}</h6>
 									<p style="margin:0;">${mueble.dimensiones}</p>
-									<p style="margin:0;">U$S ${mueble.precio}</p>
+									<p style="margin:0;">U$S ${local_mueble.precio}</p>
 							</div>
 					</div>
 			</div>

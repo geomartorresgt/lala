@@ -30,6 +30,11 @@ class PresupuestoController extends Controller
     public function index(Request $request)
     {
         $presupuestos = Presupuesto::all();
+        // $muebles =$presupuestos;
+        // dd( $muebles[0] );
+
+        // dd($presupuestos[0]->getTotal() );
+
         if ($request->ajax()) {
             return response()->json($presupuestos);
         }

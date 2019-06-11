@@ -9,7 +9,7 @@ class PresupuestoMueble extends Model
 {
     protected $guarded = ['id'];
     protected $table = 'muebles_presupuesto';
-    protected $with = ['mueble'];
+    protected $with = ['mueble', 'localMueble'];
 
     public function mueble()
     {
@@ -21,14 +21,15 @@ class PresupuestoMueble extends Model
         return $this->belongsTo(Presupuesto::class);
     }
 
-    // eventos
+    public function localMueble()
+    {
+        return $this->belongsTo(LocalMueble::class, 'mueble_local_id');
+    }
+
+    // events
     public static function boot()
     {
-        parent::boot();
-
-        // self::deleting(function($model){
-        //     ... code here
-        // });
+        parent::boot();;
 
         self::deleted(function($model){
             $mueble_id = $model->mueble_id;
@@ -48,8 +49,6 @@ class PresupuestoMueble extends Model
                     $newItems->push($items[$key]);
                 }
             }
-
-            // dd($items, $newItems);
 
             $dataJson['items'] = $newItems->toArray();
             $dataJson = json_encode($dataJson);

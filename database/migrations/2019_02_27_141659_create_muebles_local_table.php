@@ -19,7 +19,7 @@ class CreateMueblesLocalTable extends Migration {
             $table->foreign('local_id')->references('id')->on('locales');
 			$table->integer('mueble_id')->unsigned();
             $table->foreign('mueble_id')->references('id')->on('muebles');
-			$table->string('precio', 45)->nullable();
+			$table->double('precio')->nullable();
 
             $table->timestamps();
 		});

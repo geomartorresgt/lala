@@ -21,6 +21,7 @@
 											<th>Cedula Cliente</th>
 											<th>Fecha</th>
 											<th>Descuento</th>
+											<th>Total</th>
 											<th>Opciones</th>
 		                                </tr>
 	                                </thead>

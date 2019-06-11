@@ -28,10 +28,10 @@
         </div>
         <div class="form-group col-12 col-md-6" >
             <label for="fecha">Fecha</label>
-            <input type="text" id="fecha" name="fecha" class="form-control" value="{{old('fecha', $presupuesto->fecha)}}" required>
+            <input type="text" disabled id="fecha" name="fecha" class="form-control" value="{{old('fecha', $presupuesto->fecha)}}" required>
         </div>
         <div class="form-group col-12 col-md-6" >
-            <label for="descuento">Descuento</label>
+            <label for="descuento">Descuento (%)</label>
             <input type="text" id="descuento" name="descuento" class="form-control" value="{{old('descuento', $presupuesto->descuento)}}" required>
         </div>
     </div>
