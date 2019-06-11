@@ -20,24 +20,10 @@ class Mueble extends Model
 
     protected $guarded = ['id'];
     protected $table = 'muebles';
-    protected $appends = ['precio_local', 'nombre_categoria', 'object_image', 'object_js', ];
+    protected $appends = ['nombre_categoria', 'object_image', 'object_js', ];
 
     public function getNombreCategoriaAttribute(){
         return ucwords($this->categoria->nombre);
-    }
-
-    public function getPrecioLocalAttribute(){
-        $localId = auth()->user()->local_id;
-
-        if( $localId ){
-            $localMueble = $this->localMuebles->first(function($item ) use ($localId){
-                return $item->local_id === $localId;
-            });
-
-            return $localMueble->precio;
-        }
-
-        return 0;
     }
 
     public function addDatos($data){

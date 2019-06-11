@@ -76,7 +76,7 @@
 								<td class="m-1 p-1">{{ $presupuestoMueble->mueble->nombre }}</td>
 								<td class="m-1 p-1">{{ $presupuestoMueble->mueble->dimensiones }}</td>
 								<td class="m-1 p-1">{{ $presupuestoMueble->mueble->categoria->nombre }}</td>
-								<td class="m-1 p-1">$ {{ $presupuestoMueble->mueble->precio }}</td>
+								<td class="m-1 p-1">U$S {{ $presupuestoMueble->localMueble->precio }}</td>
             				</tr>
             			@endforeach
             		</tbody>
@@ -85,19 +85,19 @@
             				<td class="border-0" ></td>
             				<td class="border-0" ></td>
             				<td class="text-right m-1 p-1 font-weight-bold">Sub-Total</td>
-            				<td class="m-1 p-1">$ {{ $presupuesto->getTotal() }}</td>
+            				<td class="m-1 p-1">U$S {{ $presupuesto->getTotal() }}</td>
             			</tr>
             			<tr>
             				<td class="border-0" ></td>
             				<td class="border-0" ></td>
             				<td class="text-right m-1 p-1 font-weight-bold">Descuento</td>
-							<td class="m-1 p-1">$ {{ $presupuesto->descuento }}</td>
+							<td class="m-1 p-1">U$S {{ $presupuesto->descuento_dinero }}</td>
             			</tr>
             			<tr>
             				<td class="border-0" ></td>
             				<td class="border-0" ></td>
             				<td class="text-right m-1 p-1 font-weight-bold">Total</td>
-            				<td class="m-1 p-1">$ {{ $presupuesto->getTotal() - $presupuesto->descuento }}</td>
+            				<td class="m-1 p-1">U$S {{  $presupuesto->total }}</td>
             			</tr>
             		</tfoot>
             	</table>

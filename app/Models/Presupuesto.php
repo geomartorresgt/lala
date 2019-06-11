@@ -29,15 +29,20 @@ class Presupuesto extends Model
 
     public function addMuebles($id_muebles)
     {
+        $local_id = auth()->user()->local_id;
+        echo "local_id: $local_id \n";
+        $localMuebles = LocalMueble::whereLocalId( $local_id )->get();
+
         if($this->muebles){
             $this->muebles()->delete();
         }
 
         $muebles = [];
         foreach ($id_muebles as $key => $mueble_id) {
+            $localMueble = $localMuebles->first( function($item) use($mueble_id) {  return $item->mueble_id == $mueble_id ; } );
             $muebles[] = new PresupuestoMueble([
                                         'mueble_id' => $mueble_id,
-                                        'local_id' => auth()->user()->local_id,
+                                        'mueble_local_id' => $localMueble->id,
                                     ]);
         }
 
@@ -53,7 +58,7 @@ class Presupuesto extends Model
 
     public function getTotal()
     {
-        return $this->muebles->sum('localMueble.precio');
+        return ceil( $this->muebles->sum('localMueble.precio') );
     }
 
     public function getDescuentoDinero()
