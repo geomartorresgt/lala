@@ -22,6 +22,7 @@ class UsersSeeder extends Seeder
 	            'password' => bcrypt('admin'),
 	            'remember_token' => str_random(10),
 	            'estado'=> true,
+	            'local_id'=> null,
 	            'created_at' => now(),
 	            'updated_at' => now()
 			],
