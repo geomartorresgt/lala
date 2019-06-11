@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
             CategoriaMueble::truncate();
 
             // agregan datos
+            $this->call(LocalesSeeder::class);
             $this->call(PermisosSeeder::class);
             $this->call(RolesSeeder::class);
             $this->call(UsersSeeder::class);

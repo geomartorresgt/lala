@@ -84,7 +84,7 @@ $(document).ready(function() {
 
   getAllCategories()
   function getAllCategories() {
-    var url = window.location.href.replace('editor/', 'admin/config/categorias-muebles');
+    var url = window.location.href.replace('editor/', 'admin/categorias-muebles/editor');
     $.ajax({
       type:'GET',
       url: url,
@@ -95,8 +95,17 @@ $(document).ready(function() {
   }
 
   function contentModalCategories(categories) {
-    var items = categories.map(category => templateItemAcordeon(category) );
-    $('#add-items').html(items);
+    var categorias = [];
+    for (var key in categories) {
+      categorias.push({
+        nombre: key,
+        muebles: categories[key]
+      })
+    }
+
+    $('#add-items').html(
+      categorias.map(category => templateItemAcordeon(category) )
+    );
   }
 
   function templateItemAcordeon(category) {
@@ -128,8 +137,9 @@ $(document).ready(function() {
       `;
   }
 
-  function templateItemMuebles(mueble) {
+  function templateItemMuebles(localMueble) {
     const modelformat = '';
+    const mueble = localMueble.mueble;
     return `
       <div class="col-sm-4">
         <a class="thumbnail add-item" model-name="${mueble.nombre}*${mueble.id}" model-url="${mueble.object_js}" model-type="${mueble.tipo_mueble}" ${modelformat} >

@@ -32,33 +32,35 @@
             </a>
         </li>
         @endpermission
-        <!--
-        <li class="nav-item">
-            <a class="nav-link" href="widgets.html">
-                <i class="nav-icon icon-calculator"></i> Ejemplo
-                <span class="badge badge-primary">NEW</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('categorias-muebles.index') }}">
-                <i class="nav-icon icon-calculator"></i> Categorias
-            </a>
-        </li>
-    	-->
+        @permission('local_mueble_ver')
+            @if( auth()->user()->local_id )
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('localMueble.index') }}" target="_top">
+                        <i class="fas fa-couch"></i>
+                        Muebles
+                    </a>
+                </li>
+            @endif
+        @endpermission
+
         <li class="divider"></li>
 
+        @permission(['usuarios_ver','privilegios_ver', 'categorias_muebles_ver', 'muebles_ver' ])        
         <li class="nav-item nav-dropdown">
             <a class="nav-link nav-dropdown-toggle" href="#">
                 <i class="fas fa-cog"></i> 
                 Configuración
             </a>
             <ul class="nav-dropdown-items">
+                @permission('usuarios_ver')
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('usuarios.index') }}" target="_top">
                 		<i class="fa fa-users"></i>
                         Usuarios
                     </a>
                 </li>
+                @endpermission
+    			@permission('privilegios_ver')
                 <li class="nav-item nav-dropdown">
                     <a class="nav-link nav-dropdown-toggle" href="#">
                         <i class="fas fa-check-double"></i>
@@ -77,6 +79,7 @@
                     	</li>
                     </ul>
                 </li>
+        		@endpermission
     			@permission('categorias_muebles_ver')
 	                <li class="nav-item">
 	                    <a class="nav-link" href="{{ route('categorias-muebles.index') }}" target="_top">
@@ -95,5 +98,6 @@
         		@endpermission
             </ul>
         </li>
+        @endpermission
     </ul>
 </nav>

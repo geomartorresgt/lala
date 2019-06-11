@@ -18,6 +18,8 @@ class UpdateUsersTable extends Migration
             $table->string('apellidos')->after('name');
             $table->string('telefono')->nullable()->after('apellidos');
             $table->boolean('estado')->default(true)->after('password');
+            $table->integer('local_id')->unsigned()->after('estado')->nullable();
+            $table->foreign('local_id')->references('id')->on('locales');
             $table->string('foto_perfil')->nullable();
         });
     }

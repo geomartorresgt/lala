@@ -13,5 +13,9 @@ class CategoriaMueble extends Model
         return $this->hasMany(Mueble::class);
     }
 
+    public function localMuebles()
+    {
+        return $this->hasManyThrough(Local::class, Mueble::class);
+    }
     
 }

@@ -1098,7 +1098,7 @@ function showPresupuesto(presupuesto) {
 	$contentMuebles.html(data);
 	
 	data = presupuesto.muebles.map( data => {
-		return muebleTemplate(data.mueble)
+		return muebleTemplate(data)
 	});
 
 	// add data in collapse
@@ -1124,8 +1124,10 @@ function toggleMuebles() {
 
 }
 
-function muebleTemplate(mueble){
-
+function muebleTemplate(data){
+	const mueble = data.mueble;
+	const local_mueble = data.local_mueble;
+	console.log('presupuesto mueble: ', mueble);
 	return `
 			<div class="col-md-12 text-left border-b-1" style="padding-top: 1rem;">
 					<div class="media">
@@ -1135,7 +1137,7 @@ function muebleTemplate(mueble){
 							<div class="media-body">
 									<h6 class="media-heading">${mueble.nombre}</h6>
 									<p style="margin:0;">${mueble.dimensiones}</p>
-									<p style="margin:0;">U$S ${mueble.precio}</p>
+									<p style="margin:0;">U$S ${local_mueble.precio}</p>
 							</div>
 					</div>
 			</div>

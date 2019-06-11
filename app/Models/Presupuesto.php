@@ -35,7 +35,10 @@ class Presupuesto extends Model
 
         $muebles = [];
         foreach ($id_muebles as $key => $mueble_id) {
-            $muebles[] = new PresupuestoMueble(['mueble_id' => $mueble_id]);
+            $muebles[] = new PresupuestoMueble([
+                                        'mueble_id' => $mueble_id,
+                                        'local_id' => auth()->user()->local_id,
+                                    ]);
         }
 
         $this->muebles()->saveMany($muebles);
@@ -50,7 +53,7 @@ class Presupuesto extends Model
 
     public function getTotal()
     {
-        return $this->muebles->sum('mueble.precio');
+        return $this->muebles->sum('localMueble.precio');
     }
 
     public function getDescuentoDinero()
@@ -63,7 +66,7 @@ class Presupuesto extends Model
         return 0;
     }
 
-    // mutatos 
+    // 
     public function setFechaAttribute($value): void
     {
         $this->attributes['fecha'] = Carbon::parse($value)->format('Y-m-d');
@@ -74,7 +77,7 @@ class Presupuesto extends Model
         return Carbon::parse($value)->format('d-m-Y');
     }
 
-    // relaciones
+    // relationships
     public function muebles()
     {
         return $this->hasMany(PresupuestoMueble::class);

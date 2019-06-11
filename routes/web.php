@@ -53,6 +53,20 @@ Route::group(['middleware' => ['auth', "session_time"]], function (){
 			]
 		])->only(['index', 'destroy', 'store']);
 
+		Route::resource('muebles', 'LocalMuebleController', [
+			'names' => [
+				'index' => 'localMueble.index',
+				'store' => 'localMueble.store',
+				'create' => 'localMueble.create',
+				'edit' => 'localMueble.edit',
+				'show' => 'localMueble.show',
+				'update' => 'localMueble.update',
+				'destroy' => 'localMueble.destroy',
+				
+			]
+		]);
+		Route::get('/categorias-muebles/editor', 'LocalMuebleController@editor');
+
 	    Route::group(['prefix' => 'config', 'namespace' => 'Config'], function () {
 			Route::resource('/categorias-muebles', 'CategoriaMuebleController');
 			Route::resource('muebles', 'MuebleController');

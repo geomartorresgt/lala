@@ -19,8 +19,12 @@
                     }
                 },
 				{data: 'mueble.dimensiones'},
-				{data: 'mueble.nombre_categoria'},
-				{data: 'mueble.precio'},
+                {data: 'mueble.nombre_categoria'},
+                {
+					render: function (data, type, presupuestoMueble) {
+						return `U$S ${presupuestoMueble.local_mueble.precio}`;
+					}
+				},
 				{
                     render: function (data, type, presupuestoMueble) {
                     	var $btnEditar = '';

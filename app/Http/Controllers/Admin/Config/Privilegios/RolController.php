@@ -17,11 +17,11 @@ class RolController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware("permission:privilegios_ver");
-        // $this->middleware("permission:privilegios_crear")->only("create", "store");
-        // $this->middleware("permission:privilegios_editar")->only("edit", "update");
-        // $this->middleware("permission:privilegios_eliminar")->only("destroy");
-        // View::share('titulo', "Roles");
+        $this->middleware("permission:privilegios_ver");
+        $this->middleware("permission:privilegios_crear")->only("create", "store");
+        $this->middleware("permission:privilegios_editar")->only("edit", "update");
+        $this->middleware("permission:privilegios_eliminar")->only("destroy");
+        View::share('titulo', "Roles");
     }
 
     /**

@@ -24,12 +24,32 @@ class UsersSeeder extends Seeder
 	            'estado'=> true,
 	            'created_at' => now(),
 	            'updated_at' => now()
+			],
+			[
+	            'nombres' => 'Local',
+	            'apellidos'=>'Local',
+	            'telefono'=>'+581000000',
+	            'email' => 'local@unigres.com',
+	            'password' => bcrypt('local'),
+	            'remember_token' => str_random(10),
+	            'estado'=> true,
+	            'local_id'=> 2,
+	            'created_at' => now(),
+	            'updated_at' => now()
         	]
 		];
 
+		// agregando los usuarios
 		User::insert($users);
-		$user = User::first();
-		$admin = Rol::where('name', 'admin')->first();
-        $user->attachRole($admin);
+		
+		// usuario con rol de administrador
+		$userAdmin = User::first();
+		$rolAdmin = Rol::where('name', 'admin')->first();
+		$userAdmin->attachRole($rolAdmin);
+		
+		// usuario con rol local(se asocia con un local_id)
+		$userLocal = User::latest('id')->first();
+		$rolLocal = Rol::latest('id')->first();
+		$userLocal->attachRole($rolLocal);
     }
 }
