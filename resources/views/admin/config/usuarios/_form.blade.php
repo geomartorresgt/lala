@@ -54,6 +54,19 @@
     	                </select>
     	            </div>
     	        </div>
+			</div>
+			<div class="col-md-6 d-none">
+    	        <div class="form-group">
+    	            <label class="col-md-3 control-label" for="local">Local:</label>
+    	            <div class="col-md-9">
+    	                <select id="local" name="local_id" class="form-control">
+    	                    <option value="">-Seleccione Local</option>
+    	                    @foreach($locales as $local)
+								<option value="{{ $local->id }}" @if( old('local_id', $usuario->local_id) == $local->id ) selected='selected' @endif >{{$local->nombre}}</option>
+    	                    @endforeach
+    	                </select>
+    	            </div>
+    	        </div>
     	    </div>
     	    <div class="col-md-6">
     	        <div class="form-group">

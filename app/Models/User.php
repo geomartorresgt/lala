@@ -31,10 +31,15 @@ class User extends Authenticatable
 
     protected $table = "users";
 
-    // relaciones
+    // relationships
     public function roles()
     {
         return $this->belongsToMany(Rol::class);
+    }
+
+    public function local()
+    {
+        return $this->belongsTo(Local::class);
     }
 
     public function presupuestos()
