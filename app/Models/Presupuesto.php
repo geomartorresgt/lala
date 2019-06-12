@@ -99,20 +99,23 @@ class Presupuesto extends Model
     }
 
 
-    // eventos
+    // events
     public static function boot()
     {
         parent::boot();
+        
+        self::creating(function($model){
+            $model->fecha = now();
+            $model->user_id = auth()->user()->id;
+            $model->descuento = $model->descuento? $model->descuento : 0;
+        });
 
         self::deleting(function($model){
             $model->muebles()->delete();
             $model->capturas()->delete();
         });
 
-        self::creating(function($model){
-            $model->fecha = now();
-            $model->user_id = auth()->user()->id;
-        });
+        
     }
     
 }
