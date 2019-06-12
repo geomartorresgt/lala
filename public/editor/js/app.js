@@ -700,7 +700,7 @@ function validarCamposPresupuesto(obj) {
 	var camposRellenados = true;
 	obj.find("input").each(function() {
 		var $this = $(this);
-		if( $this.val().length <= 0 ) {
+		if( $this.val().length <= 0 && ( $this.attr('name') != 'cedula_cliente' || $this.attr('name') == 'descuento' ) ) {
 			camposRellenados = false;
 			return false;
 		}
