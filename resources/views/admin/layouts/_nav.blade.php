@@ -91,7 +91,7 @@
                 @permission('muebles_ver')
 	                <li class="nav-item">
 	                    <a class="nav-link" href="{{ route('locales.index') }}" target="_top">
-                            <i class="fas fa-couch"></i>
+                            <i class="fas fa-store"></i>
 	                        Locales
 	                    </a>
 	                </li>
