@@ -38,14 +38,9 @@
 		});
 
 		$('#rol').change(function(e) {
-			showLocal();
 		});		
 
-		showLocal();
 	});
-
-
-	
 
 	function showLocal() {
 		var $local = $('#local');

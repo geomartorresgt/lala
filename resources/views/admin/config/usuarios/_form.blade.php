@@ -55,7 +55,7 @@
     	            </div>
     	        </div>
 			</div>
-			<div class="col-md-6 d-none">
+			<div class="col-md-6">
     	        <div class="form-group">
     	            <label class="col-md-3 control-label" for="local">Local:</label>
     	            <div class="col-md-9">

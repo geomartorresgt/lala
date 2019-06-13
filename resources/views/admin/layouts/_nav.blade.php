@@ -87,6 +87,14 @@
 	                        Categorias Muebles
 	                    </a>
 	                </li>
+                @endpermission
+                @permission('muebles_ver')
+	                <li class="nav-item">
+	                    <a class="nav-link" href="{{ route('locales.index') }}" target="_top">
+                            <i class="fas fa-couch"></i>
+	                        Locales
+	                    </a>
+	                </li>
         		@endpermission
                 @permission('muebles_ver')
 	                <li class="nav-item">

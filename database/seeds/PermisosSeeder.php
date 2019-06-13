@@ -221,6 +221,36 @@ class PermisosSeeder extends Seeder
 	            'created_at' => now(),
 	            'updated_at' => now()
 			],
+
+			// local
+	        [
+	            'name'=> 'local_ver',
+	            'display_name'=>'Local Ver',
+	            'description'=>'Ver',
+	            'created_at' => now(),
+	            'updated_at' => now()
+	        ],
+	        [
+	            'name'=> 'local_crear',
+	            'display_name'=>'Local Crear',
+	            'description'=>'Crear',
+	            'created_at' => now(),
+	            'updated_at' => now()
+	        ],
+	        [
+	            'name'=> 'local_editar',
+	            'display_name'=>'Local Editar',
+	            'description'=>'Editar',
+	            'created_at' => now(),
+	            'updated_at' => now()
+	        ],
+	        [
+	            'name'=> 'local_eliminar',
+	            'display_name'=>'Local Eliminar',
+	            'description'=>'Eliminar',
+	            'created_at' => now(),
+	            'updated_at' => now()
+			],
 	    ];
 
 	    Permiso::insert($permisos);

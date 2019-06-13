@@ -92,6 +92,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'logo_locales' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/logo_locales'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+
     ],
 
 ];
