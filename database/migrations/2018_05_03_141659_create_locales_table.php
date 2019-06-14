@@ -16,9 +16,9 @@ class CreateLocalesTable extends Migration {
 		{
             $table->increments('id');
 			$table->string('nombre')->nullable();
-			$table->string('direccion')->nullable();
+			$table->text('direccion')->nullable();
 			$table->string('telefono_contacto', 45)->nullable();
-			$table->string('logo_url')->nullable();
+			$table->text('logo_url')->nullable();
 
             $table->timestamps();
 		});
