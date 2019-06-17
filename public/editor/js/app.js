@@ -270,6 +270,7 @@ var ItemProperties = function(gui)
 	
 	this.setItem = function(item)
 	{
+		
 		this.currentItem = item;
 		if(this.materialsfolder)
 		{
@@ -291,7 +292,7 @@ var ItemProperties = function(gui)
 				this.guiControllers[i].updateDisplay();
 		    }
 			
-			this.materialsfolder =  this.gui.addFolder('Materials');
+			this.materialsfolder =  this.gui.addFolder('Color');
 			this.materials = {};
 			if(material.length)
 			{
@@ -299,7 +300,8 @@ var ItemProperties = function(gui)
 				for (var i=0;i<material.length;i++)
 				{
 					this.materials['mat_'+i] = '#'+material[i].color.getHexString();
-					var matname = (material[i].name) ? material[i].name : 'Material '+(i+1);
+					// var matname = (material[i].name) ? material[i].name : 'Material '+(i+1);
+					var matname = 'Mueble';
 					var ccontrol = this.materialsfolder.addColor(this.materials, 'mat_'+i).name(matname).onChange(()=>{scope.dimensionsChanged()});
 				}
 				return;
@@ -536,48 +538,49 @@ function getCarbonSheetPropertiesFolder(gui, carbonsheet, globalproperties)
 
 function getItemPropertiesFolder(gui, anItem)
 {
-	var f = gui.addFolder('Current Item');
-	var inamecontrol = f.add(anItem, 'name');
-	var wcontrol = f.add(anItem, 'width', 0.1, 1000.1).step(0.1);
-	var hcontrol = f.add(anItem, 'height', 0.1, 1000.1).step(0.1);
-	var dcontrol = f.add(anItem, 'depth', 0.1, 1000.1).step(0.1);
-	var pcontrol = f.add(anItem, 'proportionalsize').name('Maintain Size Ratio');
-	var lockcontrol = f.add(anItem, 'fixed').name('Locked in place');
-	var deleteItemControl = f.add(anItem, 'deleteItem').name('Delete Item');
+	var f = gui.addFolder('Mueble');
+	// var inamecontrol = f.add(anItem, 'name');
+	// var wcontrol = f.add(anItem, 'width', 0.1, 1000.1).step(0.1);
+	// var hcontrol = f.add(anItem, 'height', 0.1, 1000.1).step(0.1);
+	// var dcontrol = f.add(anItem, 'depth', 0.1, 1000.1).step(0.1);
+	// var pcontrol = f.add(anItem, 'proportionalsize').name('Maintain Size Ratio');
+	// var lockcontrol = f.add(anItem, 'fixed').name('Locked in place');
+	var deleteItemControl = f.add(anItem, 'deleteItem').name('Eliminar');
 	
-	function changed()
-	{
-		anItem.dimensionsChanged();
-	}	
+	// function changed()
+	// {
+	// 	anItem.dimensionsChanged();
+	// }	
 	
-	function lockChanged()
-	{
-		anItem.lockFlagChanged();
-	}	
+	// function lockChanged()
+	// {
+	// 	anItem.lockFlagChanged();
+	// }	
 	
-	function proportionFlagChanged()
-	{
-		anItem.proportionFlagChange();
-	}
+	// function proportionFlagChanged()
+	// {
+	// 	anItem.proportionFlagChange();
+	// }
 	
-	wcontrol.onChange(changed);
-	hcontrol.onChange(changed);
-	dcontrol.onChange(changed);
-	pcontrol.onChange(proportionFlagChanged);
-	lockcontrol.onChange(lockChanged);
+	// wcontrol.onChange(changed);
+	// hcontrol.onChange(changed);
+	// dcontrol.onChange(changed);
+	// pcontrol.onChange(proportionFlagChanged);
+	// lockcontrol.onChange(lockChanged);
 	
 	
-	anItem.setGUIControllers([inamecontrol, wcontrol, hcontrol, dcontrol, pcontrol, lockcontrol, deleteItemControl]);
+	// anItem.setGUIControllers([inamecontrol, wcontrol, hcontrol, dcontrol, pcontrol, lockcontrol, deleteItemControl]);
+	anItem.setGUIControllers([deleteItemControl]);
 	
 	return f;
 }
 
 function getWallAndFloorPropertiesFolder(gui, aWall)
 {
-	var f = gui.addFolder('Wall and Floor');	
-	var wcontrol = f.add(aWall, 'wallmaterialname', {Grey: 0, Yellow: 1, Checker: 2, Marble: 3, Bricks: 4}).name('Wall');
-	var fcontrol = f.add(aWall, 'floormaterialname', {'Fine Wood': 5, 'Hard Wood': 6}).name('Floor');
-	var multicontrol = f.add(aWall, 'forAllWalls').name('All Walls In Room');
+	var f = gui.addFolder('Pared y Piso');	
+	var wcontrol = f.add(aWall, 'wallmaterialname', {Gris: 0, Amarillo: 1, Checker: 2, Marmol: 3, Ladrillo: 4}).name('Pared');
+	var fcontrol = f.add(aWall, 'floormaterialname', {'Fine Wood': 5, 'Hard Wood': 6}).name('Piso');
+	var multicontrol = f.add(aWall, 'forAllWalls').name('Siempre Fijo');
 	function wchanged()
 	{
 		aWall.wchanged();
@@ -603,18 +606,13 @@ function datGUI(three, floorplanner)
 	
 	aCameraRange.three = three;
 	
-	globalPropFolder = getGlobalPropertiesFolder(gui, aGlobal);
-	carbonPropsFolder = getCarbonSheetPropertiesFolder(globalPropFolder, floorplanner.carbonSheet, aGlobal);
+	// globalPropFolder = getGlobalPropertiesFolder(gui, aGlobal);
+	// carbonPropsFolder = getCarbonSheetPropertiesFolder(globalPropFolder, floorplanner.carbonSheet, aGlobal);
 	
-	cameraPropFolder = getCameraRangePropertiesFolder(gui, aCameraRange);
+	// cameraPropFolder = getCameraRangePropertiesFolder(gui, aCameraRange);
 	wallPropFolder = getWallAndFloorPropertiesFolder(gui, aWall);
 	itemPropFolder = getItemPropertiesFolder(gui, anItem);
 }
-
-// function getDataModalPresupuesto() {
-// 	var $btnGuardatPresupuesto = $('#btn_cuardar_presupuesto');
-// }
-
 
 function setDataPresupuesto(data){
 	presupuesto = data;
@@ -622,7 +620,6 @@ function setDataPresupuesto(data){
 	$('#nombre_cliente').val(presupuesto.nombre_cliente);
 	$('#email_cliente').val(presupuesto.email_cliente);
 	$('#telefono_cliente').val(presupuesto.telefono_cliente);
-	$('#cedula_cliente').val(presupuesto.cedula_cliente);
 	$('#fecha').val(presupuesto.fecha);
 	$('#descuento').val(presupuesto.descuento);	
 
@@ -700,7 +697,7 @@ function validarCamposPresupuesto(obj) {
 	var camposRellenados = true;
 	obj.find("input").each(function() {
 		var $this = $(this);
-		if( $this.val().length <= 0 && ( $this.attr('name') != 'cedula_cliente' || $this.attr('name') == 'descuento' ) ) {
+		if( $this.val().length <= 0 && ( $this.attr('name') == 'nombre_cliente') ) {
 			camposRellenados = false;
 			return false;
 		}
@@ -735,7 +732,6 @@ function showMuebles() {
 $(document).ready(function() 
 {
 	var $collapsePresupuesto = $('#collapsePresupuesto');
-
 	$('.btn_save_design').on('click', function(e){
 		e.preventDefault();
 		cambiosEnEditor(blueprint3d);
@@ -790,6 +786,7 @@ $(document).ready(function()
 					hideModalPresupuesto();
 					localStorage.setItem("editor_cargado", true );
 					$('#modalPresupuesto').modal('hide');
+					loadDataPresupuesto();
 				}
 			}
 		});
@@ -828,6 +825,9 @@ $(document).ready(function()
 
 	initAllDocument();
 	localStorage.setItem("editor_cargado", true );
+	if (typeof presupuesto != "undefined") {
+		loadDataPresupuesto();
+	}
 });
 
 function initAllDocument(){
@@ -1068,7 +1068,7 @@ function loadDataPresupuesto(){
 
 function showPresupuesto(presupuesto) {
 	var $collapsePresupuesto = $('#collapsePresupuesto');
-	var $divMuebles = $('.div-muebles');
+	var $divMuebles = $('.presupuestos-muebles');
 	
 	var $contentMuebles = $divMuebles.find('#content-muebles');
 	var $subtotalPresupuesto = $collapsePresupuesto.find('#subtotal_presupuesto');
@@ -1095,7 +1095,7 @@ function showPresupuesto(presupuesto) {
 }
 
 function toggleMuebles() {
-	var $divMuebles = $('.div-muebles');
+	var $divMuebles = $('.presupuestos-muebles');
 	var $contentCanvas = $('.content-canvas');
 	$divMuebles.toggleClass('show');
 
@@ -1113,17 +1113,16 @@ function muebleTemplate(data){
 	const mueble = data.mueble;
 	const local_mueble = data.local_mueble;
 	return `
-			<div class="col-md-12 text-left border-b-1" style="padding-top: 1rem;">
-					<div class="media">
-							<div class="media-left">
-									<img class="media-object" width="40" src="${mueble.foto_url}" alt="Mueble" >
-							</div>
-							<div class="media-body">
-									<h6 class="media-heading">${mueble.nombre}</h6>
-									<p style="margin:0;">${mueble.dimensiones}</p>
-									<p style="margin:0;">U$S ${local_mueble.precio}</p>
-							</div>
-					</div>
+		<div class="col-md-12 text-left border-b-1" style="padding-top: 1rem;">
+			<div class="media">
+				<div class="media-left">
+					<img class="media-object" width="40" src="${mueble.foto_url}" alt="Mueble" >
+				</div>
+				<div class="media-body">
+					<p class="media-heading" style="text-overflow: ellipsis;">${mueble.nombre}</p>
+					<p style="margin:0;">${mueble.dimensiones}</p>
+					<p style="margin:0;">U$S ${local_mueble.precio}</p>
 			</div>
+		</div>
 	`;
 }

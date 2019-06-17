@@ -28,38 +28,42 @@
 </head>
 
 <body>
-	<div class="collapse show-100" id="collapsePresupuesto" style="position: relative; z-index: 2147483647;" >
-			<div class="well" style="margin-bottom: 0; padding: .3rem;">
-				<div class="container-fluid" style="" >
-					<div class="row">
-						<div class="col-md-3" style="border-right: 1.2px #000 solid">
-							<h4 class="m-0" style="margin:0;">PRESUPUESTO <span class="fecha_presupuesto"></span></h4>
-							<strong>Cliente: </strong>
-							<span id="nombre_cliente_collapse"></span>
-						</div>
-						<div class="col-md-3 text-center" style="border-right: 1.2px #000 solid">
-							<h4 class="m-0" id="subtotal_presupuesto" style="margin:0;"></h4>
-							<span>Precio Sub Total</span>
-						</div>
-						<div class="col-md-3 text-center" style="border-right: 1.2px #000 solid">
-							<h4 class="m-0" style="margin:0;" id="descuento_presupuesto"></h4>
-							<span>Descuento</span>
-						</div>
-						<div class="col-md-3 text-center">
-							<h4 class="m-0" style="margin:0;" id="total_presupuesto"></h4>
-							<span>Total Neto</span>
-						</div>
+	<div class="show-100 collapse in" id="collapsePresupuesto" style="position: relative; z-index: 2147483620;" >
+		<div class="well" style="margin-bottom: 0; padding: .3rem;">
+			<div class="container-fluid" style="" >
+				<div class="row">
+					<div class="col-md-3" style="border-right: 1.2px #000 solid">
+						<h4 class="m-0" style="margin:0;">PRESUPUESTO <span class="fecha_presupuesto"></span></h4>
+						<strong>Cliente: </strong>
+						<span id="nombre_cliente_collapse"></span>
+					</div>
+					<div class="col-md-3 text-center" style="border-right: 1.2px #000 solid">
+						<h4 class="m-0" id="subtotal_presupuesto" style="margin:0;"></h4>
+						<span>Precio Sub Total</span>
+					</div>
+					<div class="col-md-3 text-center" style="border-right: 1.2px #000 solid">
+						<h4 class="m-0" style="margin:0;" id="descuento_presupuesto"></h4>
+						<span>Descuento</span>
+					</div>
+					<div class="col-md-3 text-center">
+						<h4 class="m-0" style="margin:0;" id="total_presupuesto"></h4>
+						<span>Total Neto</span>
 					</div>
 				</div>
 			</div>
 		</div>
-	<div class="div-muebles">
+	</div>
+<!-- 	
+	<div class="div-muebles" style="width: 100px">
+		
+	</div>
+	 -->
+	<div class="presupuestos-muebles">
 		<div class="container">
 			<div class="row" id="content-muebles"></div>
 		</div>
 	</div>
-	
-	<div class="content-canvas" style="position: relative; float: left;">
+	<div class="content-canvas" style="position: relative; float: left; width: 87%;">
 		<div id='interfaces' class='card'>
 			<div id="floorplanner" class='front'>
 				<div id="floorplanner-controls">
@@ -89,30 +93,18 @@
 
 			<div id="viewer" class='back'>
 				<div id="main-controls">
-						<button class="btn btn-sm btn-default btn_save_design" title="Guardar Diseño">
-							<span class="glyphicon glyphicon-floppy-disk"></span>
-						</button>
-						<button id="capture_canvas_editor_3d" class="btn btn-sm btn-default" title="Capturar Imagen">
-							<span class="glyphicon glyphicon-camera"></span>
-						</button>
-						<button class="btn btn-sm btn-default editar_datos" title="Editar Datos" type="button">
-							<span class="glyphicon glyphicon-pencil"></span> Datos					
-						</button>
-						<button class="btn btn-sm btn-default" type="button" data-toggle="collapse" data-target="#collapsePresupuesto" aria-expanded="false" aria-controls="collapseExample">
-							<i class="fas fa-clipboard-list"></i> Presupuesto
-						</button>
-					<!--
-					<a href="#" class="btn btn-default btn-sm glyphicon glyphicon-floppy-disk" id="new" title="New Layout"></a> <a
-						href="#" class="btn btn-default btn-sm glyphicon glyphicon-floppy-save" id="saveFile" title="Save Layout"></a>
-					<a class="btn btn-sm btn-default btn-file glyphicon glyphicon-floppy-open">
-						<input type="file" class="hidden-input" id="loadFile">
-					</a>
-					<a href="#" class="btn btn-default btn-sm glyphicon glyphicon-asterisk" id="saveMesh"
-						title="Save Scene as a mesh"></a>
-					<a href="#" class="btn btn-default btn-sm glyphicon glyphicon-export" id="saveGLTF"
-						title="Save Scene as a GLTF"></a>
-					<a href="#" class="btn btn-default btn-sm glyphicon glyphicon-camera"	id="capture_canvas_editor_3d" title="Save Scene as a GLTF"></a>
-					-->
+					<button class="btn btn-sm btn-default btn_save_design" title="Guardar Diseño">
+						<span class="glyphicon glyphicon-floppy-disk"></span>
+					</button>
+					<button id="capture_canvas_editor_3d" class="btn btn-sm btn-default" title="Capturar Imagen">
+						<span class="glyphicon glyphicon-camera"></span>
+					</button>
+					<button class="btn btn-sm btn-default editar_datos" title="Editar Datos" type="button">
+						<span class="glyphicon glyphicon-pencil"></span> Datos					
+					</button>
+					<button class="btn btn-sm btn-default" type="button" data-toggle="collapse" data-target="#collapsePresupuesto" aria-expanded="false" aria-controls="collapseExample">
+						<i class="fas fa-clipboard-list"></i> Presupuesto
+					</button>
 				</div>
 			</div>
 		</div>
@@ -160,7 +152,7 @@
 		</div>
 	</div>
 	<!-- Add Items -->
-	<div class="modal fade" id="add-items-modal" role="dialog">
+	<div class="modal fade" id="add-items-modal" role="dialog" style="z-index: 2147483621">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -180,7 +172,7 @@
 	</div>
 
 	<!-- Presupuesto -->
-	<div class="modal fade" id="modalPresupuesto" tabindex="-1" role="dialog" aria-labelledby="modalPresupuestoLabel">
+	<div class="modal fade" id="modalPresupuesto" tabindex="-1" role="dialog" aria-labelledby="modalPresupuestoLabel" style="z-index: 2147483621">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -200,10 +192,6 @@
 						<div class="form-group">
 							<label for="recipient-name" class="control-label">Teléfono Cliente:</label>
 							<input type="text" class="form-control" id="telefono_cliente" name="telefono_cliente">
-						</div>
-						<div class="form-group">
-							<label for="recipient-name" class="control-label">Cédula / Rut:</label>
-							<input type="text" class="form-control" id="cedula_cliente" name="cedula_cliente">
 						</div>
 						<div class="form-group">
 							<label for="recipient-name" class="control-label">Descuento:</label>

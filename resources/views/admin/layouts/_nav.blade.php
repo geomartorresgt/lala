@@ -1,21 +1,13 @@
 <nav class="sidebar-nav">
     <ul class="nav">
-        {{-- <li class="nav-item">
-            <a class="nav-link" href="index.html">
-                <i class="nav-icon icon-speedometer"></i> Dashboard
-                <span class="badge badge-primary">NEW</span>
-            </a>
-        </li> --}}
-        {{-- <li class="nav-title">Theme</li> --}}
-
-        {{-- 
+        @permission('presupuestos_crear')
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('editor.index') }}">
-                <i class="fa fa-edit"></i>
-                Editor
+            <a class="nav-link" href="{{ route('presupuestos.create') }}">
+                <i class="fas fa-plus"></i>
+                Nuevo Presupuesto
             </a>
         </li>
-        --}}
+        @endpermission
         @permission('presupuestos_ver')
         <li class="nav-item">
             <a class="nav-link" href="{{ route('presupuestos.index') }}">

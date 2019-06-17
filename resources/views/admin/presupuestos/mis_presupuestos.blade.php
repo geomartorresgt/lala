@@ -8,6 +8,18 @@
                 	Listado de mis presupuestos
                 </div>
                 <div class="card-body">
+					@permission('presupuestos_crear')
+					@if (auth()->user()->local_id )
+						<div class="row m-0 mb-2 ">
+							<div class="col-md-12 text-right">
+								<a href="{{ route('presupuestos.create') }}" class="btn btn-info btn-effect-ripple text-white">
+									<i class="fa fa-plus"></i> 
+									Nuevo
+								</a>
+							</div>
+						</div>
+					@endif
+					@endpermission
         	        <div class="row">
 	                    <div class="table-responsive"><br/>
 	                        <div class="container-fluid">
