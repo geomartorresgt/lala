@@ -13,7 +13,7 @@
                 {
 					render: function(data, type, local) {
 						var img = `
-							<img src="${local.logo_url}" alt="${local.nombre}" width="50" />
+							<img src="${local.logo}" alt="${local.nombre}" width="50" />
 						`;
 						return img;
 					}

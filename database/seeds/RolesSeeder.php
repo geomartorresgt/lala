@@ -40,16 +40,15 @@ class RolesSeeder extends Seeder
 
         $rolLocal = Rol::latest('id')->first();
         $permisosLocal = Permiso::whereIn('name', [
-                            'mis_presupuestos_ver', 
+                            'mis_presupuestos_ver',
                             'mis_presupuestos_crear', 
                             'mis_presupuestos_eliminar', 
-                            'capturas_eliminar', 
+                            'capturas_eliminar',
                             'local_mueble_ver', 
                             'local_mueble_crear', 
                             'local_mueble_editar', 
                             'local_mueble_eliminar', 
-                            'presupuestos_ver', 
-                            'presupuestos_crear', 
+                            'presupuestos_crear',
                             'presupuestos_editar', 
                             'presupuestos_eliminar',
                         ])->get();

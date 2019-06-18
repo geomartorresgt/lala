@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\File;
 class local extends Model
 {
     protected $guarded = ['id'];
+    protected $appends = ['logo'];
     protected $table = 'locales';
     
     private function guardarLogo($fileFoto){
@@ -42,15 +43,14 @@ class local extends Model
     }
 
     // mutators
-    public function getLogoUrlAttribute($value)
+    public function getLogoAttribute()
     {
-        if ($value == null) {
+        $value = $this->logo_url;
+        if ($value == null | $value == "") {
             return url("/img/local_default.png");
-        }else{
-        	return url("/storage/logo_locales").'/'.$value;
         }
 
-        return $imagen;
+        return url("/storage/logo_locales").'/'.$value;
     }
 
     // events
