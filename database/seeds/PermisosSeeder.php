@@ -251,6 +251,36 @@ class PermisosSeeder extends Seeder
 	            'created_at' => now(),
 	            'updated_at' => now()
 			],
+
+			// texturas
+	        [
+	            'name'=> 'texturas_ver',
+	            'display_name'=>'Texturas Ver',
+	            'description'=>'Ver',
+	            'created_at' => now(),
+	            'updated_at' => now()
+	        ],
+	        [
+	            'name'=> 'texturas_crear',
+	            'display_name'=>'Texturas Crear',
+	            'description'=>'Crear',
+	            'created_at' => now(),
+	            'updated_at' => now()
+	        ],
+	        [
+	            'name'=> 'texturas_editar',
+	            'display_name'=>'Texturas Editar',
+	            'description'=>'Editar',
+	            'created_at' => now(),
+	            'updated_at' => now()
+	        ],
+	        [
+	            'name'=> 'texturas_eliminar',
+	            'display_name'=>'Texturas Eliminar',
+	            'description'=>'Eliminar',
+	            'created_at' => now(),
+	            'updated_at' => now()
+			],
 	    ];
 
 	    Permiso::insert($permisos);

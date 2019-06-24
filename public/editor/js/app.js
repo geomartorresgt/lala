@@ -13,6 +13,7 @@ var cameraPropFolder = null;
 var presupuesto = undefined;
 var firstLoad = true;
 var dataJson = true;
+var texturas = null;
 localStorage.removeItem("editor_cargado");
 /*
  * Floorplanner controls
@@ -386,11 +387,21 @@ var ItemProperties = function(gui)
 
 var WallProperties = function()
 {
+	/*
 	this.textures = [
 		['rooms/textures/wallmap.png', true, 1], ['rooms/textures/wallmap_yellow.png', true, 1], 
 		['rooms/textures/light_brick.jpg', false, 50], ['rooms/textures/marbletiles.jpg', false, 300], 
 		['rooms/textures/light_brick.jpg', false, 100], ['rooms/textures/light_fine_wood.jpg', false, 300], 
 		['rooms/textures/hardwood.png', false, 300]];
+	*/
+
+	this.textures = texturas.map( textura => {
+		return [
+			textura.img,
+			false,
+			300
+		];
+	});
 	
 	this.floormaterialname = 0;
 	this.wallmaterialname = 0;
@@ -577,10 +588,31 @@ function getItemPropertiesFolder(gui, anItem)
 
 function getWallAndFloorPropertiesFolder(gui, aWall)
 {
-	var f = gui.addFolder('Pared y Piso');	
-	var wcontrol = f.add(aWall, 'wallmaterialname', {Gris: 0, Amarillo: 1, Checker: 2, Marmol: 3, Ladrillo: 4}).name('Pared');
-	var fcontrol = f.add(aWall, 'floormaterialname', {'Fine Wood': 5, 'Hard Wood': 6}).name('Piso');
-	var multicontrol = f.add(aWall, 'forAllWalls').name('Siempre Fijo');
+	var walls = texturas.filter(textura => {
+		return textura.tipo == 1;
+	});
+
+	var floors = texturas.filter(textura => {
+		return textura.tipo == 2;
+	});
+
+	var paredes = {};
+	var pisos = {};
+
+	walls.forEach(textura => {
+		paredes[textura.nombre] = textura.posicion;
+	});
+
+	floors.forEach(textura => {
+		pisos[textura.nombre] = textura.posicion;
+	});
+
+	var f = gui.addFolder('Pared y Piso');
+	// var wcontrol = f.add(aWall, 'wallmaterialname', {Gris: 0, Amarillo: 1, Checker: 2, Marmol: 3, Ladrillo: 4}).name('Pared');
+	var wcontrol = f.add(aWall, 'wallmaterialname', paredes ).name('Pared');
+	// var fcontrol = f.add(aWall, 'floormaterialname', {'Fine Wood': 5, 'Hard Wood': 6} ).name('Piso');
+	var fcontrol = f.add(aWall, 'floormaterialname', pisos ).name('Piso');
+	// var multicontrol = f.add(aWall, 'forAllWalls').name('Siempre Fijo');
 	function wchanged()
 	{
 		aWall.wchanged();
@@ -725,12 +757,12 @@ function showMuebles() {
 	`
 
 	var $contentMuebles = $('.content_muebles');
-	console.log('agregar mueble al canvas');
 	$contentMuebles.append(card);
 }
 
 $(document).ready(function() 
 {
+	getTexturas();
 	var $collapsePresupuesto = $('#collapsePresupuesto');
 	$('.btn_save_design').on('click', function(e){
 		e.preventDefault();
@@ -1052,18 +1084,16 @@ function loadDataPresupuesto(){
 	var url = window.location.href.replace('editor/', `admin/presupuestos/${presupuesto_id}`)
 
 	$.ajax({
-			type:'GET',
-			url: url,
-			data:{ presupuesto_id: presupuesto_id },
-			dataType: 'json',
-			success:function(data){
-					if (data.id == presupuesto_id) {
-							showPresupuesto(data)
-					}
+		type:'GET',
+		url: url,
+		data:{ presupuesto_id: presupuesto_id },
+		dataType: 'json',
+		success:function(data){
+			if (data.id == presupuesto_id) {
+				showPresupuesto(data)
 			}
+		}
 	});
-
-	// toggleMuebles();
 }
 
 function showPresupuesto(presupuesto) {
@@ -1125,4 +1155,23 @@ function muebleTemplate(data){
 			</div>
 		</div>
 	`;
+}
+
+function getTexturas() {
+	var url = window.location.href.replace('editor/', `admin/config/texturas`)
+
+	$.ajax({
+		type:'GET',
+		url: url,
+		async:false,
+		dataType: 'json',
+		success:function(data){
+			texturas = data.filter( textura => {
+				return textura.activo;
+			}).map( (textura, index) => {
+				textura.posicion = index;
+				return textura;
+			});
+		}
+	});
 }
