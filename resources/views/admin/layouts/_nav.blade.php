@@ -96,6 +96,14 @@
 	                    </a>
 	                </li>
         		@endpermission
+                @permission('texturas_ver')
+	                <li class="nav-item">
+	                    <a class="nav-link" href="{{ route('texturas.index') }}" target="_top">
+                            <img src="{{ asset('img/ladrillo.png') }}" alt="." width="20" >
+	                        Texturas
+	                    </a>
+	                </li>
+        		@endpermission
             </ul>
         </li>
         @endpermission

@@ -99,6 +99,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'texturas' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/texturas'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+
     ],
 
 ];
