@@ -12,7 +12,24 @@ class LocalMueble extends Model
     public static function add_muebles($muebles = [])
     {
         $local_id = auth()->user()->local_id;
-        self::whereLocalId($local_id)->delete();
+        $localMuebles = collect($muebles);
+        foreach ($localMuebles as $mueble_id => $precio){
+            $muebleLocal = LocalMueble::where('local_id',$local_id)->where('mueble_id',$mueble_id)->first();
+             if($muebleLocal != null){
+                 $muebleLocal->precio = $precio;
+                 $muebleLocal->save();
+             }else{
+                $muebleLocal = new LocalMueble();
+                $muebleLocal->local_id = $local_id;
+                $muebleLocal->mueble_id = $mueble_id;
+                $muebleLocal->precio = $precio;
+                $muebleLocal->save();
+             }
+            
+        }
+    
+     
+       /* self::whereLocalId($local_id)->delete();
         $localMuebles = collect($muebles)->reject(function($monto){
             $monto = floatval($monto);
             return !$monto;
@@ -24,9 +41,9 @@ class LocalMueble extends Model
                 'created_at' => now(),
                 'updated_at' => now(),
             ];
-        });
+        });*/
 
-        self::insert( $localMuebles->toArray() );
+      
         return true;
     }
 
