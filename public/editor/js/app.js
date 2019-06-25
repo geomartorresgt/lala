@@ -399,7 +399,7 @@ var WallProperties = function()
 		return [
 			textura.img,
 			false,
-			300
+			100
 		];
 	});
 	
@@ -1148,10 +1148,11 @@ function muebleTemplate(data){
 				<div class="media-left">
 					<img class="media-object" width="40" src="${mueble.foto_url}" alt="Mueble" >
 				</div>
-				<div class="media-body">
+				<div class="media-body" style="overflow:hidden; white-space:nowrap; text-overflow: ellipsis;">
 					<p class="media-heading" style="text-overflow: ellipsis;">${mueble.nombre}</p>
 					<p style="margin:0;">${mueble.dimensiones}</p>
 					<p style="margin:0;">U$S ${local_mueble.precio}</p>
+				</div>
 			</div>
 		</div>
 	`;

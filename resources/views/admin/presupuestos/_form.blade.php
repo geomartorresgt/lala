@@ -23,10 +23,6 @@
             <input type="text" id="telefono_cliente" name="telefono_cliente" class="form-control" value="{{old('telefono_cliente', $presupuesto->telefono_cliente)}}" required>
         </div>
         <div class="form-group col-12 col-md-6" >
-            <label for="cedula_cliente">Cedula Cliente</label>
-            <input type="text" id="cedula_cliente" name="cedula_cliente" class="form-control" value="{{old('cedula_cliente', $presupuesto->cedula_cliente)}}" required>
-        </div>
-        <div class="form-group col-12 col-md-6" >
             <label for="fecha">Fecha</label>
             <input type="text" disabled id="fecha" name="fecha" class="form-control" value="{{old('fecha', $presupuesto->fecha)}}" required>
         </div>

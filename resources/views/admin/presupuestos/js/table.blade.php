@@ -14,7 +14,6 @@
 				{data: 'nombre_cliente'},
 				{data: 'email_cliente'},
 				{data: 'telefono_cliente'},
-				{data: 'cedula_cliente'},
 				{data: 'fecha'},
 				{
 					render: function (data, type, presupuesto) {
