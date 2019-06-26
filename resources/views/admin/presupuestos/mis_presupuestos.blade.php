@@ -30,7 +30,6 @@
 											<th>Nombre Cliente</th>
 											<th>Email Cliente</th>
 											<th>Telefono Cliente</th>
-											<th>Cedula Cliente</th>
 											<th>Fecha</th>
 											<th>Descuento</th>
 											<th>Total</th>

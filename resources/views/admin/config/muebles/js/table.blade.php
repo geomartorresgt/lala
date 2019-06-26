@@ -12,7 +12,6 @@
             columns: [
                 {data: 'codigo'},
                 {data: 'nombre'},
-				{data: 'directorio_url'},
 				{
                     render: function (data, type, mueble) {
                         var miniatura = "<img src=\"" + mueble.foto_url + "\" style=\"width:80px;\" class='img-thumbnail' alt="+ mueble.nombre +">";
@@ -21,7 +20,11 @@
                 },
 				{data: 'dimensiones'},
 				{data: 'nombre_categoria'},
-				{data: 'precio'},
+				{data: 'precio',
+					render: function (data, type, mueble) {
+						return `U$S ${mueble.precio}`;
+					}
+				},
 				{
                     render: function (data, type, mueble) {
                     	var $btnEditar = '';

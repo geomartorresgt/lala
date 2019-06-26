@@ -912,6 +912,7 @@ function initAllDocument(){
 //		gui.closed = true;
 		blueprint3d.three.pauseTheRendering(true);
 		blueprint3d.three.getController().setSelectedObject(null);
+		$('#main-controls').addClass('d-none');
 	});
 	
 	$('#showDesign').click(function()
@@ -928,6 +929,8 @@ function initAllDocument(){
 		
 		blueprint3d.three.pauseTheRendering(false);
 		blueprint3d.three.switchFPSMode(false);
+
+		$('#main-controls').removeClass('d-none');		
 	});
 	$('#showFirstPerson').click(function()
 	{ 

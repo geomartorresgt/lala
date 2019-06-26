@@ -58,7 +58,7 @@ div {
 #floorplanner-controls 
 {
   position: absolute;
-  left: 0;
+  left: 13%;
   top: 0;
   margin: 20px 0;
   padding: 0 20px; 
@@ -68,7 +68,7 @@ div {
 #main-controls {
   position: absolute;
   top: 20px;
-  left: 20px;
+  left: 14%;  
   padding: 0;  
 }
 
@@ -221,13 +221,15 @@ font-size-2{
 
 .presupuestos-muebles{
   width: 13%;
-  position: relative;
+  position: absolute;
   float: left;
   overflow: hidden;
   overflow-y: auto;
   border-right: 1px #CCC solid;
   height: calc(100vh - 40px)  ;
-
+  z-index: 2147483610;
+  background-color: #EEE;
+  
   /* height: 100vh; */
 }
 
@@ -256,4 +258,8 @@ font-size-2{
 
 .border-b-1{
   border-bottom: 1px #DDD solid;
+}
+
+.d-none{
+  display: none !important;
 }
