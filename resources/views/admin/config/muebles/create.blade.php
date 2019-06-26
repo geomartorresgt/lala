@@ -13,7 +13,7 @@
             	<div class="card-footer">
             		<div class="row">
             			<div class="col text-right">
-            				<button type="button" class="btn btn-primary btn-effect-ripple" onclick="document.getElementById('form-mueble').submit();">
+            				<button type="button" id="btn-form" class="btn btn-primary btn-effect-ripple" >
             					Guardar
             				</button>
     						<a href="{{ route('muebles.index') }}" class="btn btn-secondary btn-effect-ripple text-dark">Atras</a>
@@ -24,3 +24,7 @@
         </div>
     </div>	
 @endsection
+
+@push('js')
+	@include('admin.config.muebles.js.form')
+@endpush
