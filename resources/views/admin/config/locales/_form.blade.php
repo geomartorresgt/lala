@@ -14,7 +14,7 @@
                 <label class="custom-file-label" for="logo_url">Logo</label>
             </div>
         </div>
-        <div class="form-group col-12 col-md-6">        
+        <div class="form-group col-12 col-md-6">
             <label for="nombre">Nombre</label>
             <input type="text" id="nombre" name="nombre" class="form-control col-12 col-md-6"  value="{{ old('nombre', $local->nombre) }}" required>
         </div>
@@ -24,7 +24,7 @@
             <input type="text" id="telefono_contacto" name="telefono_contacto" class="form-control col-12 col-md-6"  value="{{ old('telefono_contacto', $local->telefono_contacto) }}" required>
         </div>
 
-        <div class="form-group col-12 col-md-6">        
+        <div class="form-group col-12 col-md-6">
             <label for="direccion">Dirección</label>
             <textarea name="direccion" id="direccion" class="form-control" rows="2">{{ old('direccion', $local->direccion) }}</textarea>
         </div>

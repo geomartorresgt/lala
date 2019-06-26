@@ -6,7 +6,7 @@
             $this.attr('disabled','disabled');
             $this.addClass('disabled');
 
-            document.getElementById('form-mueble').submit();
+            document.getElementById('form-local').submit();
         });
     });
 </script>
