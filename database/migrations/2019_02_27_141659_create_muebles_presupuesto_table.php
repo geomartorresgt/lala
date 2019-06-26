@@ -15,7 +15,6 @@ class CreateMueblesPresupuestoTable extends Migration {
 		Schema::create('muebles_presupuesto', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->double('precio');
 			$table->integer('presupuesto_id')->unsigned()->nullable();;
             $table->foreign('presupuesto_id')->references('id')->on('presupuestos');
 			$table->integer('mueble_id')->unsigned()->nullable();;
