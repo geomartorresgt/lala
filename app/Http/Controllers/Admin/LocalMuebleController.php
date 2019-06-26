@@ -18,11 +18,11 @@ use App\Http\Requests\UpdateMuebleRequest;
 class LocalMuebleController extends Controller
 {
     public function __construct() {
-        // $this->middleware("permission:muebles_ver");
-        // $this->middleware("permission:muebles_crear")->only("create", "store");
-        // $this->middleware("permission:muebles_editar")->only("edit", "update");
-        // $this->middleware("permission:muebles_eliminar")->only("destroy");
-        // View::share('titulo', "Mueble");
+        $this->middleware("permission:local_mueble_ver");
+        $this->middleware("permission:local_mueble_crear")->only("create", "store");
+        $this->middleware("permission:local_mueble_editar")->only("edit", "update");
+        $this->middleware("permission:local_mueble_eliminar")->only("destroy");
+        View::share('titulo', "Mueble");
     }
 
     /**

@@ -2,8 +2,8 @@
     <table id="datatable_muebles" class="table table-striped  dt-responsive nowrap w-100">
         <thead class="">
             <tr>
+                <th>Código</th>
                 <th>Nombre</th>
-                <th>Directorio</th>
                 <th>Foto</th>
                 <th>Dimensiones</th>
                 <th>Categoria</th>

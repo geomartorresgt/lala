@@ -417,7 +417,7 @@ var WallProperties = function()
 		return [
 			textura.img,
 			false,
-			300
+			100
 		];
 	});
 	
@@ -930,6 +930,7 @@ function initAllDocument(){
 //		gui.closed = true;
 		blueprint3d.three.pauseTheRendering(true);
 		blueprint3d.three.getController().setSelectedObject(null);
+		$('#main-controls').addClass('d-none');
 	});
 	
 	$('#showDesign').click(function()
@@ -946,6 +947,8 @@ function initAllDocument(){
 		
 		blueprint3d.three.pauseTheRendering(false);
 		blueprint3d.three.switchFPSMode(false);
+
+		$('#main-controls').removeClass('d-none');		
 	});
 	$('#showFirstPerson').click(function()
 	{ 
@@ -1167,9 +1170,10 @@ function muebleTemplate(data){
 					<img class="media-object" width="40" src="${mueble.foto_url}" alt="Mueble" >
 				</div>
 				<div class="media-body">
-					<p class="media-heading" style="text-overflow: ellipsis;">${mueble.nombre}</p>
+					<p class="media-heading" >${mueble.nombre}</p>
 					<p style="margin:0;">${mueble.dimensiones}</p>
 					<p style="margin:0;">U$S ${local_mueble.precio}</p>
+				</div>
 			</div>
 		</div>
 	`;

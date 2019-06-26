@@ -43,6 +43,7 @@ class Presupuesto extends Model
             $muebles[] = new PresupuestoMueble([
                                         'mueble_id' => $mueble_id,
                                         'mueble_local_id' => $localMueble->id,
+                                        'precio' => $localMueble->precio,
                                     ]);
         }
 
