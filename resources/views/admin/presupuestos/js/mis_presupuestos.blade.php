@@ -64,8 +64,18 @@
 							</button>
 						`;
 
-
-        				return $btnEditar + $btnEditarDiseno + $btnPdf + $btnEliminar;
+						if(presupuesto.gltf_url !=null){
+							$btnVisor= `
+							
+								<a href="{{ url('/visor') }}/${presupuesto.gltf_url}" class="btn btn-sm btn-info btn-edit-diseno text-white" title="Editar Diseño" data-toggle="tooltip" data-presupuesto="${presupuesto.id}">
+									<i class="fas fa-glasses"></i>
+								</a>
+							
+							`;
+						}else{
+							$btnVisor='';
+						}
+        				return $btnEditar + $btnEditarDiseno + $btnPdf + $btnVisor + $btnEliminar;
                     }
                 },
             ]

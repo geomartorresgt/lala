@@ -142,7 +142,12 @@ var mainControls = function(blueprint3d)
 	    a.click();
 	    document.body.removeChild(a)
 	  }
-	  
+	 
+	  $( "#lentesBtn" ).click(function() {
+		$('#modalVisorEspere').modal('show');
+		saveGLTF();
+	  });
+
 	  function saveGLTF()
 	  {
 		  blueprint3d.three.exportForBlender();
@@ -151,13 +156,26 @@ var mainControls = function(blueprint3d)
 	  function saveGLTFCallback(o)
 	  {
 		var data = o.gltf;
-		var a = window.document.createElement('a');
+		var id = localStorage.getItem("aux_presupuesto_id");
+	    var url = window.location.href.replace('editor/', 'admin/presupuestos/'+id+'/gltf');
+    
+		$.ajax({
+			type: "POST",
+			url: url,
+            data:{ presupuesto_id: id, gltf: data },
+            dataType: 'json',
+            success:function(data){
+				window.location.replace(window.location.href.replace('editor/', 'visor/'+data.gltf_url));
+			}	
+					
+		  });
+		/*var a = window.document.createElement('a');
 		var blob = new Blob([data], {type : 'text'});
 		a.href = window.URL.createObjectURL(blob);
 		a.download = 'design.gltf';
 		document.body.appendChild(a);
 		a.click();
-		document.body.removeChild(a);
+		document.body.removeChild(a);*/
 	  }
 	  
 	  function saveMesh() {
