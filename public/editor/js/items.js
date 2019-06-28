@@ -1,5 +1,7 @@
 // add items to the "Add Items" tab
+
 $(document).ready(function() {
+  var muebles = [];
   var items = [ 
     {
       "name" : "AÉREO 0.40 1 PTA. A",
@@ -90,8 +92,75 @@ $(document).ready(function() {
       url: url,
       success:function(data){
         contentModalCategories(data);
+        setDataMuebles(data)
       }
     });
+  }
+
+  $('body').on('keyup', '#search_muebles', function(event){
+    var $this = $(this);
+    var searchMuebles = [];
+    const texto = $this.val().toLowerCase().trim();
+
+    if (texto == '' || texto.length == 0) {
+      $('#search_items').fadeOut()
+      $('#add-items').fadeIn();
+      return;
+    }
+
+    $('#add-items').fadeOut();//.delay(500).fadeIn();
+    searchMuebles = muebles.filter( local => {
+      return local.mueble.codigo.toLowerCase().includes(texto) ||
+              local.mueble.nombre.toLowerCase().includes(texto) ||
+              local.mueble.dimensiones.toLowerCase().includes(texto);
+    });
+
+
+    let renderItems = ''; 
+    searchMuebles.forEach( local => (
+      renderItems += templateItemMuebles(local)
+    ));
+
+    if (searchMuebles.length == 0) {
+      $('#search_items').html(`
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-xs-12">
+                <h6 class="text-center">No hay coincidencias.</h6>
+              </div>
+            </div>
+          </div>
+        `
+      ).fadeIn();
+
+      return
+    }
+
+    $('#search_items').html(`
+        <div class="container-fluid">
+          <div class="row">
+            ${renderItems}
+          </div>
+        </div>
+      `
+    ).fadeIn();
+  });
+
+  function setDataMuebles(categories) {
+    var categorias = [];
+    for (var key in categories) {
+      categorias.push({
+        nombre: key,
+        muebles: categories[key]
+      })
+    }
+  
+    categorias.map(category => {
+      category.muebles.forEach( mueble => {
+        muebles.push(mueble);
+      });
+    });
+    
   }
 
   function contentModalCategories(categories) {
