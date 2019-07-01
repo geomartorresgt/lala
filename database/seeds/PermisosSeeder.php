@@ -281,6 +281,13 @@ class PermisosSeeder extends Seeder
 	            'created_at' => now(),
 	            'updated_at' => now()
 			],
+	        [
+	            'name'=> 'texturas_get',
+	            'display_name'=>'Obtener Texturas',
+	            'description'=>'Obtener Texturas',
+	            'created_at' => now(),
+	            'updated_at' => now()
+			],
 	    ];
 
 	    Permiso::insert($permisos);

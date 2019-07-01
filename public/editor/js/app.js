@@ -964,7 +964,7 @@ function initAllDocument(){
 		blueprint3d.three.switchView($(this).attr('id'));
 	});
 	
-	$("#add-items").on('mousedown', ".add-item", function(e) {
+	$("#add-items, #search_items").on('mousedown', ".add-item", function(e) {
 		var modelUrl = $(this).attr("model-url");
 		var itemType = parseInt($(this).attr("model-type"));
 		var itemFormat = $(this).attr('model-format');

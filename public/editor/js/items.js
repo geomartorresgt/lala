@@ -91,6 +91,8 @@ $(document).ready(function() {
       type:'GET',
       url: url,
       success:function(data){
+        console.log('getAllCategories: ', data);
+        
         contentModalCategories(data);
         setDataMuebles(data)
       }
