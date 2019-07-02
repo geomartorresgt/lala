@@ -33,9 +33,17 @@ class LocalMuebleController extends Controller
      */
     public function index(Request $request)
     {
-        $categoriasMuebles = CategoriaMueble::with('muebles')
-                                    ->with(['muebles.localMuebles' => function($q){ $q->where('local_id', 3);  }])
-                                    ->get()->reject(function($categoria){ return !$categoria->muebles->count();});
+        $localId = auth()->user()->local_id;
+        $categoriasMuebles = [];
+        if (!$localId) { abort(403); }
+            $categoriasMuebles = CategoriaMueble::with('muebles')
+                                                ->with(['muebles.localMuebles' => function($q) use ( $localId ) { 
+                                                    $q->where('local_id', $localId);
+                                                }])
+                                                ->get()
+                                                ->reject(function($categoria){ 
+                                                    return !$categoria->muebles->count();
+                                                });
         return view("admin.local_mueble.index")->withCategoriasMuebles($categoriasMuebles);
     }
 
@@ -210,9 +218,11 @@ class LocalMuebleController extends Controller
     public function editor(Request $request)
     {
         if ($request->ajax()) {
+            $localId = auth()->user()->local_id;
+            if (!$localId) { abort(403); }
             $categoriamuebles = LocalMueble::with('mueble')
                                             ->with('mueble.categoria')
-                                            ->where('local_id', auth()->user()->local_id )
+                                            ->where('local_id', $localId )
                                             ->where('precio', '>', 0 )
                                             ->get()
                                             ->groupBy('mueble.categoria.nombre');
