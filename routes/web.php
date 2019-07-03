@@ -16,6 +16,8 @@ Route::get('/', function () {
 });
 Auth::routes();
 
+Route::get('/visor/{gltfFile}', 'visorController@show');
+
 Route::group(['middleware' => ['auth', "session_time"]], function (){
 	Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 		Route::name('root_path')->get('/', 'InicioController@index');
@@ -28,6 +30,7 @@ Route::group(['middleware' => ['auth', "session_time"]], function (){
 		
 		// presupuestos
 		Route::resource('/presupuestos', 'PresupuestoController');
+		Route::post('/presupuestos/{presupuesto}/gltf', 'PresupuestoController@storeGltf');
 		Route::get('/mis-presupuestos', 'PresupuestoController@misPresupuestos')->name('presupuestos.misPresupuestos');
 		Route::get('/presupuestos/{presupuesto}/edit-diseno', 'PresupuestoController@editDiseno')->name('presupuestos.editDiseno');
 		Route::get('/presupuestos/{presupuesto}/reporte', 'PresupuestoController@reporte')->name('presupuestos.reporte');

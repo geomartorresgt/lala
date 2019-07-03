@@ -10,10 +10,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class PresupuestoController extends Controller
 {
-    public function __construct() {
+    public function __construct()
+    {
         $this->middleware("permission:presupuestos_ver")->only('index');
         $this->middleware("permission:presupuestos_crear")->only("create", "store");
         $this->middleware("permission:presupuestos_editar")->only("edit", "update");
@@ -62,7 +65,7 @@ class PresupuestoController extends Controller
     public function store(CreatePresupuestoRequest $request)
     {
         $success = false;
-        try{
+        try {
             DB::beginTransaction();
 
             $presupuesto = Presupuesto::create(
@@ -72,7 +75,7 @@ class PresupuestoController extends Controller
             if ($presupuesto && $request->has('id_muebles')) {
                 $presupuesto->addMuebles($request->id_muebles);
             }
-            
+
             DB::commit();
             $mensaje = "El presupuesto fue creado con éxito.";
             $success = true;
@@ -83,7 +86,7 @@ class PresupuestoController extends Controller
         }
 
         if ($request->ajax()) {
-            if($success){
+            if ($success) {
                 return response()->json([
                     'success' => true,
                     'mensaje' => $mensaje,
@@ -97,7 +100,7 @@ class PresupuestoController extends Controller
                 ]);
             }
         } else {
-            if(!$success){
+            if (!$success) {
                 flash($mensaje)->error();
                 return back()->withInput(Input::all());
             } else {
@@ -105,8 +108,24 @@ class PresupuestoController extends Controller
                 return redirect()->route('presupuestos.index');
             }
         }
-
     }
+
+    public function storeGltf(Request $request, Presupuesto $presupuesto)
+    {
+
+        if ($presupuesto->gltf_url != null) {
+            Storage::delete('public/gltf/' . $presupuesto->gltf_url);
+            $presupuesto->gltf_url = null;
+            $presupuesto->save();
+        }
+        $nombreArchivo = Str::uuid() . '.gltf';
+
+        Storage::put('public/gltf/' . $nombreArchivo, $request->gltf);
+        $presupuesto->gltf_url = $nombreArchivo;
+        $presupuesto->save();
+        return response()->json($presupuesto);
+    }
+
 
     /**
      * Display the specified resource.
@@ -144,7 +163,7 @@ class PresupuestoController extends Controller
     public function update(UpdatePresupuestoRequest $request, Presupuesto $presupuesto)
     {
         $success = false;
-        try{
+        try {
             DB::beginTransaction();
 
             $data = $request->only(['nombre_cliente', 'email_cliente', 'telefono_cliente', 'cedula_cliente', 'fecha', 'descuento', 'data_json']);
@@ -163,9 +182,9 @@ class PresupuestoController extends Controller
             $mensaje = $e->getMessage();
             $success = false;
         }
-        
+
         if ($request->ajax()) {
-            if($success){
+            if ($success) {
                 return response()->json([
                     'success' => true,
                     'mensaje' => $mensaje,
@@ -179,7 +198,7 @@ class PresupuestoController extends Controller
                 ]);
             }
         } else {
-            if(!$success){
+            if (!$success) {
                 flash($mensaje)->error();
                 return back()->withInput(Input::all());
             } else {
@@ -199,6 +218,9 @@ class PresupuestoController extends Controller
     {
         $success = false;
         try {
+            if ($presupuesto->gltf_url != null) {
+                Storage::delete('public/gltf/' . $presupuesto->gltf_url);
+            }
             $presupuesto->delete();
             $mensaje = "Ha sido eliminado con éxito.";
             $success = true;
@@ -208,7 +230,7 @@ class PresupuestoController extends Controller
         }
 
         if ($request->ajax()) {
-            if($success){
+            if ($success) {
                 return response()->json([
                     'success' => true,
                     'mensaje' => $mensaje,
@@ -219,7 +241,7 @@ class PresupuestoController extends Controller
                 ]);
             }
         } else {
-            if(!$success){
+            if (!$success) {
                 flash($mensaje)->error();
             } else {
                 flash($mensaje)->success();
