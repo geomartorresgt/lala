@@ -14,8 +14,8 @@ class AddGltfUrlToPresupuestos extends Migration
     public function up()
     {
         Schema::table('presupuestos', function (Blueprint $table) {   
-                $table->string('gltf_url')->nullable();
-            });
+            $table->string('gltf_url')->after('descuento')->nullable();
+        });
 
     }
 
@@ -27,7 +27,7 @@ class AddGltfUrlToPresupuestos extends Migration
     public function down()
     {
         Schema::table('presupuestos', function (Blueprint $table) {
-            //
+            $table->dropColumn('gltf_url');
         });
     }
 }

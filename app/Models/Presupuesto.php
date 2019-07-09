@@ -83,6 +83,41 @@ class Presupuesto extends Model
         return Carbon::parse($value)->format('d-m-Y');
     }
 
+    public static function filter(array $options = [])
+    {
+        if ( sizeof($options) >= 0 ) {
+            $presupuesto = null;
+            $fechaInicio = array_key_exists('fecha_inicio', $options) && $options['fecha_inicio'] != null ? Carbon::createFromFormat('d/m/Y', $options['fecha_inicio'])->format('Y-m-d')  :null;
+            $fechaFin = array_key_exists('fecha_fin', $options) && $options['fecha_fin'] != null ? Carbon::createFromFormat('d/m/Y', $options['fecha_fin'])->format('Y-m-d') :null;
+            $localId = array_key_exists('local_id', $options)?  $options['local_id'] :null;
+            
+            if (!$localId && !$fechaInicio) {
+                return Presupuesto::all();
+            }
+
+            if ($fechaInicio) {
+                $presupuesto = Presupuesto::entreFechas($fechaInicio, $fechaFin);
+            }
+
+            if ($localId && $presupuesto != null) {
+                $presupuesto = $presupuesto->whereLocalId($localId);
+            } else if($localId) {
+                $presupuesto = Presupuesto::whereLocalId($localId);
+            }
+
+            return $presupuesto->get();
+        }
+
+        return Presupuesto::all();
+    }
+
+    public function scopeEntreFechas($query ,$fechaInicio, $fechaFin = null)
+    {
+        if ($fechaFin == null)
+            $fechaFin = $fechaInicio;
+        return $query->whereBetween('fecha', [$fechaInicio, $fechaFin] );
+    }
+
     // relationships
     public function muebles()
     {
@@ -105,15 +140,17 @@ class Presupuesto extends Model
     {
         parent::boot();
         
-        self::creating(function($model){
-            $model->fecha = now();
-            $model->user_id = auth()->user()->id;
-            $model->descuento = $model->descuento? $model->descuento : 0;
+        self::creating(function($presupuesto){
+            $user = auth()->user();
+            $presupuesto->fecha = now();
+            $presupuesto->user_id = $user->id;
+            $presupuesto->local_id = $user->local_id;
+            $presupuesto->descuento = $presupuesto->descuento? $presupuesto->descuento : 0;
         });
 
-        self::deleting(function($model){
-            $model->muebles()->delete();
-            $model->capturas()->delete();
+        self::deleting(function($presupuesto){
+            $presupuesto->muebles()->delete();
+            $presupuesto->capturas()->delete();
         });
 
         

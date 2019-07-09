@@ -7,7 +7,15 @@
             ajax: {
                 url: urlPresupuestos,
                 type: "GET",
-                dataSrc: ''
+                dataSrc: '',
+				data: function ( d ) {
+					d.fecha_inicio = $("#fecha_inicio").val();
+
+					if (d.fecha_inicio != '' || d.fecha_inicio.trim().lenght > 0 ) {
+						d.fecha_fin = $("#fecha_fin").val();
+					}
+					d.local_id = ($("#local").val() == 0) ? null: $("#local").val();
+				},
             },
             columns: [
                 {data: 'user_id', visible: false},
@@ -104,6 +112,32 @@
 			window.open(urlReporte, '_blank');
 			return;
 		});
+
+		$('#fecha_inicio').change(function(e) {
+			console.log('cambios');
+			var $this = $(this);
+			var fechaInicio = $this.val().trim();
+
+			if ( fechaInicio.lenght == 0 || fechaInicio == '' ) {
+				$('#fecha_fin').attr('disabled', 'disabled');
+			} else {
+				$('#fecha_fin').removeAttr('disabled');
+			}
+		})
+
+		$('#refresh').click(function(e) {
+            e.preventDefault();
+            $('#fecha_inicio').val('');
+            $('#fecha_fin').val('');
+			var $local = $('#local');
+            var options = $local.html();
+			$local.html(options);
+        });
+
+        $('#filtro').click(function(e) {
+            e.preventDefault();
+			$datatablePresupuestos.DataTable().ajax.reload();
+        });
 	});
 
 	function setLocalStorage( presupuesto_id ) {

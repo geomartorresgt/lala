@@ -2,22 +2,23 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\CreatePresupuestoRequest;
-use App\Http\Requests\UpdatePresupuestoRequest;
+use App\Models\Local;
 use App\Models\Presupuesto;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Input;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\View;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\CreatePresupuestoRequest;
+use App\Http\Requests\UpdatePresupuestoRequest;
 
 class PresupuestoController extends Controller
 {
     public function __construct()
     {
-        $this->middleware("permission:presupuestos_ver")->only('index');
+        // $this->middleware("permission:presupuestos_ver")->only('index');
         $this->middleware("permission:presupuestos_crear")->only("create", "store");
         $this->middleware("permission:presupuestos_editar")->only("edit", "update");
         $this->middleware("permission:presupuestos_eliminar")->only("destroy");
@@ -32,17 +33,21 @@ class PresupuestoController extends Controller
      */
     public function index(Request $request)
     {
-        $presupuestos = Presupuesto::all();
-        // $muebles =$presupuestos;
-        // dd( $muebles[0] );
-
-        // dd($presupuestos[0]->getTotal() );
 
         if ($request->ajax()) {
+            $user = auth()->user();
+            if ( $user->verificarRol('local') ) {
+                $local_id = $user->local_id;
+                $presupuestos = Presupuesto::where('local_id', $local_id)->get();
+            } else if ( $user->verificarRol('admin') ) {
+                $presupuestos = Presupuesto::filter( $request->all() );
+            }
             return response()->json($presupuestos);
         }
 
-        return view("admin.presupuestos.index")->withPresupuestos($presupuestos);
+        $locales = Local::all();
+
+        return view("admin.presupuestos.index")->withLocales($locales);
     }
 
     /**
