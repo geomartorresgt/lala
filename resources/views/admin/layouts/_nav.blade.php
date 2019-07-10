@@ -104,23 +104,11 @@
 	                    </a>
 	                </li>
                 @endpermission
-                <li class="nav-item nav-dropdown">
-                    <a class="nav-link nav-dropdown-toggle" href="#">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('excel.index') }}" target="_top">
                         <i class="fas fa-download"></i>
                         Datos Masivos
                     </a>
-                    <ul class="nav-dropdown-items">
-                    	<li class="nav-item">
-                    	    <a class="nav-link" href="{{ route('excel.index') }}" target="_top">
-                    	        <i class="nav-icon icon-star"></i> Excel
-                    	    </a>
-                    	</li>
-                    	{{-- <li class="nav-item">
-                    	    <a class="nav-link" href="{{ route('permisos.index') }}" target="_top">
-                    	        <i class="nav-icon icon-star"></i> Permisos
-                    	    </a>
-                    	</li> --}}
-                    </ul>
                 </li>
             </ul>
         </li>
