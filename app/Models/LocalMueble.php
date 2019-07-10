@@ -61,7 +61,7 @@ class LocalMueble extends Model
         $array = collect([]);
         foreach ($categoriasMuebles as $categoria){
 
-            foreach ($categoria->muebles as $mueble) {
+            foreach ($categoria->muebles->sortBy('nombre') as $mueble) {
                 $precio = 0;
                 if (optional($mueble->localMuebles->first()) ) {
                     $precio = optional($mueble->localMuebles->first())->precio == null? 0: optional($mueble->localMuebles->first())->precio;
@@ -69,9 +69,9 @@ class LocalMueble extends Model
                 $array->push([
                     $mueble->id,
                     $mueble->codigo,
+                    $categoria->nombre,
                     $mueble->nombre,
                     $mueble->dimensiones,
-                    $categoria->nombre,
                     $precio.''
                 ]);
             }
