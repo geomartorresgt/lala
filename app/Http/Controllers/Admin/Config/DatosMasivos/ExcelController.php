@@ -2,27 +2,19 @@
 
 namespace App\Http\Controllers\Admin\Config\DatosMasivos;
 
+use Exception;
 use App\Models\Local;
-
+use App\Models\LocalMueble;
 use Illuminate\Http\Request;
-use App\Exports\MueblesExport;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-
 use Illuminate\Support\Facades\View;
 use Maatwebsite\Excel\Facades\Excel;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-
 
 class ExcelController extends Controller
 {
 
     public function __construct() {
-        // $this->middleware("permission:local_ver");
-        // $this->middleware("permission:local_crear")->only("create", "store");
-        // $this->middleware("permission:local_editar")->only("edit", "update");
-        // $this->middleware("permission:local_eliminar")->only("destroy");
         View::share('titulo', "Datos Masivos");
     }
     
@@ -34,21 +26,86 @@ class ExcelController extends Controller
 
     public function download(Request $request)
     {
+        $request->validate([
+            'local_id' => 'required',
+        ]);
 
-        // dd($request->local_id );
-        return Excel::download(new MueblesExport( Local::find($request->local_id) ), 'muebles.xlsx');
+        $localId = $request->local_id;
+        $local = Local::find($localId);
 
-        // $spreadsheet = new Spreadsheet();
-        // $sheet = $spreadsheet->getActiveSheet();
-        // $sheet->setCellValue('A1', 'Hello World !');
-
-        // $writer = new Xlsx($spreadsheet);
-        // $writer->save('hello world.xlsx');
+        Excel::create($local->nombre, function($excel) use ($localId) {
+ 
+            $excel->sheet('Muebles', function($sheet) use ($localId) {
+ 
+                $muebles = LocalMueble::exportMueblesLocal($localId);
+ 
+                $sheet->fromArray($muebles);
+ 
+            });
+        })->export('xls');
     }
 
     public function upload(Request $request)
     {
-        
+        $request->validate([
+            'local_id' => 'required',
+            'archivo' => 'required'
+        ]);
+
+        try {
+            $localId = $request->local_id;
+            $path = $request->file('archivo')->getRealPath();
+            $data = Excel::load($path)->get();
+            $array = [];
+    
+            if($data->count()){
+                foreach ($data as $key => $value) {
+                    $arr = [];
+                    foreach ($value as $i => $val) {
+                        switch ($i) {
+                            case 0:
+                                $arr['id'] = (int) $val;
+                                break;
+                            /*
+                            case 1:
+                                $arr['codigo'] = $val;
+                                break;
+                            case 2:
+                                $arr['nombre'] = $val;
+                                break;
+                            case 3:
+                                $arr['dimensiones'] = $val;
+                                break;
+                            case 4:
+                                $arr['categoria'] = $val;
+                                break;
+                            */
+                            case 5:
+                                $arr['precio'] = (float) $val;
+                                break;
+                            
+                            default:
+                                break;
+                        }
+                    }
+                    $array[] = $arr;
+                }
+            }
+
+            foreach ($array as $key => $value) {
+                $localMueble = LocalMueble::firstOrNew(['mueble_id' => $value['id'], 'local_id' => $localId ]);
+                $localMueble->precio = $value['precio'];
+                if(!$localMueble->exists && $localMueble->precio == 0){
+                } else {
+                    $localMueble->save();
+                }
+            }
+
+            flash('Se cargaron los datos de manera exitosa.')->success(); 
+        } catch (Exception $e) {
+            flash('Error al cargar los datos.')->error(); 
+        }
+        return back();
     }
 
     

@@ -10,7 +10,7 @@
                 <div class="card-body">
                 	<div class="container-fluid row">
                         <div class="col-md-12">
-                            <form action="#" method="POST">
+                            <form action="#" method="POST" enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 <div class="row">
                                     <div class="col-6 col-md-7">
