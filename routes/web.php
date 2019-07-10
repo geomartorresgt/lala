@@ -88,6 +88,14 @@ Route::group(['middleware' => ['auth', "session_time"]], function (){
 			});
 			
 			Route::resource('/texturas', 'TexturaController');
+
+			Route::group(['prefix' => 'datos-masivos', 'namespace' => 'DatosMasivos'], function () {
+				Route::get('/', 'ExcelController@index')->name('excel.index');
+				Route::post('/upload', 'ExcelController@upload')->name('excel.upload');;
+				Route::post('/download', 'ExcelController@download')->name('excel.download');;
+			});
+
+			
 	    });
 	});
 });

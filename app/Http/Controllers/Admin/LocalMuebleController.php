@@ -36,14 +36,14 @@ class LocalMuebleController extends Controller
         $localId = auth()->user()->local_id;
         $categoriasMuebles = [];
         if (!$localId) { abort(403); }
-            $categoriasMuebles = CategoriaMueble::with('muebles')
-                                                ->with(['muebles.localMuebles' => function($q) use ( $localId ) { 
-                                                    $q->where('local_id', $localId);
-                                                }])
-                                                ->get()
-                                                ->reject(function($categoria){ 
-                                                    return !$categoria->muebles->count();
-                                                });
+        $categoriasMuebles = CategoriaMueble::with('muebles')
+                                            ->with(['muebles.localMuebles' => function($q) use ( $localId ) { 
+                                                $q->where('local_id', $localId);
+                                            }])
+                                            ->get()
+                                            ->reject(function($categoria){ 
+                                                return !$categoria->muebles->count();
+                                            });
         return view("admin.local_mueble.index")->withCategoriasMuebles($categoriasMuebles);
     }
 
