@@ -1123,7 +1123,7 @@ function showPresupuesto(presupuesto) {
 	
 	var $contentMuebles = $divMuebles.find('#content-muebles');
 	var $subtotalPresupuesto = $collapsePresupuesto.find('#subtotal_presupuesto');
-	var $descuentoPresupuesto = $collapsePresupuesto.find('#descuento_presupuesto');
+	var $ivaPresupuesto = $collapsePresupuesto.find('#iva_presupuesto');
 	var $totalPresupuesto = $collapsePresupuesto.find('#total_presupuesto');
 	var data = '';
 
@@ -1140,8 +1140,8 @@ function showPresupuesto(presupuesto) {
 	// add data in collapse
 	$contentMuebles.html(data);
 	$subtotalPresupuesto.html(`U$S ${presupuesto.subtotal}`);
-	$descuentoPresupuesto.html(`U$S ${presupuesto.descuento_dinero}`);
-	$totalPresupuesto.html(`U$S ${presupuesto.total}`);
+	$ivaPresupuesto.html(`U$S ${presupuesto.monto_iva_sin_descuento}`);
+	$totalPresupuesto.html(`U$S ${presupuesto.total_sin_descuento}`);
 
 }
 

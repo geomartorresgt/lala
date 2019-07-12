@@ -24,12 +24,12 @@
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col text-center">
-                <img src="img/logo.png" alt="" width="150">
+				<img src="{{$presupuesto->local->logo}}" alt="{{$presupuesto->local->nombre}}" width="120" />
             </div>
         </div>
 
         <div class="row justify-content-center">
-            <div class="col text-left mt-5">
+            <div class="col text-left mt-2">
             	<p class="m-0 p-0">
             		<strong>Cliente:</strong>
 					<span>{{ $presupuesto->nombre_cliente }}</span>
@@ -86,13 +86,21 @@
             				<td class="border-0" ></td>
             				<td class="text-right m-1 p-1 font-weight-bold">Sub-Total</td>
             				<td class="m-1 p-1">U$S {{ $presupuesto->getTotal() }}</td>
-            			</tr>
-            			<tr>
-            				<td class="border-0" ></td>
-            				<td class="border-0" ></td>
-            				<td class="text-right m-1 p-1 font-weight-bold">Descuento</td>
-							<td class="m-1 p-1">U$S {{ $presupuesto->descuento_dinero }}</td>
-            			</tr>
+						</tr>
+						@if( $presupuesto->tieneDescuento() )
+							<tr>
+								<td class="border-0" ></td>
+								<td class="border-0" ></td>
+								<td class="text-right m-1 p-1 font-weight-bold">Descuento</td>
+								<td class="m-1 p-1">U$S {{ $presupuesto->descuento_dinero }}</td>
+							</tr>
+						@endif
+						<tr>
+							<td class="border-0" ></td>
+							<td class="border-0" ></td>
+							<td class="text-right m-1 p-1 font-weight-bold">Iva</td>
+							<td class="m-1 p-1">U$S {{ $presupuesto->monto_iva }}</td>
+						</tr>
             			<tr>
             				<td class="border-0" ></td>
             				<td class="border-0" ></td>
@@ -103,24 +111,27 @@
             	</table>
             </div>
         </div>
-    </div>
+	</div>
+	
+	@if ($presupuesto->capturas->count())
+		<div class="page-break"></div>
 
-	<div class="page-break"></div>
-
-    <div class="container-fluid">
-    	<div class="row justify-content-center">
-            <div class="col text-center mb-3">
-    			<h4>Capturas del Diseño</h4>
-            </div>
+		<div class="container-fluid">
+			<div class="row justify-content-center">
+				<div class="col text-center mb-3">
+					<h4>Capturas del Diseño</h4>
+				</div>
+			</div>
+			
+			@foreach($presupuesto->capturas as $key => $captura)
+				<div class="row justify-content-center mt-3 mb-3">
+					<div class="col-12 text-center">
+						<img src="{{ $captura->img_url }}" alt="" class="img-fluid">
+					</div>
+				</div>
+			@endforeach
 		</div>
-		
-    	@foreach($presupuesto->capturas as $key => $captura)
-        	<div class="row justify-content-center mt-3 mb-3">
-	            <div class="col-12 text-center">
-					<img src="{{ $captura->img_url }}" alt="" class="img-fluid">
-	            </div>
-        	</div>
-    	@endforeach
-    </div>
+	@endif
+	
 </body>
 </html>

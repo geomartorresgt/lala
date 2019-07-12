@@ -92,11 +92,14 @@
 	                                <thead class="">
 		                                <tr>
 											<th>Usuario</th>
+											<th>Local</th>
 											<th>Nombre Cliente</th>
 											<th>Email Cliente</th>
 											<th>Telefono Cliente</th>
 											<th>Fecha</th>
+											<th>Sub Total</th>
 											<th>Descuento</th>
+											<th>Iva</th>
 											<th>Total</th>
 											<th>Opciones</th>
 		                                </tr>

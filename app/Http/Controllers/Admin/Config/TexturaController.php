@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Config;
 
-use App\Textura;
+use App\Models\Textura;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;

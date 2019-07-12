@@ -9,7 +9,7 @@ class Presupuesto extends Model
 {
     protected $guarded = ['id'];
     protected $with = ['user', 'muebles'];
-    protected $appends = ['subtotal', 'descuento_dinero', 'total' ];
+    protected $appends = ['subtotal', 'descuento_dinero', 'monto_iva', 'monto_iva_sin_descuento', 'total', 'total_sin_descuento' ];
 
     // appends
     public function getSubtotalAttribute()
@@ -22,9 +22,33 @@ class Presupuesto extends Model
         return $this->getDescuentoDinero();
     }
 
+    public function getMontoIvaAttribute()
+    {
+        $iva = Config::getIva();
+        $subTotal = $this->subtotal - $this->descuento_dinero;
+        return $subTotal * ( $iva / 100 );
+    }
+
+    public function getMontoIvaSinDescuentoAttribute()
+    {
+        $iva = Config::getIva();
+        return $this->subtotal * ( $iva / 100 );
+    }
+
+    public function getTotalSinDescuentoAttribute()
+    {
+        return $this->subtotal + $this->monto_iva_sin_descuento ;
+    }
+
+    // methods
     public function getTotalAttribute()
     {
-        return $this->subtotal - $this->descuento_dinero;
+        return $this->subtotal - $this->descuento_dinero + $this->monto_iva ;
+    }
+
+    public function tieneDescuento()
+    {
+        return $this->descuento > 0;
     }
 
     public function addMuebles($id_muebles)
@@ -86,13 +110,13 @@ class Presupuesto extends Model
     public static function filter(array $options = [])
     {
         if ( sizeof($options) >= 0 ) {
-            $presupuesto = null;
+            $presupuesto = Presupuesto::with('local');
             $fechaInicio = array_key_exists('fecha_inicio', $options) && $options['fecha_inicio'] != null ? Carbon::createFromFormat('d/m/Y', $options['fecha_inicio'])->format('Y-m-d')  :null;
             $fechaFin = array_key_exists('fecha_fin', $options) && $options['fecha_fin'] != null ? Carbon::createFromFormat('d/m/Y', $options['fecha_fin'])->format('Y-m-d') :null;
             $localId = array_key_exists('local_id', $options)?  $options['local_id'] :null;
             
             if (!$localId && !$fechaInicio) {
-                return Presupuesto::all();
+                return $presupuesto->get();
             }
 
             if ($fechaInicio) {
@@ -132,6 +156,11 @@ class Presupuesto extends Model
     public function capturas()
     {
         return $this->hasMany(CapturasPresupuesto::class);
+    }
+
+    public function local()
+    {
+        return $this->belongsTo(Local::class);
     }
 
 

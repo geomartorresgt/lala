@@ -19,13 +19,24 @@
             },
             columns: [
                 {data: 'user_id', visible: false},
+                {data: 'local.nombre'},
 				{data: 'nombre_cliente'},
 				{data: 'email_cliente'},
 				{data: 'telefono_cliente'},
 				{data: 'fecha'},
 				{
 					render: function (data, type, presupuesto) {
+						return `U$S ${presupuesto.subtotal}`;
+					}
+				},
+				{
+					render: function (data, type, presupuesto) {
 						return `U$S ${presupuesto.descuento_dinero}`;
+					}
+				},
+				{
+					render: function (data, type, presupuesto) {
+						return `U$S ${presupuesto.monto_iva}`;
 					}
 				},
 				{

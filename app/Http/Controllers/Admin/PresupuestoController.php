@@ -38,7 +38,7 @@ class PresupuestoController extends Controller
             $user = auth()->user();
             if ( $user->verificarRol('local') ) {
                 $local_id = $user->local_id;
-                $presupuestos = Presupuesto::where('local_id', $local_id)->get();
+                $presupuestos = Presupuesto::with('local')->where('local_id', $local_id)->get();
             } else if ( $user->verificarRol('admin') ) {
                 $presupuestos = Presupuesto::filter( $request->all() );
             }
