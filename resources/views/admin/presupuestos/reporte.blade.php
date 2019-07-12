@@ -18,25 +18,27 @@
 		p, strong, span, td {
 			font-size: .8rem;
 		}
+		#footer { position: fixed; left: 0px; bottom: -40px; right: 0px; height: 40px; border-top: .8px solid #000; padding-top: 5px }
+    	#footer .page:after { content: counter(page, upper-roman); }
+    	#footer p { font-size: 10px; margin: 0; padding: 0; }
     </style>
 </head>
 <body>
     <div class="container-fluid">
-        <div class="row justify-content-center">
-            <div class="col text-center">
+        <div class="row justify-content-center" style="margin: 0px; padding: 0px; padding-bottom: -120px">
+            <div class="col-12 text-center">
 				<img src="{{$presupuesto->local->logo}}" alt="{{$presupuesto->local->nombre}}" width="120" />
+            </div>
+            <div class="col-12 text-center">
+				<h5 style="margin:0px; padding:0;margin-top: 100px;" >{{ $presupuesto->local->nombre }}</h5>
             </div>
         </div>
 
-        <div class="row justify-content-center">
-            <div class="col text-left mt-2">
+        <div class="row justify-content-center" >
+            <div class="col text-left">
             	<p class="m-0 p-0">
             		<strong>Cliente:</strong>
 					<span>{{ $presupuesto->nombre_cliente }}</span>
-            	</p>
-            	<p class="m-0 p-0">
-            		<strong>Cédula / Rut:</strong>
-					<span>{{ $presupuesto->cedula_cliente }}</span>
             	</p>
             	<p class="m-0 p-0">
             		<strong>E-mail:</strong>
@@ -111,6 +113,26 @@
             	</table>
             </div>
         </div>
+	</div>
+
+	<div id="footer">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-4">
+					<img src="{{$presupuesto->local->logo}}" alt="{{$presupuesto->local->nombre}}" width="50" />
+				</div>
+				<div class="col-8">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-12 text-left" style="margin-left: 50px">
+								<p> <strong>Dirección: </strong> {{ $presupuesto->local->direccion }}</p>
+								<p> <strong>Teléfono: </strong> {{ $presupuesto->local->telefono_contacto }}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 	
 	@if ($presupuesto->capturas->count())
