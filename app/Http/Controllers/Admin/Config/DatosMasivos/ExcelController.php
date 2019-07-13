@@ -45,29 +45,6 @@ class ExcelController extends Controller
             $excel->sheet('Muebles', function($sheet) use ($localId) {
                 $muebles = LocalMueble::exportMueblesLocal($localId);
                 $sheet->fromArray($muebles);
-
-                // dd($muebles);
-
-                // $sheet->cell('A1', function($cell){ $cell->setValue('ID'); });
-                // $sheet->cell('B1', function($cell){ $cell->setValue('Codigo'); });
-                // $sheet->cell('C1', function($cell){ $cell->setValue('Categoria'); });
-                // $sheet->cell('D1', function($cell){ $cell->setValue('Nombre'); });
-                // $sheet->cell('E1', function($cell){ $cell->setValue('Dimernsion'); });
-                // $sheet->cell('F1', function($cell){ $cell->setValue('Precio'); });
- 
-                // if (!empty($muebles)){
-                //     foreach ($muebles as $key => $value){
-                //         $i= $key+2;
-                //         // dd($value, $value[5]);
-                //         $sheet->cell('A'.$i, $value[0]); 
-                //         $sheet->cell('B'.$i, $value[1]); 
-                //         $sheet->cell('C'.$i, $value[2]); 
-                //         $sheet->cell('D'.$i, $value[3]); 
-                //         $sheet->cell('E'.$i, $value[4]); 
-                //         $sheet->cell('F'.$i, $value[5].' ' ); 
-                //     }
-                // }
- 
             });
         })->export('xls');
     }
@@ -100,20 +77,6 @@ class ExcelController extends Controller
                             case 'id':
                                 $arr['id'] = (int) $val;
                                 break;
-                            /*
-                            case 1:
-                                $arr['codigo'] = $val;
-                                break;
-                            case 2:
-                                $arr['nombre'] = $val;
-                                break;
-                            case 3:
-                                $arr['dimensiones'] = $val;
-                                break;
-                            case 4:
-                                $arr['categoria'] = $val;
-                                break;
-                            */
                             case 'precio':
                                 $arr['precio'] = (float) $val;
                                 break;
@@ -141,7 +104,5 @@ class ExcelController extends Controller
         }
         return back();
     }
-
-    
     
 }
