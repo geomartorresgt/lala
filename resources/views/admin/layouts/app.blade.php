@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{{asset('css/cropit.css')}}">
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
     <link rel="stylesheet" href="{{asset('css/estilos.css')}}">
+    <link rel="stylesheet" href="{{asset('css/toastr.min.css')}}">
     @stack('css')
 </head>
 <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
@@ -53,6 +54,7 @@
     <script type="text/javascript" src="{{asset('js/responsive.bootstrap4.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/coreui.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/jquery.cropit.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/toastr.min.js')}}"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
 

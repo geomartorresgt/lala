@@ -288,6 +288,15 @@ class PermisosSeeder extends Seeder
 	            'created_at' => now(),
 	            'updated_at' => now()
 			],
+
+			//datos masivos
+	        [
+	            'name'=> 'datos_masivos',
+	            'display_name'=>'Acceso a descargar y cargar listados de muebles en formato excel.',
+	            'description'=>'Acceso a descargar y cargar listados de muebles en formato excel.',
+	            'created_at' => now(),
+	            'updated_at' => now()
+			],
 	    ];
 
 	    Permiso::insert($permisos);

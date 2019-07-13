@@ -51,7 +51,8 @@ class RolesSeeder extends Seeder
                             'presupuestos_crear',
                             'presupuestos_editar', 
                             'presupuestos_eliminar',
-                            'texturas_ver',
+                            'texturas_get',
+                            'datos_masivos',
                         ])->get();
         $rolLocal->attachPermissions($permisosLocal);
     }

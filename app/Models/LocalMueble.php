@@ -67,12 +67,12 @@ class LocalMueble extends Model
                     $precio = optional($mueble->localMuebles->first())->precio == null? 0: optional($mueble->localMuebles->first())->precio;
                 }
                 $array->push([
-                    $mueble->id,
-                    $mueble->codigo,
-                    $categoria->nombre,
-                    $mueble->nombre,
-                    $mueble->dimensiones,
-                    $precio.''
+                    'ID' => $mueble->id,
+                    'Codigo' => $mueble->codigo,
+                    'Categoria' => $categoria->nombre,
+                    'Nombre' => $mueble->nombre,
+                    'Dimensiones' => $mueble->dimensiones,
+                    'Precio' => $precio.''
                 ]);
             }
         }

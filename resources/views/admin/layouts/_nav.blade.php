@@ -37,7 +37,7 @@
 
         <li class="divider"></li>
 
-        @permission(['usuarios_ver','privilegios_ver', 'categorias_muebles_ver', 'muebles_ver' ])        
+        @permission(['usuarios_ver','privilegios_ver', 'categorias_muebles_ver', 'muebles_ver', 'datos_masivos'])        
         <li class="nav-item nav-dropdown">
             <a class="nav-link nav-dropdown-toggle" href="#">
                 <i class="fas fa-cog"></i> 
@@ -104,12 +104,14 @@
 	                    </a>
 	                </li>
                 @endpermission
+                @permission('datos_masivos')
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('excel.index') }}" target="_top">
                         <i class="fas fa-download"></i>
                         Datos Masivos
                     </a>
                 </li>
+                @endpermission
             </ul>
         </li>
         @endpermission

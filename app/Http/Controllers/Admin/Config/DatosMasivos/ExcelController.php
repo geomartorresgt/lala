@@ -26,6 +26,13 @@ class ExcelController extends Controller
 
     public function download(Request $request)
     {
+        $user = auth()->user();
+        if ($user->hasRole('local') ) {
+            $requestAll = $request->all();
+            $requestAll['local_id'] = $user->local_id;
+            $request->merge($requestAll);
+        }
+
         $request->validate([
             'local_id' => 'required',
         ]);
@@ -36,10 +43,30 @@ class ExcelController extends Controller
         Excel::create($local->nombre, function($excel) use ($localId) {
  
             $excel->sheet('Muebles', function($sheet) use ($localId) {
- 
                 $muebles = LocalMueble::exportMueblesLocal($localId);
- 
                 $sheet->fromArray($muebles);
+
+                // dd($muebles);
+
+                // $sheet->cell('A1', function($cell){ $cell->setValue('ID'); });
+                // $sheet->cell('B1', function($cell){ $cell->setValue('Codigo'); });
+                // $sheet->cell('C1', function($cell){ $cell->setValue('Categoria'); });
+                // $sheet->cell('D1', function($cell){ $cell->setValue('Nombre'); });
+                // $sheet->cell('E1', function($cell){ $cell->setValue('Dimernsion'); });
+                // $sheet->cell('F1', function($cell){ $cell->setValue('Precio'); });
+ 
+                // if (!empty($muebles)){
+                //     foreach ($muebles as $key => $value){
+                //         $i= $key+2;
+                //         // dd($value, $value[5]);
+                //         $sheet->cell('A'.$i, $value[0]); 
+                //         $sheet->cell('B'.$i, $value[1]); 
+                //         $sheet->cell('C'.$i, $value[2]); 
+                //         $sheet->cell('D'.$i, $value[3]); 
+                //         $sheet->cell('E'.$i, $value[4]); 
+                //         $sheet->cell('F'.$i, $value[5].' ' ); 
+                //     }
+                // }
  
             });
         })->export('xls');
@@ -47,6 +74,13 @@ class ExcelController extends Controller
 
     public function upload(Request $request)
     {
+        $user = auth()->user();
+        if ($user->hasRole('local') ) {
+            $requestAll = $request->all();
+            $requestAll['local_id'] = $user->local_id;
+            $request->merge($requestAll);
+        }
+
         $request->validate([
             'local_id' => 'required',
             'archivo' => 'required'
@@ -63,7 +97,7 @@ class ExcelController extends Controller
                     $arr = [];
                     foreach ($value as $i => $val) {
                         switch ($i) {
-                            case 0:
+                            case 'id':
                                 $arr['id'] = (int) $val;
                                 break;
                             /*
@@ -80,7 +114,7 @@ class ExcelController extends Controller
                                 $arr['categoria'] = $val;
                                 break;
                             */
-                            case 5:
+                            case 'precio':
                                 $arr['precio'] = (float) $val;
                                 break;
                             

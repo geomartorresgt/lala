@@ -15,17 +15,17 @@
             var token = $('meta[name=csrf-token]').attr('content');
 
             if (valorLocal == '') {
-                alert('Debe seleccionar un local');
+                toastr.error('Debe seleccionar un local.');
                 return;
             }
 
             if (valorAccion == '') {
-                alert('Debe seleccionar una acción a realizar')
+                toastr.error('Debe seleccionar una acción a realizar.');
                 return;
             }
 
             if (valorAccion == '1' && $archivo[0].files.length === 0 ) {
-                alert('Debe cargar un archivo')
+                toastr.error('Debe cargar un archivo.');
                 return;
             }
 
