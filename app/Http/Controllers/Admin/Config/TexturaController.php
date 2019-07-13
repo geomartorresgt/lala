@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Storage;
 class TexturaController extends Controller
 {
     public function __construct() {
-        $this->middleware("permission:texturas_ver");
+        $this->middleware("permission:texturas_get");
         $this->middleware("permission:texturas_crear")->only("create", "store");
         $this->middleware("permission:texturas_editar")->only("edit", "update");
         $this->middleware("permission:texturas_eliminar")->only("destroy");
