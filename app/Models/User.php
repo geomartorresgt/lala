@@ -37,11 +37,6 @@ class User extends Authenticatable
         return $this->belongsToMany(Rol::class);
     }
 
-    public function local()
-    {
-        return $this->belongsTo(Local::class);
-    }
-
     public function presupuestos()
     {
         return $this->hasMany(Presupuesto::class);

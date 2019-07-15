@@ -5,7 +5,7 @@
     <a class="navbar-brand" href="{{ route('root_path') }}">
         {{-- <img class="navbar-brand-full" src="img/brand/logo.svg" width="89" height="25" alt=""> --}}
         {{-- <img class="navbar-brand-minimized" src="img/brand/sygnet.svg" width="30" height="30" alt="CoreUI Logo"> --}}
-        UNIGRES
+        Fundación Lala
     </a>
     <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-lg-show">
         <span class="navbar-toggler-icon"></span>

@@ -31,7 +31,6 @@
 		                                    <th>Teléfono</th>
 		                                    <th>E-mail</th>
 		                                    <th>Rol</th>
-		                                    <th>Local</th>
 		                                    <th></th>
 		                                </tr>
 	                                </thead>

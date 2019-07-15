@@ -26,15 +26,11 @@ class DatabaseSeeder extends Seeder
             Rol::truncate();
             Permiso::truncate();
             User::truncate();
-            CategoriaMueble::truncate();
 
             // agregan datos
-            $this->call(ConfigSeeder::class);
-            $this->call(LocalesSeeder::class);
             $this->call(PermisosSeeder::class);
             $this->call(RolesSeeder::class);
             $this->call(UsersSeeder::class);
-            $this->call(CategoriasMueblesSeeder::class);
         }
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');

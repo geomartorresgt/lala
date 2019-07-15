@@ -6,12 +6,7 @@
 	};
 	
 	$(document).ready(function() {
-		// $formUsuario.on('submit', function(e){
-		// 	e.preventDefault();
-		// });
-
 		if (urlFotoPerfil) {
-			// data.exportZoom = 1.25;
 			data.imageBackground = true;
 			data.imageBackgroundBorderWidth = 20;
 			data.imageState = {
@@ -41,16 +36,4 @@
 		});		
 
 	});
-
-	function showLocal() {
-		var $local = $('#local');
-
-		if( $('#rol').val() == '2' ){
-			$local.closest('.col-md-6').removeClass('d-none');
-		} else {
-			$local.closest('.col-md-6').addClass('d-none');
-		}
-	}
-
-
 </script>

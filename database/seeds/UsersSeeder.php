@@ -15,29 +15,15 @@ class UsersSeeder extends Seeder
     {
         $users = [
         	[
-	            'nombres' => 'Admin',
-	            'apellidos'=>'',
+	            'nombres' => 'admin',
+	            'apellidos'=>'apellido',
 	            'telefono'=>'+580000000',
-	            'email' => 'admin@unigres.com',
+	            'email' => 'admin@lala.com',
 	            'password' => bcrypt('admin'),
 	            'remember_token' => str_random(10),
-	            'estado'=> true,
-	            'local_id'=> 1,
 	            'created_at' => now(),
 	            'updated_at' => now()
-			],
-			[
-	            'nombres' => 'Local',
-	            'apellidos'=>'Local',
-	            'telefono'=>'+581000000',
-	            'email' => 'local@unigres.com',
-	            'password' => bcrypt('local'),
-	            'remember_token' => str_random(10),
-	            'estado'=> true,
-	            'local_id'=> 3,
-	            'created_at' => now(),
-	            'updated_at' => now()
-        	]
+			]
 		];
 
 		// agregando los usuarios
@@ -47,10 +33,5 @@ class UsersSeeder extends Seeder
 		$userAdmin = User::first();
 		$rolAdmin = Rol::where('name', 'admin')->first();
 		$userAdmin->attachRole($rolAdmin);
-		
-		// usuario con rol local(se asocia con un local_id)
-		$userLocal = User::latest('id')->first();
-		$rolLocal = Rol::latest('id')->first();
-		$userLocal->attachRole($rolLocal);
     }
 }

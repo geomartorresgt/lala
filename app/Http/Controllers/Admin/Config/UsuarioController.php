@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin\Config;
 
 use App\Models\Rol;
 use App\Models\User;
-use App\Models\Local;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -31,7 +30,7 @@ class UsuarioController extends Controller
      */
     public function index(Request $request)
     {
-    	$usuarios = User::with('local')->get();
+    	$usuarios = User::all();
         if ($request->ajax()) {
             return response()->json($usuarios);
         }
@@ -127,12 +126,10 @@ class UsuarioController extends Controller
     public function create()
     {
         $roles = Rol::all();
-        $locales = Local::all();
         $usuario = new User();
         return view('admin.config.usuarios.create')
                 ->withRoles($roles)
-                ->withUsuario($usuario)
-                ->withLocales($locales);
+                ->withUsuario($usuario);
     }
 
     /**
@@ -143,18 +140,12 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
-
-        $customMessages = [
-            'required_if' => 'El campo Local es obligatorio si el usuario tiene el rol "Local".'
-        ];
-
         $this->validate($request, [
             'nombres' => 'required',
             'apellidos' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required|same:repClave|min:6',
             'rol' => 'required',
-            'local_id' => 'required_if:rol,==,2',
         ], $customMessages);
 
         try {
@@ -230,12 +221,10 @@ class UsuarioController extends Controller
     public function edit($id)
     {
         $roles = Rol::all();
-        $locales = Local::all();
         $usuario = User::findOrFail($id);
         return view('admin.config.usuarios.edit')
                 ->withRoles($roles)
-                ->withUsuario($usuario)
-                ->withLocales($locales);
+                ->withUsuario($usuario);
     }
 
     /**
@@ -262,11 +251,6 @@ class UsuarioController extends Controller
             $data = [
                 'nombres' => 'required',
                 'apellidos' => 'required',
-                'local_id' => 'required_if:rol,==,2',
-            ];
-
-            $customMessages = [
-                'required_if' => 'El campo Local es obligatorio si el usuario tiene el rol "Local".'
             ];
 
             if ($request->password != "") {
@@ -295,13 +279,6 @@ class UsuarioController extends Controller
                  	$this->borrarImagenUsuario($usuario);
 
                 	if($request->foto_perfil){
-                		// $foto_perfil = $request->foto_perfil;
-
-                		// $ruta = "img/foto_perfil/".uniqid().'.jpg';
-                		// Storage::put('public/'.$ruta,  $this->decode_imageCropit($request->input('foto_perfil')));
-                		// $urlfinal = "/storage/$ruta";
-
-                		
                 		$cover = $request->file('foto_perfil');
 					    $extension = $cover->getClientOriginalExtension();
 					    $filename = uniqid();
