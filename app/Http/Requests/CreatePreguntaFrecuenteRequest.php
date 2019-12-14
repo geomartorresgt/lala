@@ -4,8 +4,13 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdatePresupuestoRequest extends FormRequest
+class CreatePreguntaFrecuenteRequest extends FormRequest
 {
+    protected $reglas = [
+        'pregunta' => 'required',
+        'respuesta' => 'required',
+    ];
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -23,6 +28,6 @@ class UpdatePresupuestoRequest extends FormRequest
      */
     public function rules()
     {
-        return [];
+        return $this->reglas;
     }
 }

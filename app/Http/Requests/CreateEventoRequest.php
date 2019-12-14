@@ -4,8 +4,13 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateMuebleRequest extends FormRequest
+class CreateEventoRequest extends FormRequest
 {
+    protected $reglas = [
+        'titulo' => 'required|unique:eventos',
+        'descripcion' => 'required',
+        'fecha' => 'required',
+    ];
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -23,6 +28,6 @@ class UpdateMuebleRequest extends FormRequest
      */
     public function rules()
     {
-        return [];
+        return $this->reglas;
     }
 }

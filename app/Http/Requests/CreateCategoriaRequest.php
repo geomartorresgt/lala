@@ -4,8 +4,12 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreatePresupuestoRequest extends FormRequest
+class CreateCategoriaRequest extends FormRequest
 {
+    protected $reglas = [
+        'nombre' => 'required|unique:categorias',
+        'clave' => 'required|unique:categorias',
+    ];
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -23,6 +27,6 @@ class CreatePresupuestoRequest extends FormRequest
      */
     public function rules()
     {
-        return [];
+        return $this->reglas;
     }
 }

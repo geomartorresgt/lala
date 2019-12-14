@@ -4,10 +4,11 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateCategoriaMuebleRequest extends FormRequest
+class CreatePublicacionRequest extends FormRequest
 {
     protected $reglas = [
-        'nombre' => 'required|unique:categorias_muebles'
+        'titulo' => 'required|unique:publicaciones',
+        'contenido' => 'required',
     ];
     /**
      * Determine if the user is authorized to make this request.

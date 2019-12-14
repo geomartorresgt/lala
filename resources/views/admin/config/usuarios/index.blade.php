@@ -8,7 +8,7 @@
                 	Listado de usuarios
                 </div>
                 <div class="card-body">
-                	{{-- @permission('usuarios_crear') --}}
+                	@permission('usuarios_crear')
             	        <div class="row m-0 mb-2 ">
             	            <div class="col-md-12 text-right">
             	                <a href="{{ route('usuarios.create') }}" class="btn btn-info btn-effect-ripple text-white">
@@ -17,7 +17,7 @@
             	                </a>
             	            </div>
             	        </div>
-        	        {{-- @endpermission --}}
+        	        @endpermission
         	        <div class="row">
 	                    <br/><br/>
 	                    <div class="table-responsive">
