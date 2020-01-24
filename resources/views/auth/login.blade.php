@@ -56,9 +56,9 @@
 	                    </div>
 		            </form>
 	            </div>
-	            <div class="card-footer p-4">
+	            {{-- <div class="card-footer p-4">
 	                
-	            </div>
+	            </div> --}}
 	        </div>
 	    </div>
 	</div>
