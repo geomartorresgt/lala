@@ -17,7 +17,7 @@
 Auth::routes();
 
 Route::group(['middleware' => ['auth', "session_time"]], function (){
-	Route::group(['prefix' => 'Admin', 'namespace' => 'Admin'], function () {
+	Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 		Route::name('root_path')->get('/', 'InicioController@index');
 		
 		Route::resource('/preguntas-frecuentes', 'PreguntasFrecuentesController', ['parameters' => [
