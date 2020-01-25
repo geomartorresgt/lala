@@ -47,6 +47,7 @@ Route::group(['middleware' => ['auth', "session_time"]], function (){
 
 Route::group(['namespace' => 'Web'], function () {
 	Route::get('/', 'InicioController@home')->name('root_path');
+	Route::get('/conocenos', 'InicioController@conocenos')->name('web.conocenos');
 	Route::get('/preguntas-frecuentes', 'PreguntasFrecuentesController@index')->name('web.preguntasFrecuentes.index');
 	Route::get('/eventos', 'EventosController@index')->name('web.eventos.index');
 

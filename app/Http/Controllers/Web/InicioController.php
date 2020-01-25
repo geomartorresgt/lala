@@ -11,4 +11,9 @@ class InicioController extends Controller
     {
         return view('web.inicio.home');
     }
+
+    public function conocenos()
+    {
+        return view('web.inicio.conocenos');
+    }
 }

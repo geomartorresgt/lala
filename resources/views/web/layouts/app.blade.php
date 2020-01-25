@@ -32,7 +32,7 @@
 
     <!-- Bootstrap core JavaScript -->
     <script type="text/javascript" src="{{asset('web/jquery/jquery.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('web/js/bootstrap.bundle.min.js')}}"></script>
 
     @stack('js')
   </body>

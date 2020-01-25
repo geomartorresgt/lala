@@ -10,20 +10,19 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link text-primary" href="conocenos.html"> <Strong>Conócenos</Strong></a>
+                    <a class="nav-link text-primary" href="{{ route('web.conocenos') }}"> <Strong>Conócenos</Strong></a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-primary" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <Strong>¿Qué hacemos?</Strong>
+                    <a class="nav-link dropdown-toggle text-primary" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><Strong>¿Qué hacemos?</Strong>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right bg-success" aria-labelledby="navbarDropdownPortfolio">
-                        <a class="dropdown-item" href="salud.html">Salud</a>
-                        <a class="dropdown-item" href="gestion_social.html">Gestión social</a>
-                        <a class="dropdown-item" href="Educacion.html">Educación</a>
-                        <a class="dropdown-item" href="Cultura.html">Cultura</a>
-                        <a class="dropdown-item" href="Deportes.html">Deportes</a>
+                      <a class="dropdown-item" href="salud.html">Salud</a>
+                      <a class="dropdown-item" href="gestion_social.html">Gestión social</a>
+                      <a class="dropdown-item" href="Educacion.html">Educación</a>
+                      <a class="dropdown-item" href="Cultura.html">Cultura</a>
+                      <a class="dropdown-item" href="Deportes.html">Deportes</a>
                     </div>
-                </li>
+                  </li>
                 <li class="nav-item">
                     <a class="nav-link text-primary" href="#"><Strong> Aliados</Strong></a>
                 </li>
