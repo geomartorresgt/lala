@@ -35,5 +35,6 @@
     <script type="text/javascript" src="{{asset('web/js/bootstrap.bundle.min.js')}}"></script>
 
     @stack('js')
+
   </body>
 </html>

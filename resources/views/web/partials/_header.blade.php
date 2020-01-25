@@ -1,3 +1,3 @@
 <header style="background-color: #000" >
-    <video src="video/video.mp4" controls autoplay loop  ></video>
+    <video id="video_banner" src="video/video.mp4" autoplay="true" loop  ></video>
 </header>
