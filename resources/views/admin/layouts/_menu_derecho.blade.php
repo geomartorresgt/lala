@@ -1,10 +1,10 @@
-<aside class="aside-menu">
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-12">
+<aside class="aside-menu" style="overflow:auto !important">
+	<div class="container-fluid overflow-auto">
+		<div class="row overflow-auto">
+			<div class="col-12 overflow-auto">
 				<h2 class="text-dark">Perfil</h2>
 				<form action="{{url('/admin/config/usuariosSide')}}" method="post"
-				      class="form-control-borderless frm-perfil-user" autocomplete="off">
+				      class="form-control-borderless frm-perfil-user overflow-auto" autocomplete="off">
 				    {{ csrf_field() }}
 				    <input type="hidden" name="_method" value="PUT">
 				    <input type="hidden" name="_inicio" value="0">
@@ -59,6 +59,7 @@
 				        </div>
 				    </div>
 				</form>
+				<br><br><br>
 			</div>
 		</div>
 	</div>
