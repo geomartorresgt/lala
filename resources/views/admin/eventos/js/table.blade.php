@@ -12,12 +12,30 @@
             columns: [
                 {
                     render: function (data, type, evento) {
-                        var logo = "<img src=\"" + evento.banner + "\" style=\"width:50px;\"alt=\"\"> ";
-                        return (logo);
+                        var miniatura = "<img src=\"" + evento.banner_url + "\" style=\"width:150px;border-radius:2px;\" alt="+ evento.banner_url +">";
+                        return miniatura;
                     }
                 },
                 {data: 'titulo'},
-                {data: 'descripcion'},
+                {
+                    render: function (data, type, evento) {
+                        var suspensivos = '';
+                        var max = 600;
+
+                        if (evento.resumen.length > max ) {
+                            suspensivos = '...';
+                        }
+
+                        return evento.resumen.slice(0, max).trim() + suspensivos;
+                    }
+                },
+                {
+                    class: 'text-center',
+                    render: function (data, type, publicacion) {
+
+                        return publicacion.publicado? 'Si':'No';
+                    }
+                },
                 {data: 'fecha'},
                 {
                     render: function (data, type, evento) {

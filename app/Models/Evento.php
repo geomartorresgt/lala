@@ -3,12 +3,16 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Html2Text\Html2Text;
+use Illuminate\Support\Facades\File;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Evento extends Model
 {
     protected $table = 'eventos';
-    protected $fillable = ['banner', 'titulo', 'descripcion', 'fecha'];
+    protected $fillable = ['banner', 'titulo', 'descripcion', 'fecha', 'publicado'];
+    protected $appends = ['banner_url', 'resumen'];
 
     // mutators
     public function setFechaAttribute($value)
@@ -21,18 +25,76 @@ class Evento extends Model
         return Carbon::parse($value)->format('d/m/Y');
     }
 
-    public function getBannerAttribute($value)
-    {
-        if (!$this->exists) return '';
+    public function actualizar(array $options = []){
+        $data = collect($options);
 
-        if ($value == null) {
+        if($this->exists){
+            $data = $data->only($this->fillable);
+
+            if (!$data->has('publicado')) {
+                $data['publicado'] = false;
+            }
+            
+            if( array_key_exists('banner', $data->toArray()) ){
+                $this->eliminarBanner();
+                $banner = $this->guardarLogo($data['banner']) ;
+                $data['banner'] = $banner;
+            }
+        } 
+
+        $this->update( $data->toArray() );
+    }
+
+    // mutators
+    public function getResumenAttribute()
+    {
+        $html = $this->descripcion;
+        $html2TextConverter = new Html2Text($html);
+        $text =  str_replace("\n", ' ', $html2TextConverter->getText());
+        return $text;
+    }
+
+    public function getBannerUrlAttribute()
+    {
+        $value = $this->banner;
+        if ($value === null || $value === '') {
             return url("web/images/700x400.png");
         }else{
-        	return url("/storage/img/eventos").'/'.$value;
+        	return url("/storage/banners_eventos").'/'.$value;
            return url("").$value;
  
         }
 
         return $value;
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        self::creating(function($evento){
+            if ($evento->banner) {
+                $bannerUrl = $evento->guardarLogo($evento->banner);
+                $evento->banner = $bannerUrl;
+            }
+        });
+
+        self::deleted(function($evento){
+            $evento->eliminarBanner();
+        });
+    }
+
+    private function eliminarBanner(){
+        $banner = $this->getOriginal('banner');
+        return Storage::disk('banners_eventos')->delete($banner);
+    }
+
+    private function guardarLogo($fileFoto){
+        $extension = $fileFoto->getClientOriginalExtension();
+        $filename = uniqid();
+        Storage::disk('banners_eventos')->put($filename.'.'.$extension,  File::get($fileFoto));
+        $urlfinal = $filename . '.' . $extension;
+
+        return $urlfinal;
     }
 }

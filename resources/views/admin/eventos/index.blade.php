@@ -27,11 +27,12 @@
 	                                   role="grid" aria-describedby="example-datatable_info" width="100%">
 	                                <thead>
 		                                <tr>
-		                                    <th></th>
+		                                    <th>Banner</th>
 		                                    <th>Titulo</th>
 		                                    <th>Contenido</th>
+		                                    <th>Publicado</th>
 		                                    <th>Fecha</th>
-		                                    <th></th>
+		                                    <th>Opciones</th>
 		                                </tr>
 	                                </thead>
 	                            </table>

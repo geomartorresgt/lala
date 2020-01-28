@@ -5,7 +5,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                	Nueva eventos
+                	Nuevo Evento
                 </div>
                 <div class="card-body">
                 	@include('admin.eventos._form', ['evento' => $evento])
@@ -27,6 +27,7 @@
 
 @push('js')
 	@include('plugins.datepicker')
+	@include('plugins.ckeditor')
 @endpush
 
 

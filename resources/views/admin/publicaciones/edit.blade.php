@@ -5,9 +5,14 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                	Actualizar publicaciones
+                	Actualizar publicación
                 </div>
                 <div class="card-body">
+					<div class="row mb-3 justify-content-center">
+						<div class="col-12 col-lg-6">
+							<img src="{{$publicacion->banner_url}}" alt="{{$publicacion->titulo}}" width="100%">
+						</div>
+					</div>
                 	@include('admin.publicaciones._form', ['publicacion' => $publicacion])
             	</div>
             	<div class="card-footer">

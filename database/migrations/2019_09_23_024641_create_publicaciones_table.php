@@ -17,6 +17,8 @@ class CreatePublicacionesTable extends Migration
             $table->bigIncrements('id');
             $table->text('titulo');
             $table->text('contenido');
+            $table->text('banner');
+            $table->boolean('publicado')->default(false);
             $table->timestamps();
         });
     }

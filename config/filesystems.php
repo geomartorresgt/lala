@@ -71,37 +71,23 @@ return [
             'visibility' => 'public',
         ],
 
-        'muebles' => [
+        'banners_publicaciones' => [
             'driver' => 'local',
-            'root' => storage_path('app/public/muebles'),
+            'root' => storage_path('app/public/banners_publicaciones'),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
 
-        'foto_muebles' => [
+        'banners_eventos' => [
             'driver' => 'local',
-            'root' => storage_path('app/public/foto_muebles'),
+            'root' => storage_path('app/public/banners_eventos'),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
 
-        'editor_capturas' => [
+        'iconos_categorias' => [
             'driver' => 'local',
-            'root' => storage_path('app/public/editor/capturas'),
-            'url' => env('APP_URL').'/storage',
-            'visibility' => 'public',
-        ],
-
-        'logo_locales' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public/logo_locales'),
-            'url' => env('APP_URL').'/storage',
-            'visibility' => 'public',
-        ],
-
-        'texturas' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public/texturas'),
+            'root' => storage_path('app/public/iconos_categorias'),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],

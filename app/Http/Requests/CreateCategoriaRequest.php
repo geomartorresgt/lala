@@ -9,6 +9,7 @@ class CreateCategoriaRequest extends FormRequest
     protected $reglas = [
         'nombre' => 'required|unique:categorias',
         'clave' => 'required|unique:categorias',
+        'descripción' => 'required',
     ];
     /**
      * Determine if the user is authorized to make this request.

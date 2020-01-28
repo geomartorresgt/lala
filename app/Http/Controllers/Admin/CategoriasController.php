@@ -49,7 +49,7 @@ class CategoriasController extends Controller
     {
         try {
             DB::beginTransaction();
-            $categoria = Categoria::create($request->only('nombre', 'clave'));
+            $categoria = Categoria::create($request->only('nombre', 'clave', 'descripcion', 'inicio', 'icono'));
             DB::commit();
 
             flash('La categoría ha sido creada correctamente.')->success();

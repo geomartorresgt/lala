@@ -14,6 +14,7 @@ class UpdateEventoRequest extends CreateEventoRequest
      */
     public function rules()
     {
+        $this->reglas['titulo'] = 'required|unique:eventos,titulo,'.$this->evento->id.','.'id';
         return $this->reglas;
     }
 }

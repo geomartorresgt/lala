@@ -96,7 +96,7 @@ class EventosController extends Controller
     {
         try {
             DB::beginTransaction();
-            $evento->update($request->only('banner', 'titulo', 'descripcion', 'fecha'));
+            $evento->actualizar( $request->all() );
             DB::commit();
 
             flash('Evento actualizado correctamente.')->success();

@@ -8,15 +8,7 @@
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <label class="col-md-3 control-label" for="banner">Banner:</label>
-                <div class="col-md-9">
-                    <input id="banner" name="banner" class="form-control" type="text" value='{{old("banner", $evento->banner)}}'>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label class="col-md-3 control-label" for="titulo">Titulo:</label>
+                <label class="col-md-12 control-label font-weight-bold" for="titulo">Titulo:</label>
                 <div class="col-md-9">
                     <input id="titulo" name="titulo" class="form-control" type="text" value='{{old("titulo", $evento->titulo)}}'>
                 </div>
@@ -24,17 +16,41 @@
         </div>
         <div class="col-md-6">
             <div class="form-group">
-                <label class="col-md-3 control-label" for="descripcion">descripcion:</label>
-                <div class="col-md-9">
-                    <textarea name="descripcion" id="" cols="30" class="form-control">{{old("descripcion", $evento->descripcion)}}</textarea>
+                <label class="col-md-12 control-label font-weight-bold" for="banner">Banner:</label>
+                <div class="col-md-12">
+                    <input id="banner" name="banner" class="form-control" type="file" value='{{old("banner", $evento->banner)}}'>
                 </div>
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
-                <label class="col-md-3 control-label" for="fecha">Fecha:</label>
+                <label class="col-md-3 control-label font-weight-bold" for="fecha">Fecha:</label>
                 <div class="col-md-9">
                     <input id="fecha" name="fecha" class="form-control datepicker" type="text" value='{{old("fecha", $evento->fecha)}}' data-date-format="dd/mm/yyyy" placeholder="dd/mm/yyyy">
+                </div>
+            </div>
+        </div>
+        @if ($evento->exists)
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="col-md-12 control-label font-weight-bold" for="banner">Publicado:</label>
+                    <div class="col-md-12">
+                        <label class="switch switch-primary">
+                            <input type="checkbox" name="publicado" class="switch-input" {{ $evento->publicado? 'checked': null }} >
+                            <span class="switch-slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        @endif
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="col-md-12 control-label font-weight-bold" for="descripcion">Descripción:</label>
+                <div class="col-md-12">
+                    <textarea name="descripcion" id="" cols="30" rows="5" class="form-control ckeditor">{{old("descripcion", $evento->descripcion)}}</textarea>
                 </div>
             </div>
         </div>

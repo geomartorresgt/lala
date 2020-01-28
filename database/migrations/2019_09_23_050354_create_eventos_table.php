@@ -20,6 +20,7 @@ class CreateEventosTable extends Migration
             $table->text('titulo');
             $table->text('descripcion');
             $table->datetime('fecha');
+            $table->boolean('publicado')->default(false);
 
             $table->timestamps();
         });

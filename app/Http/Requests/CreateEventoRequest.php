@@ -28,6 +28,7 @@ class CreateEventoRequest extends FormRequest
      */
     public function rules()
     {
+        $this->reglas['banner'] = 'required';
         return $this->reglas;
     }
 }

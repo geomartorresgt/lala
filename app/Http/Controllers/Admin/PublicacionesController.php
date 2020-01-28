@@ -51,9 +51,11 @@ class PublicacionesController extends Controller
     public function store(CreatePublicacionRequest $request)
     {
         try {
+            // dd($request->all(), $request->has('banner'));
             DB::beginTransaction();
-            $publicacion = Publicacion::create($request->only('titulo', 'contenido'));
-            $publicacion->addCategorias($request->categorias);
+            $publicacion = Publicacion::create($request->only('titulo', 'contenido', 'banner'));
+            if($request->categorias)
+                $publicacion->addCategorias($request->categorias);
             DB::commit();
 
             flash('La publicación ha sido creada correctamente.')->success();
@@ -102,8 +104,11 @@ class PublicacionesController extends Controller
     {
         try {
             DB::beginTransaction();
-            $publicacion->update($request->only('titulo', 'contenido'));
-            $publicacion->addCategorias($request->categorias);
+            $publicacion->actualizar( $request->all() );
+
+            if($request->categorias)
+                $publicacion->addCategorias($request->categorias);
+
             DB::commit();
 
             flash('Publicación actualizada correctamente.')->success();
