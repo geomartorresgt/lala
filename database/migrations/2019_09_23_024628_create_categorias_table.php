@@ -17,7 +17,7 @@ class CreateCategoriasTable extends Migration
             $table->bigIncrements('id');
             $table->string('nombre');
             $table->string('clave');
-            $table->text('descripción');
+            $table->text('descripcion');
             $table->string('icono');
             $table->boolean('inicio')->default(false);
 

@@ -27,9 +27,12 @@
 	                                   role="grid" aria-describedby="example-datatable_info" width="100%">
 	                                <thead>
 		                                <tr>
+		                                    <th>Icono</th>
 		                                    <th>Nombre</th>
+		                                    <th>Descripcion</th>
 		                                    <th>Clave</th>
-		                                    <th></th>
+		                                    <th>Inicio</th>
+		                                    <th>Opciones</th>
 		                                </tr>
 	                                </thead>
 	                            </table>

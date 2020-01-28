@@ -51,7 +51,6 @@ class PublicacionesController extends Controller
     public function store(CreatePublicacionRequest $request)
     {
         try {
-            // dd($request->all(), $request->has('banner'));
             DB::beginTransaction();
             $publicacion = Publicacion::create($request->only('titulo', 'contenido', 'banner'));
             if($request->categorias)
