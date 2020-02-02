@@ -79,13 +79,32 @@ class Publicacion extends Model
 
         return $value;
     }
-    
+
+    public function setSlugAttribute($value)
+    {
+        $this->attributes['slug'] = $this->friendlyUrl($value);
+    }
+
+    public function friendlyUrl($value): String
+    {
+        $value = strtolower($value);
+        return urlencode($value);
+    }
+
+    // scope
+    public function scopeFindBySlug($query, $slug)
+    {
+        $slug = strtolower($slug);
+        return $query->where('slug', $slug)->first();
+    }
 
     public static function boot()
     {
         parent::boot();
 
         self::creating(function($publicacion){
+            $publicacion->slug = $publicacion->titulo;
+
             if ($publicacion->banner) {
                 $bannerUrl = $publicacion->guardarLogo($publicacion->banner);
                 $publicacion->banner = $bannerUrl;
@@ -94,6 +113,10 @@ class Publicacion extends Model
 
         self::deleted(function($publicacion){
             $publicacion->eliminarBanner();
+        });
+
+        self::updating(function($publicacion){
+            $publicacion->slug = $publicacion->titulo;
         });
     }
 

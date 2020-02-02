@@ -59,12 +59,37 @@ class Categoria extends Model
 
         return $value;
     }
+
+    public function setSlugAttribute($value)
+    {
+        $this->attributes['slug'] = $this->friendlyUrl($this->nombre);
+    }
+
+    public function friendlyUrl($value): String
+    {
+        $value = strtolower($value);
+        return urlencode($value);
+    }
+
+    // scope
+    public function scopeInicio($query)
+    {
+        return $query->where('inicio', true);
+    }
+
+    public function scopeFindBySlug($query, $slug)
+    {
+        $slug = strtolower($slug);
+        return $query->where('slug', $slug);
+    }
     
     public static function boot()
     {
         parent::boot();
 
         self::creating(function($categoria){
+            $categoria->slug = $categoria->nombre;
+
             if ($categoria->icono) {
                 $iconoUrl = $categoria->guardarIcono($categoria->icono);
                 $categoria->icono = $iconoUrl;
@@ -73,6 +98,10 @@ class Categoria extends Model
 
         self::deleted(function($categoria){
             $categoria->eliminarIcono();
+        });
+
+        self::updating(function($categoria){
+            $categoria->slug = $categoria->nombre;
         });
     }
 

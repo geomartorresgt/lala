@@ -1,4 +1,4 @@
-@extends('web.layouts.app')
+ @extends('web.layouts.app')
 
 @section('content')
     <!-- Page Content -->
@@ -8,10 +8,10 @@
         <h1 class="mt-4 mb-3">Eventos
             <!--<small>Subheading</small> -->
         </h1>
-    
+
         <!-- Image Header -->
         <img class="img-fluid rounded mb-4" src="images/photocall-infantil_133_1_1200x300.jpg" alt="">
-    
+
         <!-- Marketing Icons Section -->
         <div class="row">
             @foreach ($eventos as $evento)
@@ -22,7 +22,7 @@
                         </a>
                         <div class="card-body">
                             <h4 class="card-title">
-                                <a href="#">{{$evento->titulo}}</a>
+                                <a href="{{url('/evento/'.$evento->slug)}}">{{$evento->titulo}}</a>
                             </h4>
                             <p class="card-text">
                                 {{$evento->contenido}}
@@ -36,9 +36,5 @@
         </div>
         <!-- /.row -->
     </div>
-    <!-- /.container -->      
-    
+    <!-- /.container -->
 @endsection
-
-@push('js')
-@endpush

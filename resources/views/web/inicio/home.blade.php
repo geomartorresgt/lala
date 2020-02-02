@@ -5,7 +5,7 @@
     <!-- Page Content -->
     <div class="container">
         <p class="m-0 text-center text-white">
-            <a class="navbar-brand" data-toggle="tooltip" data-placement="bottom" title="Salud" href="salud.html"><img src="{{asset('web/images/icono-salud.png')}}" width="70" class="img-fluid"></a>
+            {{-- <a class="navbar-brand" data-toggle="tooltip" data-placement="bottom" title="Salud" href="salud.html"><img src="{{asset('web/images/icono-salud.png')}}" width="70" class="img-fluid"></a>
     
             <a class="navbar-brand" data-toggle="tooltip" data-placement="bottom" title="Gestión Social" href="gestion_social.html"><img src="{{asset('web/images/social-icono.png')}}" width="75" class="img-fluid"></a>
     
@@ -13,7 +13,12 @@
     
             <a class="navbar-brand" data-toggle="tooltip" data-placement="bottom" title="Cultura" href="Cultura.html"><img src="{{asset('web/images/musica-icono.png')}}" width="75" class="img-fluid"></a>
     
-            <a class="navbar-brand" data-toggle="tooltip" data-placement="bottom" title="Deportes" href="Deportes.html"><img src="{{asset('web/images/deportes-icono.png')}}" width="75" class="img-fluid"></a>
+            <a class="navbar-brand" data-toggle="tooltip" data-placement="bottom" title="Deportes" href="Deportes.html"><img src="{{asset('web/images/deportes-icono.png')}}" width="75" class="img-fluid"></a> --}}
+            @foreach($categorias as $categoria)
+                <a class="navbar-brand" data-toggle="tooltip" data-placement="bottom" title="{{$categoria->nombre}}" href="{{url('/categoria/'.$categoria->slug)}}">
+                    <img src="{{asset($categoria->icono_url)}}" width="70" class="img-fluid">
+                </a>
+            @endforeach
         </p>
         <!-- Portfolio Section -->
         <h2 class="m-3">Eventos/Noticias</h2>

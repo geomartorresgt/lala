@@ -32,6 +32,7 @@
 		                                    <th>Descripcion</th>
 		                                    <th>Clave</th>
 		                                    <th>Inicio</th>
+		                                    <th>Url</th>
 		                                    <th>Opciones</th>
 		                                </tr>
 	                                </thead>

@@ -49,7 +49,14 @@ Route::group(['namespace' => 'Web'], function () {
 	Route::get('/', 'InicioController@home')->name('root_path');
 	Route::get('/conocenos', 'InicioController@conocenos')->name('web.conocenos');
 	Route::get('/preguntas-frecuentes', 'PreguntasFrecuentesController@index')->name('web.preguntasFrecuentes.index');
+	
+	// Eventos
 	Route::get('/eventos', 'EventosController@index')->name('web.eventos.index');
+	Route::get('/evento/{slug}', 'EventosController@show')->name('web.eventos.show');
+
+	// Categorías
+	Route::get('/categoria/{slug}', 'CategoriaController@show')->name('web.categoria.show');
+
 
 });
 

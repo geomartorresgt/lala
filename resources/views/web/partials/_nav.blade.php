@@ -16,25 +16,28 @@
                     <a class="nav-link dropdown-toggle text-primary" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><Strong>¿Qué hacemos?</Strong>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right bg-success" aria-labelledby="navbarDropdownPortfolio">
-                      <a class="dropdown-item" href="salud.html">Salud</a>
-                      <a class="dropdown-item" href="gestion_social.html">Gestión social</a>
-                      <a class="dropdown-item" href="Educacion.html">Educación</a>
-                      <a class="dropdown-item" href="Cultura.html">Cultura</a>
-                      <a class="dropdown-item" href="Deportes.html">Deportes</a>
+                        {{-- <a class="dropdown-item" href="salud.html">Salud</a>
+                        <a class="dropdown-item" href="gestion_social.html">Gestión social</a>
+                        <a class="dropdown-item" href="Educacion.html">Educación</a>
+                        <a class="dropdown-item" href="Cultura.html">Cultura</a>
+                        <a class="dropdown-item" href="Deportes.html">Deportes</a> --}}
+                        @foreach (App\Categoria::inicio()->get() as $categoria)
+                            <a class="dropdown-item" href="{{url('/categoria/'.$categoria->slug)}}">{{$categoria->nombre}}</a>
+                        @endforeach
                     </div>
                   </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link text-primary" href="#"><Strong> Aliados</Strong></a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a class="nav-link text-primary" href="{{route('web.eventos.index')}}"><Strong> Eventos</Strong></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-primary" href="{{route('web.preguntasFrecuentes.index')}}"><Strong> Preguntas Frecuentes</Strong></a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link text-primary" href="#"><Strong>Artículos de interés</Strong></a>
-                </li>
+                </li> --}}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle text-primary" href="#" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <Strong>Contactos</Strong>

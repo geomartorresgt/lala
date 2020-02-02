@@ -36,6 +36,7 @@
                         return categoria.inicio? 'Si':'No';
                     }
                 },
+				{data: 'slug'},
                 {
                     render: function (data, type, categoria) {
                     	var $btnEditar = '';
