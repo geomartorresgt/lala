@@ -96,7 +96,8 @@ class CategoriasController extends Controller
     {
         try {
             DB::beginTransaction();
-            $categoria->update($request->only('nombre', 'clave'));
+            // $categoria->update($request->only('nombre', 'clave', 'descripcion', 'inicio', 'icono'));
+            $categoria->actualizar($request->all());
             DB::commit();
 
             flash('Categoría actualizada correctamente.')->success();

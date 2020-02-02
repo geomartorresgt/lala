@@ -33,10 +33,10 @@
         @if ($categoria->exists)
             <div class="col-md-6">
                 <div class="form-group">
-                    <label class="col-md-12 control-label font-weight-bold" for="incio">Mostrar en Inicio:</label>
+                    <label class="col-md-12 control-label font-weight-bold" for="inicio">Mostrar en Inicio:</label>
                     <div class="col-md-12">
                         <label class="switch switch-primary">
-                            <input type="checkbox" name="incio" class="switch-input" {{ $categoria->inicio? 'checked': null }} >
+                            <input type="checkbox" name="inicio" class="switch-input" {{ $categoria->inicio? 'checked': null }} >
                             <span class="switch-slider"></span>
                         </label>
                     </div>

@@ -33,7 +33,7 @@
 				{
                     class: 'text-center',
                     render: function (data, type, categoria) {
-                        return categoria.incio? 'Si':'No';
+                        return categoria.inicio? 'Si':'No';
                     }
                 },
                 {
