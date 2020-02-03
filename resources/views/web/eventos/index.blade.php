@@ -14,7 +14,7 @@
 
         <!-- Marketing Icons Section -->
         <div class="row">
-            @foreach($eventos as $evento)
+            @forelse($eventos as $evento)
                 <div class="col-lg-4 col-sm-6 portfolio-item">
                     <div class="card h-100">
                         <a href="#"><img class="card-img-top" src="{{asset('web/images/700x400.png')}}" alt=""></a>
@@ -26,7 +26,11 @@
                         </div>
                     </div>
                 </div>
-            @endforeach
+            @empty
+                <div class="col-12">
+                    <h2 class="text-center">No hay eventos disponibles</h2>
+                </div>
+            @endforelse
 
             {{ $eventos->links() }}
         </div>
