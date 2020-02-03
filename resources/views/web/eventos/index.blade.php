@@ -14,19 +14,15 @@
 
         <!-- Marketing Icons Section -->
         <div class="row">
-            @foreach ($eventos as $evento)
+            @foreach($eventos as $evento)
                 <div class="col-lg-4 col-sm-6 portfolio-item">
                     <div class="card h-100">
-                        <a href="#">
-                            <img class="card-img-top" src="{{asset('web/images/700x400.png')}}" alt="">
-                        </a>
+                        <a href="#"><img class="card-img-top" src="{{asset('web/images/700x400.png')}}" alt=""></a>
                         <div class="card-body">
                             <h4 class="card-title">
                                 <a href="{{url('/evento/'.$evento->slug)}}">{{$evento->titulo}}</a>
                             </h4>
-                            <p class="card-text">
-                                {{$evento->contenido}}
-                            </p>
+                            <p class="card-text">{{$evento->getResumen(200)}}</p>
                         </div>
                     </div>
                 </div>

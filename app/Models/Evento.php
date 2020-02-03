@@ -45,6 +45,18 @@ class Evento extends Model
         $this->update( $data->toArray() );
     }
 
+    public function getResumen($countCaracteres)
+    {
+        $suspensivos = '';
+        $max = $countCaracteres;
+
+        if (strlen($this->resumen) > $max ) {
+            $suspensivos = '...';
+        }
+
+        return substr(trim($this->resumen), 0, $max) . $suspensivos;
+    }
+
     // mutators
     public function getResumenAttribute()
     {
@@ -84,6 +96,11 @@ class Evento extends Model
     {
         $slug = strtolower($slug);
         return $query->where('slug', $slug);
+    }
+
+    public function scopePublicados($query)
+    {
+        return $query->where('publicado', true);
     }
 
     public function scopeDestacados($query)

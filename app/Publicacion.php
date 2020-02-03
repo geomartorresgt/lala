@@ -91,11 +91,28 @@ class Publicacion extends Model
         return str_slug($value, "+");
     }
 
+    public function getResumen($countCaracteres)
+    {
+        $suspensivos = '';
+        $max = $countCaracteres;
+
+        if (strlen($this->resumen) > $max ) {
+            $suspensivos = '...';
+        }
+
+        return substr(trim($this->resumen), 0, $max) . $suspensivos;
+    }
+
     // scope
     public function scopeFindBySlug($query, $slug)
     {
         $slug = strtolower($slug);
         return $query->where('slug', $slug);
+    }
+
+    public function scopePublicados($query)
+    {
+        return $query->where('publicado', true);
     }
 
     public function scopeDestacados($query)

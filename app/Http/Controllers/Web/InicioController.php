@@ -13,8 +13,8 @@ class InicioController extends Controller
     public function home()
     {
         $categorias = Categoria::inicio()->get();
-        $eventos = Evento::destacados()->limit(3)->get();
-        $publicaciones = Publicacion::destacados()->limit(3)->get();
+        $eventos = Evento::publicados()->destacados()->limit(3)->get();
+        $publicaciones = Publicacion::publicados()->destacados()->limit(3)->get();
         return view('web.inicio.home')
                 ->withCategorias($categorias)
                 ->withEventos($eventos)
