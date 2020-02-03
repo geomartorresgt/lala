@@ -68,7 +68,7 @@ class Categoria extends Model
     public function friendlyUrl($value): String
     {
         $value = strtolower($value);
-        return urlencode($value);
+        return str_slug($value, "+");
     }
 
     // scope

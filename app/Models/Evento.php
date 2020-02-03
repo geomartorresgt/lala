@@ -76,14 +76,19 @@ class Evento extends Model
     public function friendlyUrl($value): String
     {
         $value = strtolower($value);
-        return urlencode($value);
+        return str_slug($value, "+");
     }
 
     // scope
     public function scopeFindBySlug($query, $slug)
     {
         $slug = strtolower($slug);
-        return $query->where('slug', $slug)->first();
+        return $query->where('slug', $slug);
+    }
+
+    public function scopeDestacados($query)
+    {
+        return $query->where('id','>','0');
     }
 
     public static function boot()

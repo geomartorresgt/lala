@@ -50,6 +50,9 @@ Route::group(['namespace' => 'Web'], function () {
 	Route::get('/conocenos', 'InicioController@conocenos')->name('web.conocenos');
 	Route::get('/preguntas-frecuentes', 'PreguntasFrecuentesController@index')->name('web.preguntasFrecuentes.index');
 	
+	// publicaciones
+	Route::get('/noticia/{slug}', 'PublicacionesController@show')->name('web.publicaciones.show');
+
 	// Eventos
 	Route::get('/eventos', 'EventosController@index')->name('web.eventos.index');
 	Route::get('/evento/{slug}', 'EventosController@show')->name('web.eventos.show');
