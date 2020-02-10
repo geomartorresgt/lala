@@ -31,9 +31,16 @@
                 },
                 {
                     class: 'text-center',
-                    render: function (data, type, publicacion) {
+                    render: function (data, type, evento) {
 
-                        return publicacion.publicado? 'Si':'No';
+                        return evento.publicado? 'Si':'No';
+                    }
+                },
+                {
+                    class: 'text-center',
+                    render: function (data, type, evento) {
+
+                        return evento.destacado? 'Si':'No';
                     }
                 },
                 {data: 'fecha'},

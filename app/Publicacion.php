@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 class Publicacion extends Model
 {
     protected $table = 'publicaciones';
-    protected $fillable = ['titulo', 'contenido', 'banner', 'publicado'];
+    protected $fillable = ['titulo', 'contenido', 'banner', 'publicado', 'destacado'];
     protected $with = ['categorias'];
     protected $appends = ['banner_url', 'resumen'];
 
@@ -45,6 +45,10 @@ class Publicacion extends Model
 
             if (!$data->has('publicado')) {
                 $data['publicado'] = false;
+            }
+
+            if (!$data->has('destacado')) {
+                $data['destacado'] = false;
             }
             
             if( array_key_exists('banner', $data->toArray()) ){
@@ -117,7 +121,7 @@ class Publicacion extends Model
 
     public function scopeDestacados($query)
     {
-        return $query->where('id','>','0');
+        return $query->where('destacado', true);
     }
 
     public static function boot()

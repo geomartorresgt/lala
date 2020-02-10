@@ -23,12 +23,23 @@
             </div>
         </div>
         @if ($publicacion->exists)
-            <div class="col-md-6">
+            <div class="col-md-3">
                 <div class="form-group">
-                    <label class="col-md-12 control-label font-weight-bold" for="banner">Publicado:</label>
+                    <label class="col-md-12 control-label font-weight-bold" for="publicado">Publicado:</label>
                     <div class="col-md-12">
                         <label class="switch switch-primary">
                             <input type="checkbox" name="publicado" class="switch-input" {{ $publicacion->publicado? 'checked': null }} >
+                            <span class="switch-slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="col-md-12 control-label font-weight-bold" for="destacado">Destacado:</label>
+                    <div class="col-md-12">
+                        <label class="switch switch-primary">
+                            <input type="checkbox" name="destacado" class="switch-input" {{ $publicacion->destacado? 'checked': null }} >
                             <span class="switch-slider"></span>
                         </label>
                     </div>

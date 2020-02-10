@@ -40,6 +40,13 @@
                 {
                     class: 'text-center',
                     render: function (data, type, publicacion) {
+
+                        return publicacion.destacado? 'Si':'No';
+                    }
+                },
+                {
+                    class: 'text-center',
+                    render: function (data, type, publicacion) {
                         var d = new Date(publicacion.created_at);
                         var fecha = `${d.getDate() }/${((d.getMonth() + 1) + '').padStart(2, '0')  }/${d.getFullYear()}`;
 

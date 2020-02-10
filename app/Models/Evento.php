@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Storage;
 class Evento extends Model
 {
     protected $table = 'eventos';
-    protected $fillable = ['banner', 'titulo', 'descripcion', 'fecha', 'publicado'];
+    protected $fillable = ['banner', 'titulo', 'descripcion', 'fecha', 'publicado', 'destacado'];
     protected $appends = ['banner_url', 'resumen'];
 
     // mutators
@@ -33,6 +33,10 @@ class Evento extends Model
 
             if (!$data->has('publicado')) {
                 $data['publicado'] = false;
+            }
+
+            if (!$data->has('destacado')) {
+                $data['destacado'] = false;
             }
             
             if( array_key_exists('banner', $data->toArray()) ){
@@ -105,7 +109,7 @@ class Evento extends Model
 
     public function scopeDestacados($query)
     {
-        return $query->where('id','>','0');
+        return $query->where('destacado', true);
     }
 
     public static function boot()

@@ -31,6 +31,7 @@
 		                                    <th>Titulo</th>
 		                                    <th>Contenido</th>
 		                                    <th>Publicado</th>
+		                                    <th>Destacado</th>
 		                                    <th>Creado</th>
 		                                    <th>Opciones</th>
 		                                </tr>
