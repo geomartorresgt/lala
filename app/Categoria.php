@@ -18,6 +18,11 @@ class Categoria extends Model
         return $this->belongsToMany(Publicacion::class, 'categorias_publicaciones');
     }
 
+    public function eventos()
+    {
+        return $this->belongsToMany(Evento::class, 'categorias_eventos');
+    }
+
     public function actualizar(array $options = []){
         $data = collect($options);
 

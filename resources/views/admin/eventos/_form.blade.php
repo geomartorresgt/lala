@@ -66,4 +66,25 @@
             </div>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-12">
+            <h4 class="col-md-12">Categorías</h4>
+        </div>
+        @foreach ($categorias as $categoria)
+            <div class="col-md-2">
+                <div class="container">
+                    <div class="form-group row">
+                        <label class="col-sm-5 col-form-label font-weight-bold text-right" for="categoria-{{$categoria->id}}">{{$categoria->nombre}}</label>
+                        <div class="col-md-7">
+                            <label class="switch switch-primary">
+                                <input type="checkbox" name="categorias[]" id="categoria-{{$categoria->id}}" class="switch-input" value="{{$categoria->id}}" {{ $evento->tieneCategoria($categoria->id)? 'checked':'' }}>
+                                <span class="switch-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    </div>
 </form>

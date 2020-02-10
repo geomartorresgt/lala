@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Exception;
+use App\Categoria;
 use App\Models\Evento;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -35,8 +36,10 @@ class EventosController extends Controller
      */
     public function create()
     {
+        $categorias = Categoria::all();
         return view('admin.eventos.create')
-                ->withEvento(new Evento());
+                ->withEvento(new Evento())
+                ->withCategorias($categorias);
     }
 
     /**
@@ -50,6 +53,8 @@ class EventosController extends Controller
         try {
             DB::beginTransaction();
             $evento = Evento::create($request->only('banner', 'titulo', 'descripcion', 'fecha'));
+            if($request->categorias)
+                $evento>addCategorias($request->categorias);
             DB::commit();
 
             flash('El evento ha sido creada correctamente.')->success();
@@ -81,8 +86,10 @@ class EventosController extends Controller
      */
     public function edit(Evento $evento)
     {
+        $categorias = Categoria::all();
         return view('admin.eventos.edit')
-                ->withEvento($evento);
+                ->withEvento($evento)
+                ->withCategorias($categorias);
     }
 
     /**
@@ -97,6 +104,8 @@ class EventosController extends Controller
         try {
             DB::beginTransaction();
             $evento->actualizar( $request->all() );
+            if($request->categorias)
+                $evento->addCategorias($request->categorias);
             DB::commit();
 
             flash('Evento actualizado correctamente.')->success();

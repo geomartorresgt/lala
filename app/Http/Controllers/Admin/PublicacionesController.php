@@ -75,7 +75,7 @@ class PublicacionesController extends Controller
      */
     public function show($id)
     {
-        //
+        abort(404);
     }
 
     /**

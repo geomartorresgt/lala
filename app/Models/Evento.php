@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Categoria;
 use Carbon\Carbon;
 use Html2Text\Html2Text;
 use Illuminate\Support\Facades\File;
@@ -14,15 +15,21 @@ class Evento extends Model
     protected $fillable = ['banner', 'titulo', 'descripcion', 'fecha', 'publicado', 'destacado'];
     protected $appends = ['banner_url', 'resumen'];
 
-    // mutators
-    public function setFechaAttribute($value)
+    public function addCategorias(Array $categorias)
     {
-        $this->attributes['fecha'] = Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d');
+        $this->categorias()->detach();
+        $this->categorias()->attach($categorias);
     }
 
-    public function getFechaAttribute($value)
+    public function tieneCategoria($categoriaId)
     {
-        return Carbon::parse($value)->format('d/m/Y');
+        $result = $this->categorias->first(function($categoria) use ($categoriaId){
+            return $categoria->id === $categoriaId;
+        });
+
+        if ($result) return true;
+
+        return false;
     }
 
     public function actualizar(array $options = []){
@@ -61,7 +68,23 @@ class Evento extends Model
         return substr(trim($this->resumen), 0, $max) . $suspensivos;
     }
 
+    // relationships
+    public function categorias()
+    {
+        return $this->belongsToMany(Categoria::class, 'categorias_eventos');
+    }
+
     // mutators
+    public function setFechaAttribute($value)
+    {
+        $this->attributes['fecha'] = Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d');
+    }
+
+    public function getFechaAttribute($value)
+    {
+        return Carbon::parse($value)->format('d/m/Y');
+    }
+
     public function getResumenAttribute()
     {
         $html = $this->descripcion;
