@@ -17,11 +17,11 @@
         <div class="col-md-6">
             <h1 class="text-center text-primary">Nuestras redes</h1>
             <p class="m-0 text-center text-white" > 	
-                <a class="navbar-brand" href="https://www.instagram.com/vgtech_consorcio/" target="blank"><img src="{{asset('web/images/Untitled-1.png')}}" width="70" class="img-fluid"></a>
+                <a class="navbar-brand" href="https://www.facebook.com/somoslala/" target="blank"><img src="{{asset('web/images/Untitled-1.png')}}" width="70" class="img-fluid"></a>
 
                 <a class="navbar-brand" href="https://www.instagram.com/vgtech_consorcio/" target="blank"><img src="{{asset('web/images/Untitled-3.png')}}" width="75" class="img-fluid"></a>
 
-                <a class="navbar-brand" href="https://twitter.com/VgtechC?lang=es" target="blank"><img src="{{asset('web/images/Untitled-2.png')}}" width="75" class="img-fluid"></a>
+                <a class="navbar-brand" href="https://www.instagram.com/fundacionlalave/" target="blank"><img src="{{asset('web/images/Untitled-2.png')}}" width="75" class="img-fluid"></a>
             </p>
         </div>
         <div class="col-md-6">
